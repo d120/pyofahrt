@@ -36,4 +36,9 @@ class WorkshopCandidate(Candidate):
         verbose_name = "Workshopbewerber"
         verbose_name_plural = "Workshopbewerber"
 
+        permissions = (
+            ("group_full", "Gruppe ist voll"),            
+        )
+
+
     workshop_ideas = models.TextField("Ideen für Workshops", blank=True, help_text="Mehrere Ideen bitte in verschiedenen Zeilen unterbringen")
