@@ -24,6 +24,7 @@ DATABASES = {
 }
 
 STATIC_URL = '/ofahrt/static/'
+LOGIN_REDIRECT_URL = '/ofahrt/'
 
 ADMINS = (('FSS', 'fss@fachschaft.informatik.tu-darmstadt.de'),)
 
