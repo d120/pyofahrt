@@ -1,0 +1,22 @@
+
+{% extends "ofahrtbase/base.html" %}
+{% load staticfiles %}
+{% block title %}Kontakt{% endblock %}
+{% block content %}
+  {% load bootstrap3 %}
+  <div id="innercontent">
+  <p>
+    Du möchtest Kontakt mit den Organisatoren der Ofahrt aufnehmen? Kein Problem. Schreib uns einfach eine Email an <b>ofahrt[at]d120.de</b> um alle Orgas zu kontaktieren oder an <b>ofahrt-leitung[at]d120.de</b> um nur die Koordinatoren des Organisationsteams zu erreichen. Alternativ kannst du zum Kontakt aller Orgas auch das Formular auf dieser Seite verwenden.
+  </p>
+
+    <form action="" method="post" class="form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+      <button type="submit" class="btn btn-primary">
+        {% bootstrap_icon "ok" %} Submit
+      </button>
+    {% endbuttons %}
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "ofahrtbase/base.html" %}
+{% block title %}FAQ{% endblock %}
+{% block content %}
+  <div id="faq">
+    <div id="faqnav">
+      <ul>
+      {% for cat in categorys %}
+      <li><a href="#c{{ cat.pk }}">{{ cat.name }}</a></li>
+      <ul class="sublist">
+        {% for question in cat.question_set.all %}
+        <li><a href="#q{{ question.pk }}">{{ question.text}}</a></li>
+        {% endfor %}
+      </ul>
+      {% endfor %}
+    </ul>
+  </div>
+  {% for cat in categorys %}
+  <h1><a name="c{{ cat.pk }}"></a>{{ cat.name }}</h1>
+    {% for question in cat.question_set.all %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><a name="q{{ question.pk }}"></a>{{ question.text}}</h3>
+      </div>
+      <div class="panel-body">
+        {{ question.answer}}
+      </div>
+    </div>
+    {% endfor %}
+  {% endfor %}
+</div>
+{% endblock %}

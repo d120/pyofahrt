@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ofahrt - {% block title %}Startseite{% endblock %}</title>{% load staticfiles %}
+  <script type="text/javascript" src="{% static "ofahrtbase/jquery.min.js" %}"></script>
+  <script type="text/javascript" src="{% static "ofahrtbase/script.js" %}"></script>
+  <link href="{% static "ofahrtbase/style.css" %}" rel="stylesheet">
+  {% block morehead %}{% endblock %}
+  {% load bootstrap3 %}{% bootstrap_css %}
+  {% bootstrap_javascript %}
+</head>
+
+<body>{% with pagename=request.resolver_match.url_name %}
+  <div id="bigcontent"><nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Navigation ein/ausblenden</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{% url 'ofahrtbase:index' %}"><span class="glyphicon glyphicon-road" aria-hidden="true"></span>&nbsp;&nbsp;Ofahrt</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="{% if pagename == "index" %}active{% endif %}"><a href="{% url 'ofahrtbase:index' %}">Übersicht <span class="sr-only">(current)</span></a></li>
+          <li class="{% if pagename == "schedule" %}active{% endif %}"><a href="{% url 'ofahrtbase:schedule' %}">Programm</a></li>
+          <li  class="dropdown {% if pagename == "signup" or pagename == "members" %}active{% endif %}">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Anmeldung <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li class="{% if pagename == "signup" %}active{% endif %}"><a href="{% url 'members:signup' %}">Zur Anmeldung</a></li>
+              <li class="{% if pagename == "members" %}active{% endif %}"><a href="{% url 'members:list' %}">Teilnehmerliste</a></li>
+            </ul>
+          </li>
+          <li class="{% if pagename == "faq" %}active{% endif %}"><a href="{% url 'faq:overview' %}">FAQ</a></li>
+          <li class="{% if pagename == "contact" %}active{% endif %}"><a href="{% url 'staff:contact' %}">Kontakt</a></li>
+          {% if request.user.is_staff and request.user.is_active %}<li><a href="/admin"><i>Adminbereich</i></a></li>{% endif %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+        {% if request.user.is_authenticated %}
+          <li><p class="navbar-text">Eingeloggt als
+            {% if request.user.first_name and request.user.last_name %}
+              {{ request.user.first_name }} {{ request.user.last_name }}
+            {% else %}
+              {{ request.user.username }}
+            {% endif %}
+            {% if request.user.groups.all.count != 0 %}({{ request.user.groups.all|join:", " }}){% endif %}</p></li>
+          <li><a href="{% url "staff:logout" %}" id="loginbutton"><button type="button" class="btn btn-default navbar-btn">Ausloggen</button></a></li>
+        {% else %}
+          <li><a href="{% url "staff:login" %}" id="loginbutton"><button type="button" class="btn btn-default navbar-btn">Login (Staff)</button></a></li>
+        {% endif %}
+      </ul>
+      </div>
+    </div>
+  </nav>{% endwith %}
+
+  <div id="content">
+    {% block content %}{% endblock %}
+  </div>
+  <footer id="footer">
+    <div style="display: inline-block; position: absolute; top:30%; "><a href="https://github.com/d120/pyofahrt">Diese Software ist auf GitHub zu finden.</a></div>
+      <img id="logo" src="{% static "ofahrtbase/images/logo_ohne_rand.png"%}" />
+    </a>
+    <div style="clear:both;"></div>
+  </footer>
+</div>
+</body>
+
+</html>

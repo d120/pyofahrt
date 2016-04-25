@@ -1,0 +1,39 @@
+
+{% extends "ofahrtbase/base.html" %}
+{% load staticfiles %}
+{% block title %}Workshop anmelden{% endblock %}
+{% block content %}
+  {% load bootstrap3 %}
+  <div id="signupform">
+    {% if workshop_reg_open %}
+    <p>
+      Mit diesem Formular kannst du dich für die Durchführung und Planung eines oder mehrerer Workshops melden. <br/>Deine hier angegebenen Daten werden nur für die Organisation und Durchführung der Ofahrt verwendet und im Anschluss wieder gelöscht.
+    </p>
+    <p>
+      Ganz unten kannst du deine Workshop-Idee vorstellen. Dabei kann es sich sowohl um einen thematischen Workshop (zB. "Programmieren in Python") als auch um einen Freizeit-Workshop (zB. "Fußball") handeln. Solltest du keine Idee für einen Workshop haben, jedoch dennoch einen solchen anbieten wollen, kannst du dir auch gerne einen Workshop aus unserer <a id="suggestionlink" href="#">Vorschlagsliste</a> aussuchen.
+    </p>
+    <div id="suggestionlist" class="well">
+      <b>Normale Workshops:</b>
+      <ul>
+        <li><i>derzeit keine</i></li>
+      </ul>
+      <b>Freizeit Workshops:</b>
+      <ul>
+        <li><i>derzeit keine</i></li>
+      </ul>
+
+    </div>
+    <form action="" method="post" class="form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+      <button type="submit" class="btn btn-primary">
+        {% bootstrap_icon "ok" %} eintragen
+      </button>
+    {% endbuttons %}
+    </form>
+    {% else %}
+      <div class="alert alert-warning" role="alert"><b>Hinweis:</b> Die Anmeldung für Workshops ist derzeit geschlossen.</div>
+    {% endif %}
+  </div>
+{% endblock %}

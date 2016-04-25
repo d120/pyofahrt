@@ -1,0 +1,24 @@
+
+{% extends "ofahrtbase/base.html" %}
+{% block title %}Anmeldung{% endblock %}
+{% block content %}
+  {% load bootstrap3 %}
+  <div id="signupform">
+    {% if member_reg_open %}
+    <p>
+      Mit diesem Formular kannst du dich als Teilnehmer für die Erstsemesterfahrt anmelden.
+    </p>
+    <form action="" method="post" class="form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+      <button type="submit" class="btn btn-primary">
+        {% bootstrap_icon "ok" %} Submit
+      </button>
+    {% endbuttons %}
+    </form>
+    {% else %}
+      <div class="alert alert-warning" role="alert"><b>Hinweis:</b> Die Anmeldung für Erstsemester ist derzeit geschlossen.</div>
+    {% endif %}
+  </div>
+{% endblock %}
