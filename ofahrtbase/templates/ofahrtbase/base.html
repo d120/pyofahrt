@@ -38,7 +38,7 @@
           </li>
           <li class="{% if pagename == "faq" %}active{% endif %}"><a href="{% url 'faq:overview' %}">FAQ</a></li>
           <li class="{% if pagename == "contact" %}active{% endif %}"><a href="{% url 'staff:contact' %}">Kontakt</a></li>
-          {% if request.user.is_staff and request.user.is_active %}<li><a href="/admin"><i>Adminbereich</i></a></li>{% endif %}
+          {% if request.user.is_staff and request.user.is_active %}<li><a href="{% url 'admin:index' %}"><i>Adminbereich</i></a></li>{% endif %}
         </ul>
         <ul class="nav navbar-nav navbar-right">
         {% if request.user.is_authenticated %}
