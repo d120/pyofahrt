@@ -1,4 +1,5 @@
 venv/
+static/
 *.sqlite3
 *.pyc
 pyofahrt/settings_secrets.py
