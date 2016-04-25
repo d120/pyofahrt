@@ -23,7 +23,7 @@ DATABASES = {
     }
 }
 
-STATIC_URL = '/pyofahrt/static/'
+STATIC_URL = '/ofahrt/static/'
 
 ADMINS = (('FSS', 'fss@fachschaft.informatik.tu-darmstadt.de'),)
 
