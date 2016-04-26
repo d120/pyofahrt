@@ -31,3 +31,6 @@ ADMINS = (('FSS', 'fss@fachschaft.informatik.tu-darmstadt.de'),)
 SESSION_COOKIE_SECURE = True
 
 CSRF_COOKIE_SECURE = True
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

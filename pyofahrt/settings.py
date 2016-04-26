@@ -132,3 +132,5 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
 
 CSRF_COOKIE_HTTPONLY = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

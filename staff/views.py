@@ -30,7 +30,11 @@ class ContactView(FormView):
     success_url = "/staff/success"
 
     def form_valid(self, form):
-        send_mail("Betreff", "Nachricht", "chris.wars@yahoo.de", ["cjanuschkowetz@d120.de"])
+        mail = form.cleaned_data.get('email')
+        text = form.cleaned_data.get('message')
+
+        send_mail("Ofahrt Kontaktformular", "Ofahrt Kontaktformular (Anfrage von " + mail + ")\n\n\n" + text, "noreply@d120.de", ["ofahrt@d120.de"])
+        print()
         return super(ContactView, self).form_valid(form)
 
 
