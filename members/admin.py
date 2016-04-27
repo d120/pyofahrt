@@ -5,7 +5,8 @@ from .models import Member, RoomAssignment
 
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'gender', 'money_received', 'is_full_aged')
+    list_display = ('first_name', 'last_name', 'gender', 'money_received', 'is_really_ersti', 'is_full_aged')
+    list_filter = ('gender', 'money_received', 'is_really_ersti')
     fieldsets = (
         ('Ofahrt', {
             'fields': ('base',)
@@ -14,7 +15,7 @@ class MemberAdmin(admin.ModelAdmin):
             'fields': ('first_name', 'last_name', 'gender', 'birth_date'),
         }),
         ('Status', {
-            'fields': ('money_received',),
+            'fields': ('money_received', 'is_really_ersti'),
         }),
     )
     pass

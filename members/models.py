@@ -24,7 +24,11 @@ class Member(models.Model):
     email = models.EmailField("Emailadresse", unique=True)
     birth_date = models.DateField("Geburtsdatum")
 
+    is_really_ersti = models.BooleanField("Geprüft ob Ersti?", default=False)
     money_received = models.BooleanField("Geld eingegangen?", default=False)
+
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Eingetragen am")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Verändert am")
 
 
     def is_full_aged(self):

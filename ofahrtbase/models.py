@@ -71,6 +71,8 @@ class Setting(models.Model):
     value = models.BooleanField('Aktiv?')
 
     def get_Setting(keyx):
+        if Ofahrt.current() == None:
+            return False
 
         dicts = {
             "orga_reg_open": "Orgaregistrierung geöffnet",
