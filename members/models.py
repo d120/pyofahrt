@@ -3,6 +3,11 @@ from datetime import datetime, timedelta, date
 from ofahrtbase.models import Ofahrt, Room
 
 # Create your models here.
+
+class FoodHandicaps(models.Model):
+    pass
+
+
 class Member(models.Model):
     class Meta:
         verbose_name = "Teilnehmer"
@@ -17,6 +22,12 @@ class Member(models.Model):
         ("n", "keines der genannten")
     )
 
+    FOOD_PREFERENCE_CHOICES = (
+        ("normal", "nein"),
+        ("vegetarisch", "Vegetarisch"),
+        ("vegan", "Vegan")
+    )
+
     first_name = models.CharField("Vorname", max_length=30)
     last_name = models.CharField("Nachname", max_length=30)
     gender = models.CharField("Geschlecht", choices=GENDER_CHOICES, help_text="Diese Angabe wird nur für die Zuteilung der Schlafräume minderjähriger Teilnehmer verwendet.", max_length=25, default="n")
@@ -24,11 +35,17 @@ class Member(models.Model):
     email = models.EmailField("Emailadresse", unique=True)
     birth_date = models.DateField("Geburtsdatum")
 
+    food_preference = models.CharField("Vegetarier?", choices=FOOD_PREFERENCE_CHOICES, max_length=30, default="normal")
+    food_handicaps = models.ManyToManyField(FoodHandicaps ,verbose_name = "Sonstige Lebensmittelunverträglichkeiten")
+
     is_really_ersti = models.BooleanField("Geprüft ob Ersti?", default=False)
     money_received = models.BooleanField("Geld eingegangen?", default=False)
 
+
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Eingetragen am")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Verändert am")
+
+    free_text = models.TextField("Sonstige Anmerkungen", blank=True)
 
 
     def is_full_aged(self):

@@ -5,15 +5,11 @@ from django.db.models import Q
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.messages import constants as messages
 from django.core.mail import send_mail
-
 from random import choice
 from string import ascii_uppercase
 
 def randomword(length):
     return ''.join(choice(ascii_uppercase) for i in range(length))
-
-
-
 
 
 # Register your models here.

@@ -14,11 +14,16 @@ class MemberAdmin(admin.ModelAdmin):
         ('Formale Daten', {
             'fields': ('first_name', 'last_name', 'gender', 'birth_date'),
         }),
+        ('Verpflegung', {
+            'fields': ('food_preference', 'food_handicaps'),
+        }),
         ('Status', {
             'fields': ('money_received', 'is_really_ersti'),
         }),
+        ('Sonstiges', {
+            'fields': ('free_text',),
+        }),
     )
-    pass
 
 
 @admin.register(RoomAssignment)

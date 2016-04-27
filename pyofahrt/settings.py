@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'ofahrtbase',
     'members',
     'staff',
-    'faq'
+    'faq',
+    'workshops'
 ]
 
 MIDDLEWARE_CLASSES = [

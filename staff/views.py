@@ -33,7 +33,7 @@ class ContactView(FormView):
         mail = form.cleaned_data.get('email')
         text = form.cleaned_data.get('message')
 
-        send_mail("Ofahrt Kontaktformular", "Ofahrt Kontaktformular (Anfrage von " + mail + ")\n\n\n" + text, "noreply@d120.de", ["ofahrt@d120.de"])
+        send_mail("Ofahrt Kontaktformular", "Ofahrt Kontaktformular (Anfrage von " + mail + ")\n\n\n" + text, "noreply@d120.de", ["ofahrt-leitung@d120.de"])
         print()
         return super(ContactView, self).form_valid(form)
 
