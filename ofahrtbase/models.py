@@ -6,14 +6,13 @@ class Ofahrt(models.Model):
         verbose_name = "Ofahrtobjekt"
         verbose_name_plural = "Ofahrtobjekte"
 
-    year = models.IntegerField("Jahr", default=date.today().year, unique=True)
-    active = models.BooleanField("Aktiv?", default=True, unique=True)
-
     begin_date = models.DateField("Anreisedatum")
     end_date = models.DateField("Abreisedatum")
 
+    active = models.BooleanField("Aktiv?", default=True, unique=True)
+
     def __str__(self):
-        return "Ofahrt im Wintersemester " + str(self.year)
+        return "Ofahrt im Wintersemester " + str(self.begin_date.year)
 
     def current():
         try:

@@ -11,7 +11,7 @@
 </ul>
 
 
-<a name="fin"></a><h2>feste Teilnehmerliste ({{ members_fin.count }} / 70)</h2>
+<a name="fin"></a><h2 class="h2">feste Teilnehmerliste ({{ members_fin.count }} / 70)</h2>
 <p>Solltest du deinen Namen auf dieser Liste finden, so hast du deinen Teilnahmeplatz bereits sicher. Weitere Informationen wirst du per Email erhalten.</p>
 <table class="table table-striped">
   <tr>
@@ -33,7 +33,7 @@
 {% endfor %}
 </table>
 <br /><br /><br />
-<a name="cond"></a><h2>vorläufige Teilnehmerliste ({{ members_cond.count }})</h2>
+<a name="cond"></a><h2 class="h2">vorläufige Teilnehmerliste ({{ members_cond.count }})</h2>
 <p>Wenn dein Name auf dieser Liste steht, haben wir zwar deine Anmeldung erhalten, jedoch bisher noch keinen Zahlungseingang des Teilnahmebetrags verzeichnen können. Solltest du nach deiner Anmeldung keine Email von uns erhalten haben, so kontaktiere uns bitte unter ofahrt-leitung[at]d120.de oder über das <a href="{% url "staff:contact" %}">Kontaktformular</a>.</p>
 <table class="table table-striped">
 {% if members_cond.count == 0 %}
