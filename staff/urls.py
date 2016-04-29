@@ -14,5 +14,5 @@ urlpatterns = [
     url(r'^logout/$', logout, {'next_page': reverse_lazy('ofahrtbase:index')}, name='logout'),
     url(r'^contact/$', views.ContactView.as_view(), name='contact'),
     url(r'^success/$', views.SuccessView.as_view(), name='successcontact'),
-    #url(r'^$', logout, {'next_page': reverse_lazy('ofahrtbase:index')}, name='logout'),         Teamübersicht
+    url(r'^createsuperuser/$', views.CreateSuperuserView.as_view(), name='createsuperuser'),
 ]

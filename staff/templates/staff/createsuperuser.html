@@ -1,0 +1,11 @@
+{% extends "ofahrtbase/base.html" %}
+{% load staticfiles %}
+{% block title %}RESET SUPERUSER{% endblock %}
+{% block content %}
+{% load bootstrap3 %}
+{% if success %}
+  Account neu angelegt.
+{% else %}
+  Account wurde nicht neu angelegt.
+{% endif %}
+{% endblock %}

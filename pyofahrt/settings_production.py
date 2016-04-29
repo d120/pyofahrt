@@ -9,6 +9,8 @@ import pyofahrt.settings_secrets as secrets
 
 SECRET_KEY = secrets.SECRET_KEY
 
+SUPER_PASSWORD = secrets.SUPER_PASSWORD
+
 DEBUG = False
 
 ALLOWED_HOSTS = ['.fachschaft.informatik.tu-darmstadt.de', '.d120.de']

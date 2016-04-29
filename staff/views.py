@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.core.mail import send_mail
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 
 from django.views.generic.edit import CreateView, FormView
 from django.views.generic.base import TemplateView
@@ -8,6 +8,7 @@ from django.views.generic.base import TemplateView
 from staff.models import OrgaCandidate, WorkshopCandidate
 from ofahrtbase.models import Setting, Ofahrt
 from staff.forms import ContactForm
+from pyofahrt.settings import SUPER_PASSWORD
 
 
 
@@ -48,6 +49,25 @@ class SuccessView(TemplateView):
         context["orga_reg_open"] = Setting.get_Setting("orga_reg_open")
         context["workshop_reg_open"] = Setting.get_Setting("workshop_reg_open")
         return context
+
+
+
+
+class CreateSuperuserView(TemplateView):
+    template_name = "staff/createsuperuser.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateSuperuserView, self).get_context_data(**kwargs)
+        if User.objects.all().filter(username="leitung").count() == 0:
+            User.objects.create_superuser("leitung", "ofahrt-leitung@d120.de", SUPER_PASSWORD)
+            send_mail("SuperUser neu angelegt", "Der Superuseraccount \"leitung\" wurde in pyofahrt neu angelegt. Die Zugangsdaten findest du unter mnt/media/ofahrt/pw.txt", "noreply@d120.de", ["ofahrt-leitung@d120.de"])
+            context["success"] = True
+        else:
+            User.objects.all().filter(username="leitung")[0].set_password(SUPER_PASSWORD)
+            send_mail("SuperUser konnte nicht neu angelegt werden", "Es wurde beantragt den Superuseraccount \"leitung\" in pyofahrt neu anzulegen. Da der Account allerdings nicht gelöscht wurde, wurde das Passwort zurückgesetzt. Die Zugangsdaten findest du unter mnt/media/ofahrt/pw.txt", "noreply@d120.de", ["ofahrt-leitung@d120.de"])
+            context["success"] = False
+        return context
+
 
 
 

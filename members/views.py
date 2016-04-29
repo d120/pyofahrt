@@ -8,7 +8,7 @@ class SignUpView(CreateView):
     template_name = "members/signup.html"
     success_url = "/members/success/"
     model = Member
-    fields = ['first_name', 'last_name', 'gender', 'email', 'birth_date']
+    fields = ['first_name', 'last_name', 'gender', 'email', 'birth_date', 'food_preference', 'food_handicaps', 'free_text']
     success_url = "/members/success/"
 
     def form_valid(self, form):
