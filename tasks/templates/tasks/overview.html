@@ -1,0 +1,39 @@
+{% extends "tasks/taskbase.html" %} {% load staticfiles %} {% block title %}Aufgabenverwaltung{% endblock %} {% block taskcontent %} {% load bootstrap3 %}
+  <p>
+    Dies ist die Aufgabenverwaltung der Ofahrt. Hier können in einzelnen Aufgabentickets noch zu erledigende Aufgaben gesammelt und dokumentiert werden.
+  </p>
+  {% for cat in cats %}
+  <h3 class="h3">{{ cat.name }}</h3>
+  <a href="{% url "tasks:createinit" cat.id %}">Ticket anlegen</a>
+  <table class="table table-striped">
+    <tr>
+      <th>#</th>
+      <th>Aufgabe</th>
+      <th>Bearbeiter</th>
+      <th>Status</th>
+      <th>Letzte Änderung</th>
+    </tr>
+    {% if cat.task_set.all.count == 0 %}
+    <tr>
+      <td colspan="4" style="text-align: center; font-style: italic;">In dieser Kategorie gibt es derzeit keine Tickets.</td>
+    </tr>
+    {% endif%}
+    {% for ticket in cat.task_set.all|dictsortreversed:"updated_at" %}
+    <tr>
+      <td>{{ ticket.pk }}</td>
+      <td><a href="{% url "tasks:showticket" ticket.pk %}">{{ ticket.name }}</a></td>
+      <td>{% if ticket.editors.all.count == 0 %}<i>- derzeit niemand -</i>{% else %}{% for editor in ticket.editors.all %}
+        {% if editor.first_name and editor.last_name%}
+        {{ editor.first_name}} {{ editor.last_name}}
+        {% else %}
+        {{ editor.username}}
+        {% endif %}
+        {% if not forloop.last %}, {% endif %}
+        {% endfor %}{% endif %}</td>
+      <td>{{ ticket.status }}</td>
+      <td>{{ ticket.updated_at }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endfor %}
+{% endblock %}

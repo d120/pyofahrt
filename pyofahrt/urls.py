@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^members/', include('members.urls', namespace='members', app_name='members')),
     url(r'^staff/', include('staff.urls', namespace='staff', app_name='staff')),
     url(r'^faq/', include('faq.urls', namespace='faq', app_name='faq')),
+    url(r'^tasks/', include('tasks.urls', namespace='tasks', app_name='tasks')),
     url(r'^admin/', admin.site.urls),
 ]
