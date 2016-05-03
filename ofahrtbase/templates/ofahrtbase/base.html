@@ -28,7 +28,7 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li class="{% if pagename == "index" %}active{% endif %}"><a href="{% url 'ofahrtbase:index' %}">Übersicht <span class="sr-only">(current)</span></a></li>
-          <li class="{% if pagename == "schedule" %}active{% endif %}"><a href="{% url 'ofahrtbase:schedule' %}">Programm</a></li>
+          <li class="{% if pagename == "schedule" %}active{% endif %} disabled"><a href="{% url 'ofahrtbase:schedule' %}">Programm</a></li>
           <li  class="dropdown {% if pagename == "signup" or pagename == "members" %}active{% endif %}">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Anmeldung <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -44,8 +44,10 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Verwaltung <span class="caret"></span></a>
             <ul class="dropdown-menu">
               {% if perms.tasks.can_use %}<li><a href="{% url 'tasks:overview' %}">Aufgabenverwaltung</a></li>{% endif %}
+              {% if user.is_staff %}<li class="disabled"><a href="#">Stundenplan bearbeiten</a></li>{% endif %}
               {% if perms.workshops.can_use %}<li><a href="{% url 'workshops:overview' %}">Workshops</a></li>{% endif %}
-              {% if user.is_staff %}              
+              {% if user.is_staff %}<li class="disabled"><a href="#">Zimmerzuteilung</a></li>{% endif %}
+              {% if user.is_staff %}
             <li role="separator" class="divider"></li>
             <li><a href="{% url 'admin:index' %}"><b><i>Adminbereich</i></b></a></li>{% endif %}
             </ul>
