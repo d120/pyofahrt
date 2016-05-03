@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='workshop',
             name='base',
-            field=models.ForeignKey(default=0, on_delete=django.db.models.deletion.CASCADE, to='ofahrtbase.Ofahrt', verbose_name='Zugehörige Ofahrt'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ofahrtbase.Ofahrt', verbose_name='Zugehörige Ofahrt'),
             preserve_default=False,
         ),
     ]
