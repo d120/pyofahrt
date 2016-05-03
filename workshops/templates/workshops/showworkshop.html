@@ -1,0 +1,24 @@
+{% extends "workshops/workshopbase.html" %} {% load staticfiles %} {% block title %}Workshop bearbeiten{% endblock %} {% block workshopcontent %} {% load bootstrap3 %}
+
+  <b>Anbieter:</b> {% if workshop.host.all.count == 0 %}<i>- derzeit niemand -</i>{% endif %}{% for host in workshop.host.all %}{{host}}{% if not forloop.last %}, {% endif %}{% endfor %}
+
+  <h3 class="h3">{{ object.name }}</h3>
+  <div style="margin-top: -22px;">Akzeptiert: {% if object.accepted %}<span style="color:green;" class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% else %}<span style="color:red;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>{% endif %} &nbsp; Geprüft: {% if object.proved%}<span style="color:green;" class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% else %}<span style="color:red;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>{% endif %}</div>
+  <br />{% if object.description|length == 0%}<i>- derzeit keine Beschreibung vorhanden -</i>{% else %}{{ object.description }}{% endif %}
+
+  <br /><br />
+  {% if  object.requirements|length == 0 %}
+  <i>Für diesen Workshop werden keine weiteren Materialien benötigt.</i>
+  {% else %}
+  <b>Dieser Workshop benötigt folgende Materialien:</b><br />
+  {{ objects.requirements }}
+  {% endif %}
+    <br />
+    <br />
+  <div class="btn-group" role="group" aria-label="...">
+    {% if request.user in object.host.all or perms.workshops.editeveryworkshop %}<a href="{% url "workshops:edit" object.id %}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> bearbeiten</a>{% endif %}
+    {% if perms.workshops.assignworkshop %}<a href="{% url "workshops:reassign" object.id %}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Zuweisung ändern</a>{% endif %}
+    {% if object.host.all.count == 0 %}<a href="{% url "workshops:take" object.id %}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> diesen Workshop übernehmen</a>{% endif %}
+    {% if request.user in object.host.all or perms.workshops.editeveryworkshop %}<a href="{% url "workshops:delete" object.id %}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> diesen Workshop löschen</a>{% endif %}
+  </div>
+{% endblock %}

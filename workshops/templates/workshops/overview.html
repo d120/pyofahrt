@@ -1,0 +1,68 @@
+{% extends "workshops/workshopbase.html" %} {% load staticfiles %} {% block title %}Workshops{% endblock %} {% block workshopcontent %} {% load bootstrap3 %}
+  <p>
+    Auf dieser Seite werden die Workshops der Ofahrt verwaltet.
+  </p>
+
+  <h2 class="h2">Meine Workshops</h2>
+  <p>
+    Hier findest du eine Übersicht aller von dir angebotenen Workshops. Du hast hier sobald dein Workshop durch den Workshoporga zugelassen wurde die Möglichkeit die Beschreibung und Anforderungen anzupassen. Um einen neuen Workshop anzubieten klicke <a href="#">hier</a>.
+  </p>
+  <table class="table">
+    <tr>
+      <th>Name</th>
+      <th>Anbieter</th>
+      <th>zugeteilter Zeitslot</th>
+      <th>Beschreibung</th>
+      <th>zugelassen *</th>
+      <th>geprüft **</th>
+    </tr>
+    {% if myworkshops.all.count == 0 %}
+      <tr>
+        <td style="font-style: italic; text-align: center;" colspan="6">Derzeit hast du noch keine Workshops. Du kannst <a href="#">hier</a> einen neuen Workshop anbieten.</td>
+      </tr>
+    {% endif %}
+  {% for workshop in myworkshops %}
+    <tr>
+      <td><a href="{% url "workshops:show" workshop.id %}">{{workshop.name}}</a></td>
+      <td>{% if workshop.host.all.count == 0 %}<i>- derzeit niemand -</i>{% endif %}{% for host in workshop.host.all %}{{host}}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
+      <td>{{workshop.slot|default_if_none:"<i>- noch nicht zugeteilt -</i>" }}</td>
+      <td>{{workshop.description|slice:":50"}}{% if workshop.description|length > 50 %}...{% elif workshop.description|length == 0 %}<i>- keine Beschreibung vorhanden -</i>{% endif %}</td>
+      <td>{% if workshop.accepted %}<span style="color:green;" class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% else %}<span style="color:red;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>{% endif %}</td>
+      <td>{% if workshop.proved %}<span style="color:green;" class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% else %}<span style="color:red;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>{% endif %}</td>
+    </tr>
+  {% endfor %}
+  </table>
+  <p>
+    * Zugelassen bedeutet, dass die grundsätzliche Workshopidee als geeignet für die Ofahrt betrachtet wird
+  </p>
+  <p>
+    ** Geprüft bedeutet, dass die durch den Workshopanbieter festgelegten Dinge (Beschreibung, Materialbedarf etc.) durch den Workshoporga geprüft und bewilligt wurden.
+  </p>
+
+  <h2 class="h2">Alle Workshops</h2>
+  <table class="table">
+    <tr>
+      <th>Name</th>
+      <th>Anbieter</th>
+      <th>zugeteilter Zeitslot</th>
+      <th>Beschreibung</th>
+      <th>zugelassen</th>
+      <th>geprüft</th>
+    </tr>
+  {% if workshops.all.count == 0 %}
+    <tr>
+      <td style="font-style: italic; text-align: center;" colspan="6">Derzeit sind noch keine Workshops im System vorhanden.</td>
+    </tr>
+  {% endif %}
+  {% for workshop in workshops %}
+    <tr>
+      <td><a href="{% url "workshops:show" workshop.id %}">{{workshop.name}}</a></td>
+      <td>{% if workshop.host.all.count == 0 %}<i>- derzeit niemand -</i> <a href="{% url "workshops:take" workshop.id %}">(?)</a>{% endif %}{% for host in workshop.host.all %}{{host}}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
+      <td>{{workshop.slot|default_if_none:"<i>- noch nicht zugeteilt -</i>" }}</td>
+      <td>{{workshop.description|slice:":50"}}{% if workshop.description|length > 50 %}...{% elif workshop.description|length == 0 %}<i>- keine Beschreibung vorhanden -</i>{% endif %}</td>
+      <td>{% if workshop.accepted %}<span style="color:green;" class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% else %}<span style="color:red;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>{% endif %}</td>
+      <td>{% if workshop.proved %}<span style="color:green;" class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% else %}<span style="color:red;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>{% endif %}</td>
+    </tr>
+  {% endfor %}
+  </table>
+{% endblock %}

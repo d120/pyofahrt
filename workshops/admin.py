@@ -16,8 +16,8 @@ germandays = {
 
 @admin.register(Workshop)
 class WorkshopAdmin(admin.ModelAdmin):
-    list_display = ["name", "show_hosts", "show_slot"]
-    list_filter = ["host", "slot"]
+    list_display = ["name", "show_hosts", "show_slot", "accepted", "proved"]
+    list_filter = ["host", "slot", "accepted", "proved"]
 
     def show_hosts(self, obj):
         return ", ".join([str(t) for t in obj.host.all()])

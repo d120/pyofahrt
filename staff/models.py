@@ -40,4 +40,4 @@ class WorkshopCandidate(Candidate):
             ("group_full", "Gruppe ist voll"),
         )
 
-    workshop_ideas = models.TextField("Workshopideen", help_text='Bei mehreren Ideen, bitte eine Zeile pro Idee verwenden.')
+    workshop_ideas = models.TextField("Workshopidee(n)", help_text='Bei mehreren Ideen, bitte eine Zeile pro Idee verwenden. Die Ideen sollen nur grob umrissen werden. Ein ausführlicherer Text wird erst an späterer Stelle benötigt.')

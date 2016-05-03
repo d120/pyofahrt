@@ -39,13 +39,18 @@
           <li class="{% if pagename == "faq" %}active{% endif %}"><a href="{% url 'faq:overview' %}">FAQ</a></li>
           <li class="{% if pagename == "contact" %}active{% endif %}"><a href="{% url 'staff:contact' %}">Kontakt</a></li>
           {% if user.is_active %}
+          {% if perms.workshops.can_use or perms.tasks.can_use or user.is_staff %}
           <li  class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Verwaltung <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="{% url 'tasks:overview' %}">Aufgabenverwaltung</a></li>
-              {% if user.is_staff %}<li><a href="{% url 'admin:index' %}"><b><i>Adminbereich</i></b></a></li>{% endif %}
+              {% if perms.tasks.can_use %}<li><a href="{% url 'tasks:overview' %}">Aufgabenverwaltung</a></li>{% endif %}
+              {% if perms.workshops.can_use %}<li><a href="{% url 'workshops:overview' %}">Workshops</a></li>{% endif %}
+              {% if user.is_staff %}              
+            <li role="separator" class="divider"></li>
+            <li><a href="{% url 'admin:index' %}"><b><i>Adminbereich</i></b></a></li>{% endif %}
             </ul>
           </li>
+          {% endif %}
           {% endif %}
         </ul>
         <ul class="nav navbar-nav navbar-right">

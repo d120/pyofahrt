@@ -20,6 +20,7 @@ class Task(models.Model):
     class Meta:
         verbose_name = "Ticket"
         verbose_name_plural = "Tickets"
+        permissions = (("can_use", "Aufgabenverwaltung nutzen"),)
 
     base = models.ForeignKey(Ofahrt, verbose_name="Zugehörige OFahrt")
 
