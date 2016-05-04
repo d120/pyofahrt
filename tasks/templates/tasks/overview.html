@@ -3,7 +3,7 @@
     Dies ist die Aufgabenverwaltung der Ofahrt. Hier können in einzelnen Aufgabentickets noch zu erledigende Aufgaben gesammelt und dokumentiert werden.
   </p>
   {% for cat in cats %}
-  <h3 class="h3">{{ cat.name }}</h3>
+  <h3 class="h3">{{ cat.name }}</h3> 
   <a href="{% url "tasks:createinit" cat.id %}">Ticket anlegen</a>
   <table class="table table-striped">
     <tr>

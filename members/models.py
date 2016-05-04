@@ -36,7 +36,7 @@ class Member(models.Model):
     birth_date = models.DateField("Geburtsdatum")
 
     food_preference = models.CharField("Vegetarier?", choices=FOOD_PREFERENCE_CHOICES, max_length=30, default="normal")
-    food_handicaps = models.ManyToManyField(FoodHandicaps ,verbose_name = "Sonstige Lebensmittelunverträglichkeiten")
+    food_handicaps = models.ManyToManyField(FoodHandicaps ,verbose_name = "Sonstige Lebensmittelunverträglichkeiten", blank=True)
 
     is_really_ersti = models.BooleanField("Geprüft ob Ersti?", default=False)
     money_received = models.BooleanField("Geld eingegangen?", default=False)

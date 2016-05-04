@@ -9,6 +9,7 @@ from django.core.exceptions import ValidationError
 from datetime import datetime
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from ofahrtbase.models import Ofahrt
 
 # Create your views here.
 
@@ -216,18 +217,22 @@ class TicketCreateView(CreateView):
 
     def get_success_url(self):
         entry = TaskHistoryEntry()
-        entry.ticket = self.object.ticket
-        entry.user = self.object.user
-        entry.timestamp = self.object.timestamp
-        entry.text = "<b>Kommentar hinzugefügt:</b> Kommentar #" + str(self.object.id)
+        entry.ticket = self.object
+        entry.user = self.request.user
+        entry.timestamp = datetime.now()
+        entry.text = "<b>Ticket angelegt</b>"
         entry.save()
 
-        return reverse('tasks:showticket', args=(self.object.ticket.id,))
+        return reverse('tasks:showticket', args=(self.object.id,))
+
+    def form_valid(self, form):
+        form.instance.base = Ofahrt.current()
+        return super(TicketCreateView, self).form_valid(form)
 
     def get_initial(self):
         cat = get_object_or_404(TaskCategory, pk=self.kwargs.get('category'))
         return {
-            'category':cat,
+            'category':cat
         }
 
     def get_context_data(self, **kwargs):
