@@ -10,6 +10,7 @@ from datetime import datetime
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from ofahrtbase.models import Ofahrt
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -85,6 +86,8 @@ class TicketAssignView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(TicketAssignView, self).get_context_data(**kwargs)
+        avaiable_groups = TaskCategory.objects.all().get(id=self.object.category.id).access_for.all()
+        context["form"].fields["editors"].queryset = User.objects.all().filter(groups__in=avaiable_groups)
         return context
 
 

@@ -42,10 +42,11 @@
           {% if user.is_active %}
           {% if perms.workshops.can_use or perms.tasks.can_use or user.is_staff %}
           <li  class="dropdown">{% user_tasks_counter user as user_tasks_counter %}
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Verwaltung{% if perms.tasks.can_use and user_tasks_counter > 0 %} ({{user_tasks_counter}}){% endif %} <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Verwaltung{% if perms.tasks.can_use and user_tasks_counter > 0 %} <span class="badge">{{user_tasks_counter}}</span>{% endif %} <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              {% if perms.tasks.can_use %}<li><a href="{% url 'tasks:overview' %}">Aufgabenverwaltung {% if perms.tasks.can_use and user_tasks_counter > 0 %} ({{user_tasks_counter}}){% endif %}</a></li>{% endif %}
+              {% if perms.tasks.can_use %}<li><a href="{% url 'tasks:overview' %}">Aufgabenverwaltung {% if perms.tasks.can_use and user_tasks_counter > 0 %} <span class="badge">{{user_tasks_counter}}</span>{% endif %}</a></li>{% endif %}
               {% if user.is_staff %}<li class="disabled"><a href="#">Stundenplan bearbeiten</a></li>{% endif %}
+              {% if perms.wiki.can_use %}<li class="disabled"><a href="#">Wiki</a></li>{% endif %}
               {% if perms.workshops.can_use %}<li><a href="{% url 'workshops:overview' %}">Workshops</a></li>{% endif %}
               {% if user.is_staff %}<li class="disabled"><a href="#">Zimmerzuteilung</a></li>{% endif %}
               {% if user.is_staff %}

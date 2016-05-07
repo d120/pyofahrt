@@ -1,0 +1,18 @@
+{% extends "workshops/workshopbase.html" %} {% load staticfiles %} {% block title %}Workshop bearbeiten{% endblock %} {% block workshopcontent %} {% load bootstrap3 %}
+
+  <h3 style="margin-bottom:25px;">Workshop #{{ object.id }} - {{ object.name }}</h3>
+  <ol class="breadcrumb">
+    <li><a href="{% url "workshops:overview" %}">Workshopverwaltung</a></li>
+    <li><a href="{% url "workshops:show" object.id %}">{{ object.name }}</a></li>
+    <li class="active">Workshop bearbeiten</li>
+  </ol>
+  <form action="" method="post">{% csrf_token %}
+    <p>Bist du sicher, dass du den Workshop "{{ object.name }}" wirklich löschen möchtest? Dies macht nur Sinn, wenn die Workshopidee nicht sinnvoll ist. Solltest du den Workshop lediglich nicht selbst anbieten wollen kontaktiere uns stattdessen unter ofahrt@d120.de, dann schreiben wir den Workshop für allgemeininteressierte Anbieter als Workshopidee aus.</p>
+    <button type="submit" class="btn btn-primary">
+      {% bootstrap_icon "pencil" %} Workshop wirklich löschen
+    </button>
+</form>
+
+
+
+{% endblock %}

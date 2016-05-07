@@ -3,7 +3,7 @@
     Dies ist die Aufgabenverwaltung der Ofahrt. Hier können in einzelnen Aufgabentickets noch zu erledigende Aufgaben gesammelt und dokumentiert werden.
   </p>
   {% for cat in cats %}
-  <h3 class="h3">{{ cat.name }}</h3> 
+  <h3 class="h3">{{ cat.name }}</h3>
   <a href="{% url "tasks:createinit" cat.id %}">Ticket anlegen</a>
   <table class="table table-striped">
     <tr>
@@ -20,7 +20,7 @@
     {% endif%}
     {% for ticket in cat.task_set.all|dictsortreversed:"updated_at" %}
     <tr>
-      <td>{{ ticket.pk }}</td>
+      <td>{{ ticket.pk }}{% if user in ticket.editors.all and ticket.status == "zugewiesen" %}&nbsp; <span class="label label-danger" style="padding-top:3px;">my</span>{% endif %}</td>
       <td><a href="{% url "tasks:showticket" ticket.pk %}">{{ ticket.name }}</a></td>
       <td>{% if ticket.editors.all.count == 0 %}<i>- derzeit niemand -</i>{% else %}{% for editor in ticket.editors.all %}
         {% if editor.first_name and editor.last_name%}

@@ -5,7 +5,7 @@
 
   <h2 class="h2">Meine Workshops</h2>
   <p>
-    Hier findest du eine Übersicht aller von dir angebotenen Workshops. Du hast hier sobald dein Workshop durch den Workshoporga zugelassen wurde die Möglichkeit die Beschreibung und Anforderungen anzupassen. Um einen neuen Workshop anzubieten klicke <a href="#">hier</a>.
+    Hier findest du eine Übersicht aller von dir angebotenen Workshops. Du hast hier sobald dein Workshop durch den Workshoporga zugelassen wurde die Möglichkeit die Beschreibung und Anforderungen anzupassen. Um einen neuen Workshop anzubieten klicke <a href="{% url "workshops:create" %}">hier</a>.
   </p>
   <table class="table">
     <tr>
@@ -18,7 +18,7 @@
     </tr>
     {% if myworkshops.all.count == 0 %}
       <tr>
-        <td style="font-style: italic; text-align: center;" colspan="6">Derzeit hast du noch keine Workshops. Du kannst <a href="#">hier</a> einen neuen Workshop anbieten.</td>
+        <td style="font-style: italic; text-align: center;" colspan="6">Derzeit hast du noch keine Workshops. Du kannst <a href="{% url "workshops:create" %}">hier</a> einen neuen Workshop anbieten.</td>
       </tr>
     {% endif %}
   {% for workshop in myworkshops %}

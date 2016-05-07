@@ -60,9 +60,13 @@ class Workshop(models.Model):
     name = models.CharField("Titel", max_length=50)
     description = models.TextField("Beschreibung", blank=True)
     requirements = models.TextField("Materialbedarf", blank=True)
+    conditions = models.TextField("Teilnahmebedingungen", blank=True)
     host = models.ManyToManyField(User, verbose_name="Workshopanbieter", blank=True)
 
     accepted = models.BooleanField("Akzeptiert", help_text="Workshopidee ist in Ordnung", default=False)
     proved = models.BooleanField("Geprüft", help_text="Der aktuelle Workshopstand ist durch den Workshoporga geprüft.", default=False)
 
     slot = models.ForeignKey(Slot, verbose_name="Zugeteilter Zeitslot", null=True, blank=True)
+
+    def __str__(self):
+        return self.name

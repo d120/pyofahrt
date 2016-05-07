@@ -1,7 +1,14 @@
 {% extends "workshops/workshopbase.html" %} {% load staticfiles %} {% block title %}Workshop bearbeiten{% endblock %} {% block workshopcontent %} {% load bootstrap3 %}
 
   <b>Anbieter:</b> {% if workshop.host.all.count == 0 %}<i>- derzeit niemand -</i>{% endif %}{% for host in workshop.host.all %}{{host}}{% if not forloop.last %}, {% endif %}{% endfor %}
-
+<br /><br />
+  <ol class="breadcrumb">
+    <li><a href="{% url "workshops:overview" %}">Workshopverwaltung</a></li>
+    <li class="active">{{ object.name }}</li>
+  </ol>
+  {% if True %}
+  <div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <b>Hinweis:</b> Dieser Workshop ist bisher noch nicht durch den Workshoporga geprüft worden und somit unter Vorbehalt im System aufgeführt.</div>
+  {% endif %}
   <h3 class="h3">{{ object.name }}</h3>
   <div style="margin-top: -22px;">Akzeptiert: {% if object.accepted %}<span style="color:green;" class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% else %}<span style="color:red;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>{% endif %} &nbsp; Geprüft: {% if object.proved%}<span style="color:green;" class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% else %}<span style="color:red;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>{% endif %}</div>
   <br />{% if object.description|length == 0%}<i>- derzeit keine Beschreibung vorhanden -</i>{% else %}{{ object.description }}{% endif %}
@@ -11,7 +18,14 @@
   <i>Für diesen Workshop werden keine weiteren Materialien benötigt.</i>
   {% else %}
   <b>Dieser Workshop benötigt folgende Materialien:</b><br />
-  {{ objects.requirements }}
+  {{ object.requirements }}
+  {% endif %}  <br /><br />
+
+  {% if  object.conditions|length == 0 %}
+  <i>Für diesen Workshop werden keine Teilnahmebeschränkung.</i>
+  {% else %}
+  <b>Zur Teilnahme an diesem Workshop wird folgendes vorrausgesetzt:</b><br />
+  {{ object.conditions }}
   {% endif %}
     <br />
     <br />

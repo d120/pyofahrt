@@ -1,0 +1,22 @@
+{% extends "workshops/workshopbase.html" %} {% load staticfiles %} {% block title %}Workshop beantragen{% endblock %} {% block workshopcontent %} {% load bootstrap3 %}
+
+  <h3 style="margin-bottom:25px;">Workshop beantragen</h3>
+  <ol class="breadcrumb">
+    <li><a href="{% url "workshops:overview" %}">Workshopverwaltung</a></li>
+    <li class="active">Workshop beantragen</li>
+  </ol>
+  <p>
+    Auf dieser Seite kannst du einen weiteren Workshop beantragen. Nach dem Abschicken des Formulares, wird der Workshop noch durch den Workshop-Orga geprüft und gegebenenfalls freigeschaltet.
+  </p>
+  <form action="" method="post" class="form">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      {% bootstrap_icon "pencil" %} Workshop beantragen
+    </button>
+  {% endbuttons %}
+</form>
+
+
+{% endblock %}
