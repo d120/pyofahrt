@@ -180,6 +180,12 @@ img#logo {
 }
 
 
+.wikinav {
+  margin-right: -18px;
+  margin-left: -18px;
+  margin-top: 5px;
+}
+
 
 
 .defaultcontainer {

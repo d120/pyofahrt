@@ -46,7 +46,7 @@
             <ul class="dropdown-menu">
               {% if perms.tasks.can_use %}<li><a href="{% url 'tasks:overview' %}">Aufgabenverwaltung {% if perms.tasks.can_use and user_tasks_counter > 0 %} <span class="badge">{{user_tasks_counter}}</span>{% endif %}</a></li>{% endif %}
               {% if user.is_staff %}<li class="disabled"><a href="#">Stundenplan bearbeiten</a></li>{% endif %}
-              {% if perms.wiki.can_use %}<li class="disabled"><a href="#">Wiki</a></li>{% endif %}
+              {% if perms.wiki.can_use %}<li><a href="{% url 'wiki:mainpage' %}">Wiki</a></li>{% endif %}
               {% if perms.workshops.can_use %}<li><a href="{% url 'workshops:overview' %}">Workshops</a></li>{% endif %}
               {% if user.is_staff %}<li class="disabled"><a href="#">Zimmerzuteilung</a></li>{% endif %}
               {% if user.is_staff %}

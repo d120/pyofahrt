@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'staff',
     'faq',
     'workshops',
-    'tasks'
+    'tasks',
+    'wiki'
 ]
 
 MIDDLEWARE_CLASSES = [
