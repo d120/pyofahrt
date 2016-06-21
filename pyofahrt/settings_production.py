@@ -36,3 +36,8 @@ CSRF_COOKIE_SECURE = True
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail.d120.de'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'pyofahrt'
+EMAIL_HOST_PASSWORD = secrets.MAIL_PASSWORD
