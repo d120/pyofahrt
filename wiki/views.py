@@ -1,0 +1,61 @@
+from django.shortcuts import render, get_object_or_404, redirect
+from django.core.urlresolvers import reverse_lazy, reverse
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.base import RedirectView
+from django.http import HttpResponseRedirect
+from .models import Article, ArticleVersion
+import datetime
+from django.http import Http404, HttpResponseRedirect
+
+
+# Create your views here.
+
+
+
+def mainview(request):
+    return HttpResponseRedirect(reverse("wiki:show", kwargs={"pk": Article(title="WikiStart")}))
+
+
+class PageView(DetailView):
+    model = Article
+    template_name = "wiki/article.html"
+
+    def get_object(self, queryset=None):
+        out = super(PageView, self).get_object()
+        print("wdf")
+        out.text = out.articleversion_set.order_by('-timestamp')[:1].get().text
+        return out
+
+    def get(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+        except Http404:
+            return redirect(reverse_lazy("wiki:create", kwargs={"title": kwargs["pk"]}))
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+
+
+
+
+class PageCreateView(CreateView):
+    model = ArticleVersion
+    fields = ["text"]
+    template_name = "wiki/create.html"
+
+
+    def form_valid(self, form):
+        try:
+            article = Article.objects.get(title=self.kwargs["title"])
+        except Article.DoesNotExist:
+            article = Article(title = self.kwargs["title"])
+            article.save()
+
+        form.instance.article = article
+        form.instance.timestamp = datetime.datetime.now()
+        return super(PageCreateView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(PageCreateView, self).get_context_data(**kwargs)
+        context["titel"] = self.kwargs["title"]
+        return context
