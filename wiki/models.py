@@ -23,7 +23,7 @@ class ArticleVersion(models.Model):
         return reverse_lazy("wiki:show", kwargs={'pk': self.article.title})
 
     def __str__(self):
-        return self.article.title + " (" + self.timestamp.strftime("%A %d. %B %Y") + ")"
+        return self.article.title + " (" + self.timestamp.strftime("%A %d. %B %Y - %H:%M:%S") + "): " + self.text[:250]
 
 
     article = models.ForeignKey(Article, verbose_name="Zugehöriger Artikel")

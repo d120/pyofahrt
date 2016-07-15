@@ -1,13 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.views.generic.base import RedirectView
 from django.http import HttpResponseRedirect
 from .models import Article, ArticleVersion
 import datetime
 from django.http import Http404, HttpResponseRedirect
-
 
 # Create your views here.
 
@@ -23,7 +23,7 @@ class PageView(DetailView):
 
     def get_object(self, queryset=None):
         out = super(PageView, self).get_object()
-        print("wdf")
+
         out.text = out.articleversion_set.order_by('-timestamp')[:1].get().text
         return out
 
@@ -36,6 +36,25 @@ class PageView(DetailView):
         return self.render_to_response(context)
 
 
+class PageVersionView(DetailView):
+    model = Article
+    template_name = "wiki/article.html"
+
+    def get_object(self, queryset=None):
+        out = super(PageVersionView, self).get_object()
+
+        out.text = out.articleversion_set.get(id=1).text
+        return out
+
+
+class PageHistoryView(ListView):
+    model = Article
+    template_name = "wiki/articlehistory.html"
+
+    def get_queryset(request, *args, **kwargs):
+        print(args)
+        out = ArticleVersion.objects.filter()
+        return out
 
 
 class PageCreateView(CreateView):
@@ -57,5 +76,40 @@ class PageCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(PageCreateView, self).get_context_data(**kwargs)
+        context["titel"] = self.kwargs["title"]
+        try:
+            context["object"] = Article(title = self.kwargs["title"])
+        except Article.DoesNotExist:
+            pass
+        return context
+
+
+
+class PageEditView(CreateView):
+    model = ArticleVersion
+    fields = ["text"]
+    template_name = "wiki/edit.html"
+
+
+    def form_valid(self, form):
+        try:
+            article = Article.objects.get(title=self.kwargs["title"])
+        except Article.DoesNotExist:
+            return
+
+        form.instance.article = article
+        form.instance.timestamp = datetime.datetime.now()
+        return super(PageEditView, self).form_valid(form)
+
+
+    def get_initial(self):
+        try:
+            article = Article.objects.get(title=self.kwargs["title"])
+        except Article.DoesNotExist:
+            return
+        return { 'text' : article.articleversion_set.order_by('-timestamp')[:1].get().text}
+
+    def get_context_data(self, **kwargs):
+        context = super(PageEditView, self).get_context_data(**kwargs)
         context["titel"] = self.kwargs["title"]
         return context
