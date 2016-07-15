@@ -74,7 +74,7 @@ class CreateSuperuserView(TemplateView):
 class SignUpWorkshopView(CreateView):
     model = WorkshopCandidate
     template_name = "staff/signup_workshop.html"
-    success_url = "/staff/signup/success/"
+    success_url = "/staff/signup/success"
 
     fields = ['first_name', 'last_name', 'email', 'phone', 'workshop_ideas']
 
@@ -95,7 +95,7 @@ class SignUpOrgaView(CreateView):
     model = OrgaCandidate
 
     template_name = "staff/signup_orga.html"
-    success_url = "/staff/signup/success/"
+    success_url = "/staff/signup/success"
 
     fields = ['first_name', 'last_name', 'email', 'phone', 'orga_for']
 
