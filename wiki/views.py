@@ -8,8 +8,12 @@ from django.http import HttpResponseRedirect
 from .models import Article, ArticleVersion
 import datetime
 from django.http import Http404, HttpResponseRedirect
+import bbcode
 
 # Create your views here.
+
+
+
 
 
 
@@ -33,8 +37,13 @@ class PageView(DetailView):
 
 
     def get(self, request, *args, **kwargs):
+
+        parser = bbcode.Parser()
+        parser.add_simple_formatter('link', '<a href="%(value)s">%(value)s</a>')
+
         try:
             self.object = self.get_object()
+            self.object.text = parser.format(self.object.text)
         except Http404:
             return redirect(reverse_lazy("wiki:create", kwargs={"title": kwargs["pk"]}))
         context = self.get_context_data(object=self.object)

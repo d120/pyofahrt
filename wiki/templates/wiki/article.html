@@ -2,7 +2,7 @@
 
 {% include "wiki/wikinav.html" %}
 
-  {{ object.text }}
+  {{ object.text | safe }}
 
 
 {% endblock %}
