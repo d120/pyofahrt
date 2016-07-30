@@ -23,9 +23,14 @@ class PageView(DetailView):
 
     def get_object(self, queryset=None):
         out = super(PageView, self).get_object()
-
         out.text = out.articleversion_set.order_by('-timestamp')[:1].get().text
         return out
+
+    def get_context_data(self, **kwargs):
+        context = super(PageView, self).get_context_data(**kwargs)
+        context["tab"] = "view"
+        return context
+
 
     def get(self, request, *args, **kwargs):
         try:
@@ -36,15 +41,23 @@ class PageView(DetailView):
         return self.render_to_response(context)
 
 
+
 class PageVersionView(DetailView):
     model = Article
     template_name = "wiki/article.html"
 
     def get_object(self, queryset=None):
         out = super(PageVersionView, self).get_object()
-
-        out.text = out.articleversion_set.get(id=1).text
+        try:
+            out.text = out.articleversion_set.get(id=self.kwargs["id"]).text
+        except ArticleVersion.DoesNotExist:
+            out.text = out.articleversion_set.order_by('-timestamp')[:1].get().text
         return out
+
+    def get_context_data(self, **kwargs):
+        context = super(PageVersionView, self).get_context_data(**kwargs)
+        context["tab"] = "viewhistory"
+        return context
 
 
 class PageHistoryView(ListView):
@@ -52,9 +65,14 @@ class PageHistoryView(ListView):
     template_name = "wiki/articlehistory.html"
 
     def get_queryset(request, *args, **kwargs):
-        print(args)
-        out = ArticleVersion.objects.filter()
+        out = ArticleVersion.objects.filter(article=request.kwargs["title"])
         return out
+
+    def get_context_data(self, **kwargs):
+        context = super(PageHistoryView, self).get_context_data(**kwargs)
+        context["tab"] = "history"
+        context['object'] = self.kwargs["title"]
+        return context
 
 
 class PageCreateView(CreateView):
@@ -76,6 +94,7 @@ class PageCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(PageCreateView, self).get_context_data(**kwargs)
+        context["tab"] = "edit"
         context["titel"] = self.kwargs["title"]
         try:
             context["object"] = Article(title = self.kwargs["title"])
@@ -111,5 +130,6 @@ class PageEditView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(PageEditView, self).get_context_data(**kwargs)
-        context["titel"] = self.kwargs["title"]
+        context["object"] = self.kwargs["title"]
+        context["tab"] = "edit"
         return context
