@@ -34,9 +34,13 @@ class WorkshopCandidateAdmin(admin.ModelAdmin):
                 u.last_name = user.last_name
                 u.is_staff = False
                 u.is_active = True
+
+                workshopgroup = Group.objects.all().get(name="Workshop-Anbieter")
+                u.groups.add(workshopgroup)
+
                 u.save()
                 user.delete()
-                send_mail("Willkommen als Workshopanbieter bei der Ofahrt!", "Hallo " + user.first_name +",\n\nwillkommen als Workshopanbieter der Ofahrt! Mit dem Erhalt dieser Email wurde den Account in pyofahrt, unserem Verwaltungstool zur Planung uns Strukturierung der OFahrt, freigeschaltet. Im folgenden findest du deine Logindaten.\n\npyofahrt: http://d120.de/ofahrt\nName: " + username + "\nPasswort: " + password + "\n\nIm Adminmenü kannst du dein Passwort jederzeit ändern. Du solltest desweiteren zeitnah auf unsere Mailingliste ofahrt-workshops@d120.de hinzugefügt werden. Nach dem Login kannst du deine(n) Workshop(s) verwalten. Solltest du irgendwelche weiteren Fragen haben melde dich einfach bei uns unter ofahrt-leitung@d120.de.\n\nMit freundlichen Grüßen,\n(okay, das ist eine automatische Mail)", "ofahrt-leitung@d120.de", [u.email])
+                send_mail("Willkommen als Workshopanbieter bei der Ofahrt!", "Hallo " + user.first_name +",\n\nwillkommen als Workshopanbieter der Ofahrt! Mit dem Erhalt dieser Email wurde dein Account in pyofahrt, unserem Verwaltungstool zur Planung uns Strukturierung der OFahrt, freigeschaltet. Im folgenden findest du deine Logindaten.\n\npyofahrt: http://d120.de/ofahrt\nName: " + username + "\nPasswort: " + password + "\n\nIm Adminmenü kannst du dein Passwort jederzeit ändern. Du solltest desweiteren zeitnah auf unsere Mailingliste ofahrt-workshops@d120.de hinzugefügt werden. Nach dem Login kannst du deine(n) Workshop(s) verwalten. Solltest du irgendwelche weiteren Fragen haben melde dich einfach bei uns unter ofahrt-leitung@d120.de.\n\nMit freundlichen Grüßen,\n(okay, das ist eine automatische Mail)", "ofahrt-leitung@d120.de", [u.email])
 
         if len(errors) == 0:
             self.message_user(request, "Alle ausgewählten Bewerber wurden erfolgreich in pyofahrt-Accounts konvertiert.")

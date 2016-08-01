@@ -78,11 +78,10 @@ class SignUpWorkshopView(CreateView):
 
     fields = ['first_name', 'last_name', 'email', 'phone', 'workshop_ideas']
 
-
-
     def form_valid(self, form):
         member = form.save(commit=False)
         member.base = Ofahrt.current()
+        send_mail("pyofahrt: Neuer Workshop-Eintrag", "Eine neue Workshop-Bewerbung ist eingegangen. Bitte zeitnah bearbeiten.\n\nVorname: " + member.first_name + "\nNachname: " + member.last_name, "ofahrt-leitung@d120.de", ["ofahrt-leitung@d120.de"])
         return super(SignUpWorkshopView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -104,6 +103,7 @@ class SignUpOrgaView(CreateView):
     def form_valid(self, form):
         member = form.save(commit=False)
         member.base = Ofahrt.current()
+        send_mail("pyofahrt: Neuer Orga-Eintrag", "Eine neue Orga-Bewerbung ist eingegangen. Bitte zeitnah bearbeiten.\n\nVorname: " + member.first_name + "\nNachname: " + member.last_name, "ofahrt-leitung@d120.de", ["ofahrt-leitung@d120.de"])
         return super(SignUpOrgaView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
