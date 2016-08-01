@@ -26,4 +26,5 @@ class Question(models.Model):
         return self.text
 
     def bbanswer(self):
-        return bbcode.Parser().format(self.answer)        
+        #Gibt die Antwort als HTML zurück
+        return bbcode.Parser().format(self.answer)
