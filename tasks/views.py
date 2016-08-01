@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import TaskCategory, Task, TaskComment, TaskHistoryEntry
+from django.core.mail import EmailMessage
 from django.views.generic.base import TemplateView, RedirectView
 from django.http import HttpResponseRedirect
 from django.views.generic.detail import DetailView
@@ -11,6 +12,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from ofahrtbase.models import Ofahrt
 from django.contrib.auth.models import User
+from pyofahrt import settings
 
 # Create your views here.
 
@@ -36,6 +38,17 @@ class TicketEditView(UpdateView):
         entry.timestamp = datetime.now()
         entry.text = "<b>Ticket bearbeitet:</b> Ticket #"
         entry.save()
+
+        mail = EmailMessage()
+        mail.subject = settings.MAIL_TICKETEDIT_SUBJECT % {'id' : self.object.id}
+        mail.body = settings.MAIL_TICKETEDIT_TEXT % {'id' : self.object.id, 'subject' : self.object.name, 'cat' : self.object.category.name, 'name' : self.request.user, 'link' : "http://d120.de/ofahrt/tasks/" + str(self.object.id)}
+        temp = User.objects.all().filter(groups__in=self.object.category.access_for.all())
+        bcc = []
+        for user in temp:
+            bcc.append(user.email)
+        mail.bcc = bcc
+        mail.send()
+
         return reverse('tasks:showticket', args=(self.object.id,))
 
     def get_context_data(self, **kwargs):
@@ -82,6 +95,17 @@ class TicketAssignView(UpdateView):
         entry.save()
         entry.ticket.updated_at = datetime.now()
         entry.ticket.save()
+
+        mail = EmailMessage()
+        mail.subject = settings.MAIL_TICKETASSIGN_SUBJECT % {'id' : self.object.id}
+        mail.body = settings.MAIL_TICKETASSIGN_TEXT % {'id' : self.object.id, 'subject' : self.object.name, 'cat' : self.object.category.name, 'name' : self.request.user, 'link' : "http://d120.de/ofahrt/tasks/" + str(self.object.id), 'editors' : ", ".join(editorlist)}
+        temp = User.objects.all().filter(groups__in=self.object.category.access_for.all())
+        bcc = []
+        for user in temp:
+            bcc.append(user.email)
+        mail.bcc = bcc
+        mail.send()
+
         return reverse('tasks:showticket', args=(self.object.id,))
 
     def get_context_data(self, **kwargs):
@@ -105,8 +129,19 @@ def push(request, ticket):
             entry.user = request.user
             entry.timestamp = datetime.now()
             entry.ticket = element
-            entry.text = "<b>Push!</b>"
             entry.save()
+            entry.text = "<b>Push!</b>"
+
+            mail = EmailMessage()
+            mail.subject = settings.MAIL_TICKETPUSH_SUBJECT % {'id' : int(ticket)}
+            mail.body = settings.MAIL_TICKETPUSH_TEXT % {'id' : int(ticket), 'subject' : element.name, 'cat' : element.category.name, 'name' : request.user, 'link' : "http://d120.de/ofahrt/tasks/" + str(element.id)}
+            temp = User.objects.all().filter(groups__in=element.category.access_for.all())
+            bcc = []
+            for user in temp:
+                bcc.append(user.email)
+            mail.bcc = bcc
+            mail.send()
+
     return HttpResponseRedirect(reverse("tasks:showticket", args=[ticket]))
 
 
@@ -193,6 +228,17 @@ class CommentView(CreateView):
         entry.text = "<b>Kommentar hinzugefügt:</b> Kommentar #" + str(self.object.id)
         entry.save()
 
+
+        mail = EmailMessage()
+        mail.subject = settings.MAIL_TICKETNEWCOMMENT_SUBJECT % {'id' : self.object.id}
+        mail.body = settings.MAIL_TICKETNEWCOMMENT_TEXT % {'id' : self.object.ticket.id, 'subject' : self.object.ticket.name, 'cat' : self.object.ticket.category.name, 'name' : self.request.user, 'link' : "http://d120.de/ofahrt/tasks/" + str(self.object.ticket.id)}
+        temp = User.objects.all().filter(groups__in=self.object.ticket.category.access_for.all())
+        bcc = []
+        for user in temp:
+            bcc.append(user.email)
+        mail.bcc = bcc
+        mail.send()
+
         return reverse('tasks:showticket', args=(self.object.ticket.id,))
 
     def get_context_data(self, **kwargs):
@@ -225,6 +271,17 @@ class TicketCreateView(CreateView):
         entry.timestamp = datetime.now()
         entry.text = "<b>Ticket angelegt</b>"
         entry.save()
+
+
+        mail = EmailMessage()
+        mail.subject = settings.MAIL_TICKETNEW_SUBJECT % {'cat' : self.object.category.name}
+        mail.body = settings.MAIL_TICKETNEW_TEXT % {'id' : self.object.id, 'subject' : self.object.name, 'cat' : self.object.category.name, 'name' : self.request.user, 'link' : "http://d120.de/ofahrt/tasks/" + str(self.object.id)}
+        temp = User.objects.all().filter(groups__in=self.object.category.access_for.all())
+        bcc = []
+        for user in temp:
+            bcc.append(user.email)
+        mail.bcc = bcc
+        mail.send()
 
         return reverse('tasks:showticket', args=(self.object.id,))
 
