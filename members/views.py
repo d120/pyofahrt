@@ -1,7 +1,8 @@
 from django.views.generic import CreateView, TemplateView
 from members.models import Member
 from ofahrtbase.models import Ofahrt, Setting
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+from pyofahrt import settings
 
 
 class SignUpView(CreateView):
@@ -14,7 +15,13 @@ class SignUpView(CreateView):
     def form_valid(self, form):
         member = form.save(commit=False)
         member.base = Ofahrt.current()
-        send_mail("Anmeldung zur Ofahrt im Wintersemester " + str(member.base.begin_date.year), "Hallo " + member.first_name + ",\n\nwir haben deine Anmeldung für die Ofahrt für Bachelor-Erstsemester im WiSe " + str(member.base.begin_date.year) + " erfolgreich gespeichert.\nBis zum Eingang des Teilnahmebetrags von 10€ stehst du lediglich auf der vorläufigen Teilnahmeliste. Bitte überweise den Teilnahmebetrag schnellstmöglich an die unten genannten Kontodaten. Wähle als Verwendungszweck bitte \"Ofahrt Teilnahmebetrag - VORNAME NACHNAME\" damit wir die Überweisung deiner Anmeldung zuordnen können. Solltest du keinen Zugriff auf ein Bankkonto oder eine andere Möglichkeit der Überweisung haben, kontaktiere uns bitte unter ofahrt-leitung@d120.de. In diesem Fall finden wir eine Regelung für eine Barzahlung im Fachschaftsraum.\n\nSobald wir den Teilnahmebetrag erhalten haben setzen wir dich schnellstmöglich auf die feste Teilnahmeliste. Alle weiteren Infos erhälst du dann per Email.\n\nLiebe Grüße,\n die Ofahrt-Leitung\n\n-------------------------------\n\nKontodaten:\nFOLGT", "ofahrt-leitung@d120.de", [member.email])
+
+        email = EmailMessage()
+        email.subject = settings.MAIL_MEMBERSIGNUP_SUBJECT % (member.base.begin_date.year)
+        email.body = settings.MAIL_MEMBERSIGNUP_TEXT % (member.first_name, member.base.begin_date.year)
+        email.to = [member.email]
+        email.send()
+
         return super(SignUpView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):

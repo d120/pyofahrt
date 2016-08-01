@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from django.contrib.auth.models import Group, User
 
 from django.views.generic.edit import CreateView, FormView
@@ -8,7 +8,7 @@ from django.views.generic.base import TemplateView
 from staff.models import OrgaCandidate, WorkshopCandidate
 from ofahrtbase.models import Setting, Ofahrt
 from staff.forms import ContactForm
-from pyofahrt.settings import SUPER_PASSWORD
+from pyofahrt import settings
 
 
 
@@ -31,11 +31,15 @@ class ContactView(FormView):
     success_url = "/staff/success"
 
     def form_valid(self, form):
-        mail = form.cleaned_data.get('email')
+        email = form.cleaned_data.get('email')
         text = form.cleaned_data.get('message')
 
-        send_mail("Ofahrt Kontaktformular", "Ofahrt Kontaktformular (Anfrage von " + mail + ")\n\n\n" + text, "noreply@d120.de", ["ofahrt-leitung@d120.de"])
-        print()
+        mail = EmailMessage()
+        mail.subject = settings.MAIL_CONTACTFORM_SUBJECT
+        mail.body = settings.MAIL_CONTACTFORM_SUBJECT % {'sender' : email, 'text' : text}
+        mail.to = [settings.SERVER_EMAIL]
+        mail.send()
+
         return super(ContactView, self).form_valid(form)
 
 
@@ -59,12 +63,24 @@ class CreateSuperuserView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(CreateSuperuserView, self).get_context_data(**kwargs)
         if User.objects.all().filter(username="leitung").count() == 0:
-            User.objects.create_superuser("leitung", "ofahrt-leitung@d120.de", SUPER_PASSWORD)
-            send_mail("SuperUser neu angelegt", "Der Superuseraccount \"leitung\" wurde in pyofahrt neu angelegt. Die Zugangsdaten findest du unter mnt/media/ofahrt/pw.txt", "noreply@d120.de", ["ofahrt-leitung@d120.de"])
+            User.objects.create_superuser("leitung", "ofahrt-leitung@d120.de", settings.SUPER_PASSWORD)
+
+            mail = EmailMessage()
+            mail.subject = settings.MAIL_SUPERUSER_SUCCESS_SUBJECT
+            mail.body = settings.MAIL_SUPERUSER_SUCCESS_TEXT
+            mail.to = ["ofahrt-leitung@d120.de"]
+            mail.send()
+
             context["success"] = True
         else:
-            User.objects.all().filter(username="leitung")[0].set_password(SUPER_PASSWORD)
-            send_mail("SuperUser konnte nicht neu angelegt werden", "Es wurde beantragt den Superuseraccount \"leitung\" in pyofahrt neu anzulegen. Da der Account allerdings nicht gelöscht wurde, wurde das Passwort zurückgesetzt. Die Zugangsdaten findest du unter mnt/media/ofahrt/pw.txt", "noreply@d120.de", ["ofahrt-leitung@d120.de"])
+            User.objects.all().filter(username="leitung")[0].set_password(settings.SUPER_PASSWORD)
+
+
+            mail = EmailMessage()
+            mail.subject = settings.MAIL_SUPERUSER_ERROR_SUBJECT
+            mail.body = settings.MAIL_SUPERUSER_ERROR_TEXT
+            mail.to = ["ofahrt-leitung@d120.de"]
+            mail.send()
             context["success"] = False
         return context
 
@@ -81,7 +97,13 @@ class SignUpWorkshopView(CreateView):
     def form_valid(self, form):
         member = form.save(commit=False)
         member.base = Ofahrt.current()
-        send_mail("pyofahrt: Neuer Workshop-Eintrag", "Eine neue Workshop-Bewerbung ist eingegangen. Bitte zeitnah bearbeiten.\n\nVorname: " + member.first_name + "\nNachname: " + member.last_name, "ofahrt-leitung@d120.de", ["ofahrt-leitung@d120.de"])
+
+        mail = EmailMessage()
+        mail.subject = settings.MAIL_NEW_WORKSHOP_SUBJECT
+        mail.body = settings.MAIL_NEW_WORKSHOP_TEXT % {'firstname' : member.first_name, 'lastname' : member.last_name}
+        mail.to = [settings.SERVER_EMAIL]
+        mail.send()
+
         return super(SignUpWorkshopView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -103,7 +125,14 @@ class SignUpOrgaView(CreateView):
     def form_valid(self, form):
         member = form.save(commit=False)
         member.base = Ofahrt.current()
-        send_mail("pyofahrt: Neuer Orga-Eintrag", "Eine neue Orga-Bewerbung ist eingegangen. Bitte zeitnah bearbeiten.\n\nVorname: " + member.first_name + "\nNachname: " + member.last_name, "ofahrt-leitung@d120.de", ["ofahrt-leitung@d120.de"])
+
+        mail = EmailMessage()
+        mail.subject = settings.MAIL_NEW_ORGA_SUBJECT
+        mail.body = settings.MAIL_NEW_ORGA_TEXT % {'firstname' : member.first_name, 'lastname' : member.last_name}
+        mail.to = [settings.SERVER_EMAIL]
+        mail.send()
+
+
         return super(SignUpOrgaView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):

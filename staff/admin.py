@@ -4,9 +4,10 @@ from django.contrib.auth.models import Group, Permission, User
 from django.db.models import Q
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.messages import constants as messages
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from random import choice
 from string import ascii_uppercase
+from pyofahrt import settings
 
 def randomword(length):
     return ''.join(choice(ascii_uppercase) for i in range(length))
@@ -40,7 +41,12 @@ class WorkshopCandidateAdmin(admin.ModelAdmin):
 
                 u.save()
                 user.delete()
-                send_mail("Willkommen als Workshopanbieter bei der Ofahrt!", "Hallo " + user.first_name +",\n\nwillkommen als Workshopanbieter der Ofahrt! Mit dem Erhalt dieser Email wurde dein Account in pyofahrt, unserem Verwaltungstool zur Planung uns Strukturierung der OFahrt, freigeschaltet. Im folgenden findest du deine Logindaten.\n\npyofahrt: http://d120.de/ofahrt\nName: " + username + "\nPasswort: " + password + "\n\nIm Adminmenü kannst du dein Passwort jederzeit ändern. Du solltest desweiteren zeitnah auf unsere Mailingliste ofahrt-workshops@d120.de hinzugefügt werden. Nach dem Login kannst du deine(n) Workshop(s) verwalten. Solltest du irgendwelche weiteren Fragen haben melde dich einfach bei uns unter ofahrt-leitung@d120.de.\n\nMit freundlichen Grüßen,\n(okay, das ist eine automatische Mail)", "ofahrt-leitung@d120.de", [u.email])
+
+                mail = EmailMessage()
+                mail.subject = settings.MAIL_WORKSHOPSIGNUP_SUBJECT
+                mail.body = settings.MAIL_WORKSHOPSIGNUP_TEXT % {'name' : user.first_name, 'username' : username, 'password' : password}
+                mail.to = [u.email]
+                mail.send()
 
         if len(errors) == 0:
             self.message_user(request, "Alle ausgewählten Bewerber wurden erfolgreich in pyofahrt-Accounts konvertiert.")
@@ -84,7 +90,14 @@ class OrgaCandidateAdmin(admin.ModelAdmin):
                 for group in user.orga_for.all():
                     u.groups.add(group)
                 user.delete()
-                send_mail("Willkommen im Orgateam der Ofahrt!", "Hallo " + user.first_name +",\n\nwillkommen im Orgateam der Ofahrt! Mit dem Erhalt dieser Email wurde dein Account in pyofahrt, unserem Verwaltungstool zur Planung und Strukturierung der Ofahrt, freigeschaltet. Im Folgenden findest du deine Logindaten.\n\npyofahrt: http://d120.de/ofahrt\nName: " + username + "\nPasswort: " + password + "\n\nIm Adminmenü kannst du dein Passwort jederzeit ändern. Du solltest des Weiteren zeitnah auf unsere Orgaliste ofahrt@d120.de hinzugefügt werden. Solltest du irgendwelche weiteren Fragen haben, melde dich einfach bei uns unter ofahrt-leitung@d120.de.\n\nMit freundlichen Grüßen,\n(okay, das ist eine automatische Mail)", "ofahrt-leitung@d120.de", [u.email])
+
+
+                mail = EmailMessage()
+                mail.subject = settings.MAIL_ORGASIGNUP_SUBJECT
+                mail.body = settings.MAIL_ORGASIGNUP_TEXT % {'name' : user.first_name, 'username' : username, 'password' : password}
+                mail.to = [u.email]
+                mail.send()
+
 
         if len(errors) == 0:
             self.message_user(request, "Alle ausgewählten Bewerber wurden erfolgreich in pyofahrt-Accounts konvertiert.")

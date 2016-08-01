@@ -140,3 +140,102 @@ SECURE_BROWSER_XSS_FILTER = True
 CSRF_COOKIE_HTTPONLY = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+SERVER_EMAIL = "ofahrt-leitung@fachschaft.informatik.tu-darmstadt.de"
+DEFAULT_FROM_EMAIL = SERVER_EMAIL
+
+# Mail settings
+MAIL_MEMBERSIGNUP_SUBJECT = "Anmeldung zur Ofahrt im Wintersemester %d"
+MAIL_MEMBERSIGNUP_TEXT = """Hallo %s,
+
+wir haben deine Anmeldung für die Ofahrt für Bachelor-Erstsemester im WiSe %d erfolgreich gespeichert.
+Bis zum Eingang des Teilnahmebetrags von 10€ stehst du lediglich auf der vorläufigen Teilnahmeliste. Bitte überweise den Teilnahmebetrag schnellstmöglich an die unten genannten Kontodaten. Wähle als Verwendungszweck bitte "Ofahrt Teilnahmebetrag - VORNAME NACHNAME" damit wir die Überweisung deiner Anmeldung zuordnen können. Solltest du keinen Zugriff auf ein Bankkonto oder eine andere Möglichkeit der Überweisung haben, kontaktiere uns bitte unter ofahrt-leitung@d120.de. In diesem Fall finden wir eine Regelung für eine Barzahlung im Fachschaftsraum.
+
+Sobald wir den Teilnahmebetrag erhalten haben setzen wir dich schnellstmöglich auf die feste Teilnahmeliste. Alle weiteren Infos erhälst du dann per Email.
+
+Liebe Grüße,
+die Ofahrt-Leitung
+
+-------------------------------
+
+Kontodaten:
+FOLGT"""
+
+
+MAIL_WORKSHOPSIGNUP_SUBJECT = "Willkommen als Workshopanbieter bei der Ofahrt!"
+MAIL_WORKSHOPSIGNUP_TEXT = """Hallo %(name)s,
+
+willkommen als Workshopanbieter der Ofahrt! Mit dem Erhalt dieser Email wurde dein Account in pyofahrt, unserem Verwaltungstool zur Planung uns Strukturierung der OFahrt, freigeschaltet. Im folgenden findest du deine Logindaten.
+
+pyofahrt: http://d120.de/ofahrt
+Name: %(username)s
+Passwort: %(password)s
+
+Im Adminmenü kannst du dein Passwort jederzeit ändern. Du solltest desweiteren zeitnah auf unsere Mailingliste ofahrt-workshops@d120.de hinzugefügt werden. Nach dem Login kannst du deine(n) Workshop(s) verwalten. Solltest du irgendwelche weiteren Fragen haben melde dich einfach bei uns unter ofahrt-leitung@d120.de.
+
+Mit freundlichen Grüßen,
+(okay, das ist eine automatische Mail)"""
+
+
+MAIL_ORGASIGNUP_SUBJECT = "Willkommen im Orgateam der Ofahrt!"
+MAIL_ORGASIGNUP_TEXT = """Hallo %(name)s,
+
+willkommen im Orgateam der Ofahrt! Mit dem Erhalt dieser Email wurde dein Account in pyofahrt, unserem Verwaltungstool zur Planung und Strukturierung der Ofahrt, freigeschaltet. Im Folgenden findest du deine Logindaten.
+
+pyofahrt: http://d120.de/ofahrt
+Name: %(username)s
+Passwort: %(password)s
+
+Im Adminmenü kannst du dein Passwort jederzeit ändern. Du solltest des Weiteren zeitnah auf unsere Orgaliste ofahrt@d120.de hinzugefügt werden. Solltest du irgendwelche weiteren Fragen haben, melde dich einfach bei uns unter ofahrt-leitung@d120.de.
+
+Mit freundlichen Grüßen,
+(okay, das ist eine automatische Mail)"""
+
+
+MAIL_CONTACTFORM_SUBJECT = "Ofahrt Kontaktformular"
+MAIL_CONTACTFORM_TEXT = """Ofahrt Kontaktformular (Anfrage von %(sender)s)
+
+
+%(text)s
+"""
+
+
+MAIL_SUPERUSER_SUCCESS_SUBJECT = "SuperUser neu angelegt"
+MAIL_SUPERUSER_SUCCESS_TEXT = """
+Der Superuseraccount "leitung" wurde in pyofahrt neu angelegt.
+
+Die Zugangsdaten findest du unter mnt/media/ofahrt/pw.txt
+"""
+
+
+
+
+
+MAIL_SUPERUSER_ERROR_SUBJECT = "SuperUser konnte nicht neu angelegt werden"
+MAIL_SUPERUSER_ERROR_TEXT = """
+Es wurde beantragt den Superuseraccount \"leitung\" in pyofahrt neu anzulegen. Da der Account allerdings nicht gelöscht wurde, wurde das Passwort zurückgesetzt.
+
+Die Zugangsdaten findest du unter mnt/media/ofahrt/pw.txt
+"""
+
+
+
+
+
+MAIL_NEW_ORGA_SUBJECT = "pyofahrt: Neuer Orga-Eintrag"
+MAIL_NEW_ORGA_TEXT = """
+Eine neue Orga-Bewerbung ist eingegangen. Bitte zeitnah bearbeiten.
+
+Vorname: %(firstname)s
+Nachname: %(lastname)s
+"""
+
+
+
+MAIL_NEW_WORKSHOP_SUBJECT = "pyofahrt: Neuer Orga-Eintrag"
+MAIL_NEW_WORKSHOP_TEXT = """
+Eine neue Workshop-Bewerbung ist eingegangen. Bitte zeitnah bearbeiten.
+
+Vorname: %(firstname)s
+Nachname: %(lastname)s
+"""
