@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import *
 
-# Register your models here.
-admin.site.register(Article)
-admin.site.register(ArticleVersion)
+# Deaktiviert, da die Verwaltung über die Webseite erfolgt
+#admin.site.register(Article)
+#admin.site.register(ArticleVersion)
