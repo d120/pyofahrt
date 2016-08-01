@@ -1,4 +1,5 @@
 from django.db import models
+import bbcode
 
 class FaqCategory(models.Model):
     class Meta:
@@ -23,3 +24,6 @@ class Question(models.Model):
 
     def __str__(self):
         return self.text
+
+    def bbanswer(self):
+        return bbcode.Parser().format(self.answer)        
