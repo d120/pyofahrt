@@ -2,7 +2,7 @@
 {% block title %}FAQ{% endblock %}
 {% block content %}
   <div id="faq">
-    {% if categories.count = 0 %}
+    {% if categories.count == 0 %}
     <div class="alert alert-danger" role="alert"><b>Information:</b> Derzeit sind keine FAQ-Kategorien im System hinterlegt.</div>
     {% else %}
     <div id="faqnav">
@@ -19,7 +19,7 @@
   </div>
   {% for cat in categories %}
   <h1><a name="c{{ cat.pk }}"></a>{{ cat.name }}</h1>
-  {% if cat.question_set.all.count = 0 %}
+  {% if cat.question_set.all.count == 0 %}
   <div class="alert alert-danger" role="alert"><b>Information:</b> In dieser Kategorie sind derzeit keine Fragen hinterlegt.</div>
   {% else %}
     {% for question in cat.question_set.all %}

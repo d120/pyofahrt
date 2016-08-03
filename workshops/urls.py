@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from workshops import views
 from django.contrib.auth.decorators import permission_required
 
