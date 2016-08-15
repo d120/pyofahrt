@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView
 from .models import Setting, Ofahrt
+from workshops.models import Slot
 
 
 class WelcomeView(TemplateView):
@@ -14,9 +15,17 @@ class WelcomeView(TemplateView):
 
 
 class ScheduleView(TemplateView):
-    template_name = "ofahrtbase/freetext.html"
+    template_name = "ofahrtbase/timetable.html"
 
     def get_context_data(self, **kwargs):
         context = super(ScheduleView, self).get_context_data(**kwargs)
+
+        slots = Slot.objects.all()
+
+        out = {}
+
+
+
+
         context['text'] = "Coming soon ;-)"
         return context

@@ -15,8 +15,7 @@
 <p>Solltest du deinen Namen auf dieser Liste finden, so hast du deinen Teilnahmeplatz bereits sicher. Weitere Informationen wirst du per Email erhalten.</p>
 <table class="table table-striped">
   <tr>
-    <th>Vorname</th>
-    <th>Nachname</th>
+    <th>Name</th>
     <th>Anmeldedatum</th>
   </tr>
 {% if members_fin.count == 0 %}
@@ -26,8 +25,7 @@
 {% endif %}
 {% for member in members_fin %}
   <tr>
-    <td>{{ member.first_name }}</td>
-    <td>{{ member.last_name }}</td>
+    <td>{{ member.first_name }} {{ member.last_name }}</td>
     <td>{{ member.created_at }}</td>
   </tr>
 {% endfor %}
@@ -42,14 +40,12 @@
   </tr>
 {% endif %}
   <tr>
-    <th>Vorname</th>
-    <th>Nachname</th>
+    <th>Name</th>
     <th>Anmeldedatum</th>
   </tr>
 {% for member in members_cond %}
   <tr>
-    <td>{{ member.first_name }}</td>
-    <td>{{ member.last_name }}</td>
+    <td>{{ member.first_name }} {{ member.last_name }}</td>
     <td>{{ member.created_at }}</td>
   </tr>
 {% endfor %}

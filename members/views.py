@@ -41,4 +41,11 @@ class MemberlistView(TemplateView):
         context = super(MemberlistView, self).get_context_data(**kwargs)
         context["members_cond"] = Member.objects.filter(money_received = False)
         context["members_fin"] = Member.objects.filter(money_received = True)
+
+        for index, member in enumerate(context["members_cond"]):
+            context["members_cond"][index].last_name = member.last_name[:1] + "."
+
+        for index, member in enumerate(context["members_fin"]):
+            context["members_fin"][index].last_name = member.last_name[:1] + "."
+
         return context
