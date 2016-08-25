@@ -40,5 +40,5 @@ class SlotAdmin(admin.ModelAdmin):
     date_hierarchy = "begin"
 
     def fromto(self, slot):
-        return slot.begin.strftime('%H:%M') + " - " + slot.end.strftime('%H:%M') + " (" + germandays[slot.begin.strftime('%w')] + ")"
+        return str(slot.begin.hour) + ":" + str(slot.begin.minute)  + " - " + str(slot.end.hour) + ":" + str(slot.end.minute) + " (" + germandays[str(slot.begin.weekday())] + ")"
     fromto.short_description = "Zeitrahmen"
