@@ -1,0 +1,22 @@
+#!/bin/bash
+# perform necessary actions to update an instance of pyofahrt
+
+set -e
+
+# only source the virtual env if we are not already in it
+if [ -z ${VIRTUAL_ENV+x} ]; then
+    source venv/bin/activate
+fi
+
+# set environment variable when we want to update a production instance
+if [ "$1" = "--prod" ]; then
+    export DJANGO_SETTINGS_MODULE=pyofahrt.settings_production
+fi
+
+git pull
+pip install -r requirements.txt
+if [ "$1" = "--prod" ]; then
+    ./manage.py collectstatic --noinput
+fi
+./manage.py migrate
+touch pyofahrt/wsgi.py
