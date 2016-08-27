@@ -12,6 +12,11 @@
 
 
 <a name="fin"></a><h2 class="h2">feste Teilnehmerliste ({{ members_fin.count }} / 70)</h2>
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="{{ members_fin.count }}" aria-valuemin="0" aria-valuemax="70" style="width: {{width}}%;">
+    {{ width }}%
+  </div>
+</div>
 <p>Solltest du deinen Namen auf dieser Liste finden, so hast du deinen Teilnahmeplatz bereits sicher. Weitere Informationen wirst du per Email erhalten.</p>
 <table class="table table-striped">
   <tr>

@@ -3,6 +3,7 @@ from members.models import Member
 from ofahrtbase.models import Ofahrt, Setting
 from django.core.mail import EmailMessage
 from pyofahrt import settings
+import math
 
 
 class SignUpView(CreateView):
@@ -41,6 +42,7 @@ class MemberlistView(TemplateView):
         context = super(MemberlistView, self).get_context_data(**kwargs)
         context["members_cond"] = Member.objects.filter(money_received = False)
         context["members_fin"] = Member.objects.filter(money_received = True)
+        context["width"] = math.ceil((context["members_fin"].count() / 70.) * 100)
 
         for index, member in enumerate(context["members_cond"]):
             context["members_cond"][index].last_name = member.last_name[:1] + "."
