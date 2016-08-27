@@ -1,0 +1,52 @@
+{% extends "ofahrtbase/base.html" %}
+{% load static %}
+{% block morehead %}
+  <link rel='stylesheet' href='{% static "ofahrtbase/fullcalendar.min.css" %}' />
+  <link rel='stylesheet' href='{% static "ofahrtbase/scheduler.min.css" %}' />
+  <script src='{% static "ofahrtbase/moment.min.js" %}'></script>
+  <script src='{% static "ofahrtbase/fullcalendar.min.js" %}'></script>
+  <script src='{% static "ofahrtbase/scheduler.min.js" %}'></script>
+  <script src='{% static "ofahrtbase/de.js" %}'></script>
+
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $('#timetable').fullCalendar({
+	    schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+      defaultView: 'agendaWeek',
+      firstDay: 1,
+      height: 500,
+      defaultDate: $.fullCalendar.moment("{{first}}"),
+      lang: 'de',
+      header: false,
+      hiddenDays: [1,2,3,4],
+      scrollTime: moment.duration("08:00:00"),
+      minTime: moment.duration("07:00:00"),
+      allDaySlot: false,
+      columnFormat: 'dddd D.M',
+      events: [
+        {% for event in events%}
+        {
+            title: '{{event.name | safe }}',
+            start: '{{event.begin_moment}}',
+            end: '{{event.end_moment}}',
+            color: '{{event.calendarcolor}}',
+            description : {% if event.slottype == "workshop" %}'{% for workshop in event.workshop_set.all %}{{workshop}}{% if not forloop.last %}, {% endif %}{% empty %}<font style="color: lightgrey;">Diesem Slot sind noch keine Workshops zugeteilt.</font>{% endfor %}' {% else %} ''{% endif %}
+        },
+        {% endfor %}
+      ],
+      eventRender: function(event, element) {
+        element.children().append('<div style="font-style:italic; size: .10em; color: #BFEFFF;">' + event.description + '</div>');
+    }
+    })
+
+});
+  </script>
+{% endblock %}
+
+{% block content %}
+<div class="defaultcontainer" style="margin-top:0;">
+
+<div id="timetable"></div>
+
+</div>
+{% endblock %}
