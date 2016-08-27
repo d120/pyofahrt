@@ -36,9 +36,6 @@ class WorkshopAdmin(admin.ModelAdmin):
 
 @admin.register(Slot)
 class SlotAdmin(admin.ModelAdmin):
-    list_display = ["name", "fromto", "slottype", "priority"]
+    list_display = ["name", "begin", "end", "slottype", "priority"]
     date_hierarchy = "begin"
-
-    def fromto(self, slot):
-        return str(slot.begin.hour) + ":" + str(slot.begin.minute)  + " - " + str(slot.end.hour) + ":" + str(slot.end.minute) + " (" + germandays[str(slot.begin.weekday())] + ")"
-    fromto.short_description = "Zeitrahmen"
+    ordering = ["begin"]

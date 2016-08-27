@@ -3,6 +3,7 @@ from staff.models import WorkshopCandidate
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from ofahrtbase.models import Ofahrt
+from datetime import datetime
 
 # Create your models here.
 
@@ -13,9 +14,9 @@ class Slot(models.Model):
         verbose_name_plural = "Zeitslots"
 
 
-    name = models.CharField("Bezeichnung", max_length=30, unique=True)
-    begin = models.DateTimeField("Start")
-    end = models.DateTimeField("Ende")
+    name = models.CharField("Bezeichnung", max_length=30)
+    begin = models.DateTimeField("Start", default=datetime.combine(Ofahrt.current().begin_date, datetime.min.time()))
+    end = models.DateTimeField("Ende", default=datetime.combine(Ofahrt.current().begin_date, datetime.min.time()))
 
     SLOT_CHOICES = (
         ("workshop", "Workshop"),
@@ -37,6 +38,22 @@ class Slot(models.Model):
 
     def __str__(self):
         return self.name
+
+    def begin_moment(self):
+        return self.begin.strftime("%Y-%m-%dT%H:%M:%S")
+
+    def end_moment(self):
+        return self.end.strftime("%Y-%m-%dT%H:%M:%S")
+
+    def calendarcolor(self):
+        if self.slottype == "workshop":
+            return "blue"
+        elif self.slottype == "event":
+            return "red"
+        elif self.slottype == "food":
+            return "green"
+        else:
+            return "grey"
 
     def clean(self):
         if self.begin > self.end:
