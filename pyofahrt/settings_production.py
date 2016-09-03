@@ -21,14 +21,20 @@ DATABASES = {
         'HOST': 'localhost',
         'NAME': 'pyofahrt',
         'USER': 'pyofahrt',
-        'PASSWORD': secrets.DB_PASSWORD
+        'PASSWORD': secrets.DB_PASSWORD,
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
 
 STATIC_URL = '/ofahrt/static/'
 LOGIN_REDIRECT_URL = '/ofahrt/'
 
-ADMINS = (('FSS', 'fss@fachschaft.informatik.tu-darmstadt.de'),('Ofahrt-Leitung', 'ofahrt-leitung@fachschaft.informatik.tu-darmstadt.de'),)
+ADMINS = (
+    ('FSS', 'fss@fachschaft.informatik.tu-darmstadt.de'),
+    ('Ofahrt-Leitung', 'ofahrt-leitung@fachschaft.informatik.tu-darmstadt.de'),
+)
 
 SESSION_COOKIE_SECURE = True
 
