@@ -1,4 +1,4 @@
-{% extends "workshops/workshopbase.html" %} {% load staticfiles %} {% block title %}Workshop bearbeiten{% endblock %} {% block workshopcontent %} {% load bootstrap3 %}
+{% extends "workshops/workshopbase.html" %} {% load staticfiles %} {% block title %}Workshop anschauen{% endblock %} {% block workshopcontent %} {% load bootstrap3 %}
 
   <b>Anbieter:</b> {% if workshop.host.all.count == 0 %}<i>- derzeit niemand -</i>{% endif %}{% for host in workshop.host.all %}{{host}}{% if not forloop.last %}, {% endif %}{% endfor %}
 <br /><br />

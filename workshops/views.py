@@ -5,6 +5,7 @@ from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.views.generic import DetailView
 from .models import Workshop
 from ofahrtbase.models import Ofahrt
+from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User, Group
 
 # Create your views here.
@@ -14,8 +15,9 @@ class OverviewView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(OverviewView, self).get_context_data(**kwargs)
-        context["workshops"] = Workshop.objects.all()
+        context["workshops"] = Workshop.objects.all().exclude(host=None)
         context["myworkshops"] = Workshop.objects.all().filter(host=self.request.user)
+        context["newworkshops"] = Workshop.objects.all().filter(host=None)
         return context
 
 
@@ -26,6 +28,24 @@ class WorkshopView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(WorkshopView, self).get_context_data(**kwargs)
         return context
+
+class WorkshopTakeView(DetailView):
+    template_name = "workshops/takeworkshop.html"
+    model = Workshop
+
+    def get_context_data(self, **kwargs):
+        context = super(WorkshopTakeView, self).get_context_data(**kwargs)
+        return context
+
+def takeit(request, pk):
+    if Workshop.objects.filter(id=pk).count() == 0:
+        raise Http404("Ticket existiert nicht")
+    else:
+        element = Workshop.objects.get(id=pk)
+        if request.user.is_authenticated():
+            element.host.add(request.user)
+            element.save()
+    return HttpResponseRedirect(reverse("workshops:show", args=[pk]))
 
 
 class WorkshopEditView(UpdateView):

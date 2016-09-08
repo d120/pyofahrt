@@ -6,6 +6,7 @@ from django.views.generic.edit import CreateView, FormView
 from django.views.generic.base import TemplateView
 
 from staff.models import OrgaCandidate, WorkshopCandidate
+from workshops.models import Workshop
 from ofahrtbase.models import Setting, Ofahrt
 from staff.forms import ContactForm
 from pyofahrt import settings
@@ -109,6 +110,7 @@ class SignUpWorkshopView(CreateView):
     def get_context_data(self, **kwargs):
         context = super(SignUpWorkshopView, self).get_context_data(**kwargs)
         context["workshop_reg_open"] = Setting.get_Setting("workshop_reg_open")
+        context["workshop_ideas"] = Workshop.objects.all().filter(host=None)
         return context
 
 

@@ -1,0 +1,14 @@
+#navindex {
+  background-color: #F9F9F9;
+  border: 1px solid #AAAAAA;
+  width: 250px;
+  padding: 5px;
+  float:right;
+  margin-top: -50px;
+}
+
+#navindex > #navtitle {
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 7px;
+}
