@@ -5,13 +5,7 @@ from django.db.models import Q
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.messages import constants as messages
 from django.core.mail import EmailMessage
-from random import choice
-from string import ascii_uppercase
 from pyofahrt import settings
-
-def randomword(length):
-    return ''.join(choice(ascii_uppercase) for i in range(length))
-
 
 # Register your models here.
 class WorkshopCandidateAdmin(admin.ModelAdmin):
@@ -29,7 +23,6 @@ class WorkshopCandidateAdmin(admin.ModelAdmin):
                 username = user.first_name[0] + user.last_name
                 username = username.lower()
                 success.append(user.__str__())
-                password = randomword(15)
                 u = User.objects.create_user(username, user.email, None)
                 u.first_name = user.first_name
                 u.last_name = user.last_name
