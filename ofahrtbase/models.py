@@ -52,6 +52,8 @@ class Room(models.Model):
     name = models.CharField(max_length=30)
     number = models.CharField(max_length=30)
 
+    capacity = models.IntegerField("Kapazität", help_text="Wie viele Teilnehmer passen in diesen Raum?", default=0)
+
     usecase_sleep = models.BooleanField("Nutzbar als Schlafraum", default=False)
     usecase_workshop = models.BooleanField("Nutzbar für Workshops", default=False)
     usecase_outside = models.BooleanField("Nutzbar als Freifläche", default=False)
@@ -65,8 +67,8 @@ class Setting(models.Model):
     class Meta:
         verbose_name = "Einstellung"
         verbose_name_plural = "Einstellungen"
-    key = models.CharField('Schlüssel', max_length=30, unique=True)
-    readable = models.CharField("Eigenschaft", max_length=30, unique=True)
+    key = models.CharField('Schlüssel', max_length=50, unique=True)
+    readable = models.CharField("Eigenschaft", max_length=50, unique=True)
     value = models.BooleanField('Aktiv?')
 
     def get_Setting(keyx):

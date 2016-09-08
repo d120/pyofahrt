@@ -1,6 +1,6 @@
 from django.views.generic import CreateView, TemplateView
 from members.models import Member
-from ofahrtbase.models import Ofahrt, Setting
+from ofahrtbase.models import Ofahrt, Setting, Room
 from django.core.mail import EmailMessage
 from pyofahrt import settings
 import math
@@ -38,6 +38,12 @@ class SuccessView(TemplateView):
 
 class RoomassignmentView(TemplateView):
     template_name = "members/roomassignment.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(RoomassignmentView, self).get_context_data(**kwargs)
+        context["users"] = Member.objects.all().filter(room=None)
+        context["rooms"] = Room.objects.all()
+        return context
 
 
 

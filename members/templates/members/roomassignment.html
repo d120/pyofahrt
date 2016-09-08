@@ -2,11 +2,34 @@
 {% block title %}Zimmerzuteilung{% endblock %}
 {% block morehead %}
 {% load static %}<link rel='stylesheet' href='{% static "ofahrtbase/jquery-ui.min.css" %}' />
+  <link rel='stylesheet' href='{% static "members/roomassignment.css" %}' />
+  <script src='{% static "members/roomassignment.js" %}'></script>
   <script src='{% static "ofahrtbase/jquery-ui.min.js" %}'></script>{% endblock %}
 {% block content %}
 {% load bootstrap3 %}
 <p>
   Hier findet die Zuteilung der Teilnehmer auf die einzelnen Zimmer statt.
 </p>
-
+<div id="rooms">
+  {% for room in rooms %}
+  {% with members=room.member_set.all %}
+  <div id="{{ room.id }}" class="room{% if members.count > room.capacity %} fullroom{% endif%}">
+    <div class="roomtitle">{{ room }} (<span class="counter">{{members.count}}</span>/<span class="max">{{ room.capacity }}</span>){% if members.count > room.capacity %} <span class="label label-danger">zu voll!</span>{% endif%}</div>
+    <div class="sortablearea">
+      {% for member in members %}
+      <div class="member" id="{{ member.id }}">{{ member }}</div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endwith%}
+  {% endfor %}
+</div>
+<div id="unassignedmembers">
+  <b>Noch nicht zugeteilt (<span class="counter">{{users.count}}</span>):</b>
+  <div class="sortablearea">
+    {% for member in users %}
+    <div class="member" id="{{ member.id }}">{{ member }}</div>
+    {% endfor%}
+  </div>
+</div>
 {% endblock %}
