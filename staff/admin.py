@@ -30,11 +30,13 @@ class WorkshopCandidateAdmin(admin.ModelAdmin):
                 username = username.lower()
                 success.append(user.__str__())
                 password = randomword(15)
-                u = User.objects.create_user(username, user.email, password)
+                u = User.objects.create_user(username, user.email, None)
                 u.first_name = user.first_name
                 u.last_name = user.last_name
                 u.is_staff = False
                 u.is_active = True
+                password = User.objects.make_random_password()
+                u.set_password(password)
 
                 workshopgroup = Group.objects.all().get(name="Workshop-Anbieter")
                 u.groups.add(workshopgroup)
@@ -80,12 +82,13 @@ class OrgaCandidateAdmin(admin.ModelAdmin):
                 username = user.first_name[0] + user.last_name
                 username = username.lower()
                 success.append(user.__str__())
-                password = randomword(15)
-                u = User.objects.create_user(username, user.email, password)
+                u = User.objects.create_user(username, user.email, None)
                 u.first_name = user.first_name
                 u.last_name = user.last_name
                 u.is_staff = True
                 u.is_active = True
+                password = User.objects.make_random_password()
+                u.set_password(password)
                 u.save()
                 for group in user.orga_for.all():
                     u.groups.add(group)
