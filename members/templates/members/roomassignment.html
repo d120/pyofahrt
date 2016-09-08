@@ -1,0 +1,12 @@
+{% extends "ofahrtbase/base.html" %}
+{% block title %}Zimmerzuteilung{% endblock %}
+{% block morehead %}
+{% load static %}<link rel='stylesheet' href='{% static "ofahrtbase/jquery-ui.min.css" %}' />
+  <script src='{% static "ofahrtbase/jquery-ui.min.js" %}'></script>{% endblock %}
+{% block content %}
+{% load bootstrap3 %}
+<p>
+  Hier findet die Zuteilung der Teilnehmer auf die einzelnen Zimmer statt.
+</p>
+
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Member, RoomAssignment, FoodHandicaps
+from .models import Member, FoodHandicaps
 
 # Register your models here.
 
@@ -8,7 +8,7 @@ admin.site.register(FoodHandicaps)
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'gender', 'money_received', 'is_really_ersti', 'is_full_aged')
-    list_filter = ('gender', 'money_received', 'is_really_ersti')
+    list_filter = ('gender', 'money_received', 'is_really_ersti', 'room')
     fieldsets = (
         ('Ofahrt', {
             'fields': ('base',)
@@ -23,26 +23,6 @@ class MemberAdmin(admin.ModelAdmin):
             'fields': ('money_received', 'is_really_ersti'),
         }),
         ('Sonstiges', {
-            'fields': ('free_text',),
+            'fields': ('room', 'free_text'),
         }),
     )
-
-
-@admin.register(RoomAssignment)
-class RoomAssignmentAdmin(admin.ModelAdmin):
-
-    def get_members(self, obj):
-        return ", ".join([str(t) for t in obj.members.all()])
-
-    get_members.short_description = "Zugeteilte Personen"
-
-    list_display = ['room', 'get_members']
-    fieldsets = (
-        ('Ofahrt', {
-            'fields': ('base',)
-        }),
-        (None, {
-            'fields': ('room', 'members'),
-        }),
-    )
-    pass

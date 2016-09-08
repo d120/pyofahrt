@@ -35,6 +35,13 @@ class SuccessView(TemplateView):
     template_name = "members/success.html"
 
 
+
+class RoomassignmentView(TemplateView):
+    template_name = "members/roomassignment.html"
+
+
+
+
 class MemberlistView(TemplateView):
     template_name = "members/memberlist.html"
 

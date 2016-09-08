@@ -46,6 +46,7 @@ class Member(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Verändert am")
 
     free_text = models.TextField("Sonstige Anmerkungen", blank=True)
+    room = models.ForeignKey(Room, verbose_name = "Zugeteilter Raum", null=True, blank=True)
 
 
     def is_full_aged(self):
@@ -56,18 +57,3 @@ class Member(models.Model):
 
     def __str__(self):
         return self.first_name + " " + self.last_name
-
-
-class RoomAssignment(models.Model):
-    class Meta:
-        verbose_name = "Raumzuteilung"
-        verbose_name_plural = "Raumzuteilungen"
-        unique_together = ("base", "room")
-
-    base = models.ForeignKey(Ofahrt, verbose_name="Zugehörige Ofahrt")
-
-    room = models.ForeignKey(Room, verbose_name="Zugehöriger Raum")
-    members = models.ManyToManyField(Member, verbose_name="Zugewiesene Personen")
-
-    def __str__(self):
-        return self.room.name
