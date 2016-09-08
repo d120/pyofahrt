@@ -14,7 +14,7 @@ class MemberAdmin(admin.ModelAdmin):
             'fields': ('base',)
         }),
         ('Formale Daten', {
-            'fields': ('first_name', 'last_name', 'gender', 'birth_date'),
+            'fields': ('first_name', 'last_name', 'gender', 'birth_date', 'email'),
         }),
         ('Verpflegung', {
             'fields': ('food_preference', 'food_handicaps'),
