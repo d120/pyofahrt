@@ -54,6 +54,11 @@ class PasswordView(FormView):
         kwargs.update({'user': self.request.user})
         return kwargs
 
+    def form_valid(self, form):
+        self.request.user.set_password(form.cleaned_data.get('newpassworda'))
+        self.request.user.save()
+        return super(PasswordView, self).form_valid(form)
+
 
 
 class SuccessView(TemplateView):
