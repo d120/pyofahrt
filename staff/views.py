@@ -8,7 +8,7 @@ from django.views.generic.base import TemplateView
 from staff.models import OrgaCandidate, WorkshopCandidate
 from workshops.models import Workshop
 from ofahrtbase.models import Setting, Ofahrt
-from staff.forms import ContactForm
+from staff.forms import ContactForm, PasswordForm
 from pyofahrt import settings
 
 
@@ -44,6 +44,16 @@ class ContactView(FormView):
         return super(ContactView, self).form_valid(form)
 
 
+class PasswordView(FormView):
+    template_name = "staff/changepassword/changepassword.html"
+    form_class = PasswordForm
+    success_url = "/staff/changepassword/success"
+
+    def get_form_kwargs(self):
+        kwargs = super(PasswordView, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
 
 
 class SuccessView(TemplateView):
@@ -55,6 +65,10 @@ class SuccessView(TemplateView):
         context["workshop_reg_open"] = Setting.get_Setting("workshop_reg_open")
         return context
 
+
+
+class PasswordSuccessView(TemplateView):
+    template_name = "staff/changepassword/success.html"
 
 
 

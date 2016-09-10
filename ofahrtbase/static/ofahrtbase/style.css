@@ -3,6 +3,12 @@
   display: inherit;
 }
 
+#pwbutton {
+  padding: 0;
+  margin-right: 5px;
+  display: inherit;
+}
+
 #content {
   padding: 10px;
   padding-bottom: 60px;

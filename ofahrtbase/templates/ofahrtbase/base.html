@@ -65,6 +65,7 @@
               {{ user.username }}
             {% endif %}
             {% if user.groups.all.count != 0 %}({{ user.groups.all|join:", " }}){% endif %}</p></li>
+          <li><a href="{% url "staff:changepassword" %}" id="pwbutton"><button type="button" class="btn btn-default navbar-btn">Passwort ändern</button></a></li>
           <li><a href="{% url "staff:logout" %}" id="loginbutton"><button type="button" class="btn btn-default navbar-btn">Ausloggen</button></a></li>
         {% else %}
           <li><a href="{% url "staff:login" %}" id="loginbutton"><button type="button" class="btn btn-default navbar-btn">Login (Staff)</button></a></li>
