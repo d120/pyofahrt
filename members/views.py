@@ -1,10 +1,32 @@
 from django.views.generic import CreateView, TemplateView
 from members.models import Member
-from ofahrtbase.models import Ofahrt, Setting
+from ofahrtbase.models import Ofahrt, Setting, Room
 from django.core.mail import EmailMessage
 from pyofahrt import settings
+from django.http import HttpResponse, HttpResponseRedirect
 import math
 
+
+def saveroomassignment(request):
+    results = {'success':False}
+    if request.method == u'GET':
+        GET = request.GET
+        userid = int(GET['user'])
+        roomid = int(GET['room'])
+
+        user = Member.objects.get(pk=userid)
+
+        if roomid == -1:
+            user.room = None
+            print("FALL A")
+        else:
+            print("FALL B")
+            room = Room.objects.get(pk=roomid)
+            user.room = room
+        user.save()
+
+        results = {'success':True}
+    return HttpResponse(results)
 
 class SignUpView(CreateView):
     template_name = "members/signup.html"
@@ -33,6 +55,19 @@ class SignUpView(CreateView):
 
 class SuccessView(TemplateView):
     template_name = "members/success.html"
+
+
+
+class RoomassignmentView(TemplateView):
+    template_name = "members/roomassignment.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(RoomassignmentView, self).get_context_data(**kwargs)
+        context["users"] = Member.objects.all().filter(room=None)
+        context["rooms"] = Room.objects.all()
+        return context
+
+
 
 
 class MemberlistView(TemplateView):
