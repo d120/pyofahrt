@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.core.mail import EmailMessage
-from django.contrib.auth.models import Group, User
+from django.contrib.auth.models import Group, User, Permission
 
 from django.views.generic.edit import CreateView, FormView
 from django.views.generic.base import TemplateView
+from django.db.models import Q
 
 from staff.models import OrgaCandidate, WorkshopCandidate
 from workshops.models import Workshop
@@ -118,10 +119,15 @@ class SignUpWorkshopView(CreateView):
         member = form.save(commit=False)
         member.base = Ofahrt.current()
 
+        #Adressen aller Workshoporgas erfragen
+        perm = Permission.objects.get(codename='editeveryworkshop')
+        orgas = User.objects.filter(Q(groups__permissions=perm) | Q(user_permissions=perm)).distinct()
+        print(list(orgas.values_list('email', flat=True)))
+
         mail = EmailMessage()
         mail.subject = settings.MAIL_NEW_WORKSHOP_SUBJECT
         mail.body = settings.MAIL_NEW_WORKSHOP_TEXT % {'firstname' : member.first_name, 'lastname' : member.last_name}
-        mail.to = [settings.SERVER_EMAIL]
+        mail.to = list(orgas.values_list('email', flat=True))
         mail.send()
 
         return super(SignUpWorkshopView, self).form_valid(form)
