@@ -38,6 +38,30 @@ $( function() {
           $("#" + oldroomid + " .label").remove();
         }
 
+
+        //alerts
+        if(newroomid != "unassignedmembers")
+          $("#messages").html('<div class="alert alert-success" role="alert"><b>' + ui.item.text() + '</b> erfolgreich in den Raum <b>' + $("#" + newroomid + " .roomname").text() + '</b> eingeplant.</div>')
+        else
+          $("#messages").html('<div class="alert alert-success" role="alert">Zuteilung von <b>' + ui.item.text() + '</b> erfolgreich aufgehoben.</div>')
+
+
+          $('#messages').children().delay(1250).fadeOut('slow');
+
+
+          roomid = $("#" + newroomid + " .roomname").attr("roomid");
+
+          if(roomid == undefined)
+            roomid = "-1"
+
+          userid = ui.item.attr("userid")
+
+          obj = { user: userid, room: roomid }
+          $.getJSON("/members/saveroomassignment/", obj);
+
+
+
+
       }
     }).disableSelection();
 } );

@@ -3,8 +3,30 @@ from members.models import Member
 from ofahrtbase.models import Ofahrt, Setting, Room
 from django.core.mail import EmailMessage
 from pyofahrt import settings
+from django.http import HttpResponse, HttpResponseRedirect
 import math
 
+
+def saveroomassignment(request):
+    results = {'success':False}
+    if request.method == u'GET':
+        GET = request.GET
+        userid = int(GET['user'])
+        roomid = int(GET['room'])
+
+        user = Member.objects.get(pk=userid)
+
+        if roomid == -1:
+            user.room = None
+            print("FALL A")
+        else:
+            print("FALL B")
+            room = Room.objects.get(pk=roomid)
+            user.room = room
+        user.save()
+
+        results = {'success':True}
+    return HttpResponse(results)
 
 class SignUpView(CreateView):
     template_name = "members/signup.html"

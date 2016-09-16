@@ -1,9 +1,12 @@
 #unassignedmembers
 {
-  background-color: #BFFFBF;
   width: 250px;
   padding:10px;
   min-height: 400px;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  border: 1px solid transparent;
+  border-radius: 4px;
 }
 
 #rooms
@@ -56,4 +59,13 @@ margin-bottom: 4px;
 #unassignedmembers > .sortablearea
 {
   min-height: 390px;
+}
+
+#messages {
+  height: 70px;
+  width: 100%;
+  position: absolute;
+  bottom: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
 }

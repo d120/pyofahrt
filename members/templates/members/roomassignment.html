@@ -10,14 +10,15 @@
 <p>
   Hier findet die Zuteilung der Teilnehmer auf die einzelnen Zimmer statt.
 </p>
+<div id="messages"></div>
 <div id="rooms">
   {% for room in rooms %}
   {% with members=room.member_set.all %}
   <div id="{{ room.id }}" class="room{% if members.count > room.capacity %} fullroom{% endif%}">
-    <div class="roomtitle">{{ room }} (<span class="counter">{{members.count}}</span>/<span class="max">{{ room.capacity }}</span>){% if members.count > room.capacity %} <span class="label label-danger">zu voll!</span>{% endif%}</div>
+    <div class="roomtitle"><span class="roomname" roomid="{{ room.id }}">{{ room }}</span> (<span class="counter">{{members.count}}</span>/<span class="max">{{ room.capacity }}</span>){% if members.count > room.capacity %} <span class="label label-danger">zu voll!</span>{% endif%}</div>
     <div class="sortablearea">
       {% for member in members %}
-      <div class="member" id="{{ member.id }}">{{ member }}</div>
+      <div class="member" userid="{{ member.id }}">{{ member }}</div>
       {% endfor %}
     </div>
   </div>
@@ -28,7 +29,7 @@
   <b>Noch nicht zugeteilt (<span class="counter">{{users.count}}</span>):</b>
   <div class="sortablearea">
     {% for member in users %}
-    <div class="member" id="{{ member.id }}">{{ member }}</div>
+    <div class="member" userid="{{ member.id }}">{{ member }}</div>
     {% endfor%}
   </div>
 </div>
