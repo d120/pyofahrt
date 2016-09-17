@@ -6,7 +6,7 @@
   <div id="signupform">
     {% if member_reg_open %}
     <p>
-      Mit diesem Formular kannst du dich als Teilnehmer für die Erstsemesterfahrt anmelden.
+      Mit diesem Formular kannst du dich als Teilnehmer*in für die Erstsemesterfahrt anmelden.
     </p>
     <form action="" method="post" class="form">
     {% csrf_token %}
@@ -18,7 +18,7 @@
     {% endbuttons %}
     </form>
     {% else %}
-      <div class="alert alert-warning" role="alert"><b>Hinweis:</b> Die Anmeldung für Erstsemester ist derzeit geschlossen.</div>
+      <div class="alert alert-warning" role="alert"><b>Hinweis:</b> Die Anmeldung für Erstsemester*innen ist derzeit geschlossen.</div>
     {% endif %}
   </div>
 {% endblock %}

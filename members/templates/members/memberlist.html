@@ -1,17 +1,17 @@
 {% extends "ofahrtbase/base.html" %}
-{% block title %}Teilnehmerliste{% endblock %}
+{% block title %}Teilnehmer*innenliste{% endblock %}
 {% block content %}
   {% load bootstrap3 %}
 <p>
-  Hier findest du die Teilnehmerübersicht der kommenden Ofahrt. Nur Teilnehmer in der oberen Liste haben ihre Plätze bereits sicher. Bei den Teilnehmern in der vorläufigen Liste ist der Teilnahmebetrag bei uns noch nicht eingegangen. Solltest du dich noch nicht angemeldet haben, kannst du dies <a href="{% url "members:signup" %}">hier</a> nachholen.
+  Hier findest du die Teilnehmer*innenübersicht der kommenden Ofahrt. Nur Teilnehmer*innen in der oberen Liste haben ihre Plätze bereits sicher. Bei den Teilnehmern in der vorläufigen Liste ist der Teilnahmebetrag bei uns noch nicht eingegangen. Solltest du dich noch nicht angemeldet haben, kannst du dies <a href="{% url "members:signup" %}">hier</a> nachholen.
 </p>
 <ul style="list-style-type: square;">
-  <li><a href="#fin">feste Teilnehmerliste</a></li>
-  <li><a href="#cond">vorläufige Teilnehmerliste</a></li>
+  <li><a href="#fin">feste Teilnehmer*innenliste</a></li>
+  <li><a href="#cond">vorläufige Teilnehmer*innenliste</a></li>
 </ul>
 
 
-<a name="fin"></a><h2 class="h2">feste Teilnehmerliste ({{ members_fin.count }} / 70)</h2>
+<a name="fin"></a><h2 class="h2">feste Teilnehmer*innenliste ({{ members_fin.count }} / 70)</h2>
 <div class="progress">
   <div class="progress-bar" role="progressbar" aria-valuenow="{{ members_fin.count }}" aria-valuemin="0" aria-valuemax="70" style="width: {{width}}%;">
     {{ width }}%
@@ -25,7 +25,7 @@
   </tr>
 {% if members_fin.count == 0 %}
   <tr>
-    <td colspan="3" style="text-align:center;" table-striped><i>Derzeit gibt es keine Teilnehmer auf dieser Liste.</i></td>
+    <td colspan="3" style="text-align:center;" table-striped><i>Derzeit gibt es keine Teilnehmer*innen auf dieser Liste.</i></td>
   </tr>
 {% endif %}
 {% for member in members_fin %}
@@ -36,12 +36,12 @@
 {% endfor %}
 </table>
 <br /><br /><br />
-<a name="cond"></a><h2 class="h2">vorläufige Teilnehmerliste ({{ members_cond.count }})</h2>
+<a name="cond"></a><h2 class="h2">vorläufige Teilnehmer*innenliste ({{ members_cond.count }})</h2>
 <p>Wenn dein Name auf dieser Liste steht, haben wir zwar deine Anmeldung erhalten, jedoch bisher noch keinen Zahlungseingang des Teilnahmebetrags verzeichnen können. Solltest du nach deiner Anmeldung keine Email von uns erhalten haben, so kontaktiere uns bitte unter ofahrt-leitung[at]d120.de oder über das <a href="{% url "staff:contact" %}">Kontaktformular</a>.</p>
 <table class="table table-striped">
 {% if members_cond.count == 0 %}
   <tr>
-    <td colspan="3" style="text-align:center;" table-striped><i>Derzeit gibt es keine Teilnehmer auf dieser Liste.</i></td>
+    <td colspan="3" style="text-align:center;" table-striped><i>Derzeit gibt es keine Teilnehmer*innen auf dieser Liste.</i></td>
   </tr>
 {% endif %}
   <tr>

@@ -15,7 +15,7 @@
         <td>{{ object.created_at }}</td>
       </tr>
       <tr>
-        <th>Bearbeiter</th>
+        <th>Bearbeiter*innen</th>
         <td>{% if object.editors.all.count == 0 %}<i>- derzeit niemand -</i>{% else %}{% for editor in object.editors.all %}
           {% if editor.first_name and editor.last_name%}
           {{ editor.first_name}} {{ editor.last_name}}
@@ -60,7 +60,7 @@
       <th colspan="2">#{{ comment.id }}</th>
     </tr>
     <tr>
-      <th class="taskcommentuser"><span {% if comment.user in object.editors.all %}title="Dieser Benutzer ist Bearbeiter dieses Tickets" {% endif %} class="glyphicon glyphicon-user{% if comment.user in object.editors.all %} glyphicon-highlight{% endif %}" aria-hidden="true"></span>
+      <th class="taskcommentuser"><span {% if comment.user in object.editors.all %}title="Diese*r Benutzer*in ist Bearbeiter*in dieses Tickets" {% endif %} class="glyphicon glyphicon-user{% if comment.user in object.editors.all %} glyphicon-highlight{% endif %}" aria-hidden="true"></span>
         {% if comment.user.first_name and comment.user.last_name%}
         {{ comment.user.first_name}} {{ comment.user.last_name}}
         {% else %}

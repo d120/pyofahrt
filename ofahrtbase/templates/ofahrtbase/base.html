@@ -34,7 +34,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Anmeldung <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li class="{% if pagename == "signup" %}active{% endif %}"><a href="{% url 'members:signup' %}">Zur Anmeldung</a></li>
-              <li class="{% if pagename == "members" %}active{% endif %}"><a href="{% url 'members:list' %}">Teilnehmerliste</a></li>
+              <li class="{% if pagename == "members" %}active{% endif %}"><a href="{% url 'members:list' %}">Teilnehmer*innenliste</a></li>
             </ul>
           </li>
           <li class="{% if pagename == "faq" %}active{% endif %}"><a href="{% url 'faq:overview' %}">FAQ</a></li>
