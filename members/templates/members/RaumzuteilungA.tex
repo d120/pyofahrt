@@ -1,0 +1,40 @@
+\documentclass[a4paper]{tudexercise}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{setspace}
+
+\title{Zimmerverteilung}
+\subtitle{Hier könnt ihr sehen in welchem Zimmer ihr untergebracht seid.}
+
+\newcommand{\eintrag}[1]{
+#1\\
+}
+
+\newcommand{\zimmer}[2]{
+\begin{minipage}{0.25\textwidth}
+\begin{tabular}{|p{3.5cm}|}
+\hline
+\textbf{#1}\\
+\hline
+#2
+\hline
+\end{tabular}
+\vspace{1em}
+\end{minipage}
+}
+
+\setlength{\parindent}{0pt}
+\onehalfspacing
+
+\begin{document}
+
+\maketitle
+
+~\\
+
+{% for room in rooms%}
+\zimmer{ {{room}} }{ {% for member in room.member_set.all %} \eintrag{ {{member}} } {% endfor %} }
+{% endfor %}
+
+\end{document}

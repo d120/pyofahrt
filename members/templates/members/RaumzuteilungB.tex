@@ -1,0 +1,29 @@
+\documentclass[a4paper]{tudexercise}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{ltablex}
+
+\title{Zimmerverteilung}
+\subtitle{Diese Liste zeigt die Verteilung der Teilnehmer auf die Zimmer an.}
+
+
+\newcommand{\tabellenzeile}[3]{
+#1 & #2 & #3 \\
+}
+
+
+\begin{document}
+
+\maketitle
+\vspace{20px}
+\begin{tabularx}{\textwidth}{X|X|X}
+Vorname & Nachname & Zimmer\\
+\hline
+{% for member in members %}
+\tabellenzeile{ {{ member.first_name }} }{ {{ member.last_name }} }{ {% if member.room == None%} \textcolor{red}{\textit{kein Raum zugeteilt}} {% else %} {{ member.room }} {% endif %} }
+{% endfor %}
+\end{tabularx}
+
+\end{document}

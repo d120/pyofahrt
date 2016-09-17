@@ -4,7 +4,12 @@ from ofahrtbase.models import Ofahrt, Setting, Room
 from django.core.mail import EmailMessage
 from pyofahrt import settings
 from django.http import HttpResponse, HttpResponseRedirect
+from django.template import Context
+from django.template.loader import get_template
+from subprocess import Popen, PIPE
+import tempfile
 import math
+import os
 
 
 def saveroomassignment(request):
@@ -18,9 +23,7 @@ def saveroomassignment(request):
 
         if roomid == -1:
             user.room = None
-            print("FALL A")
         else:
-            print("FALL B")
             room = Room.objects.get(pk=roomid)
             user.room = room
         user.save()
@@ -67,6 +70,53 @@ class RoomassignmentView(TemplateView):
         context["rooms"] = Room.objects.all()
         return context
 
+def person_as_pdf(request):
+    members = Member.objects.order_by('last_name')
+    context = Context({
+            'members': members,
+        })
+    template = get_template('members/RaumzuteilungB.tex')
+    rendered_tpl = template.render(context).encode('utf-8')
+    with tempfile.TemporaryDirectory() as tempdir:
+        for i in range(2):
+            process = Popen(
+                ['pdflatex', '-output-directory', tempdir],
+                stdin=PIPE,
+                stdout=PIPE,
+            )
+            process.communicate(rendered_tpl)
+
+        print(os.listdir(tempdir))
+        with open(os.path.join(tempdir, 'texput.pdf'), 'rb') as f:
+            pdf = f.read()
+    r = HttpResponse(content_type='application/pdf')
+    r.write(pdf)
+    return r
+
+
+def room_as_pdf(request):
+    rooms = Room.objects.order_by('name')
+    context = Context({
+            'rooms': rooms,
+        })
+    template = get_template('members/RaumzuteilungA.tex')
+    rendered_tpl = template.render(context).encode('utf-8')
+    with tempfile.TemporaryDirectory() as tempdir:
+        for i in range(2):
+            process = Popen(
+                ['pdflatex', '-output-directory', tempdir],
+                stdin=PIPE,
+                stdout=PIPE,
+            )
+            process.communicate(rendered_tpl)
+
+        with open(os.path.join(tempdir, 'texput.log'), 'rb') as f:
+            print(f.read())
+        with open(os.path.join(tempdir, 'texput.pdf'), 'rb') as f:
+            pdf = f.read()
+    r = HttpResponse(content_type='application/pdf')
+    r.write(pdf)
+    return r
 
 
 
