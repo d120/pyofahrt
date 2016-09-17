@@ -7,6 +7,10 @@ class Article(models.Model):
         verbose_name = "Artikel"
         verbose_name_plural = "Artikel"
 
+        permissions = (
+            ("can_use", "Wikikomponente nutzen"),
+        )
+
     def __str__(self):
         return self.title
 

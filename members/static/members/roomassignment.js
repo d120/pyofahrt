@@ -1,4 +1,10 @@
 $( function() {
+  $( ".member" ).tooltip({
+  content: "Awesome title!",
+  items: "div"
+});
+
+
   $( ".sortablearea" ).sortable({
       connectWith: ".sortablearea",
       receive: function( event, ui ) {
