@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.core.mail import EmailMessage
 from django.contrib.auth.models import Group, User, Permission
+from django.urls import reverse_lazy
 
 from django.views.generic.edit import CreateView, FormView
 from django.views.generic.base import TemplateView
@@ -48,7 +49,7 @@ class ContactView(FormView):
 class PasswordView(FormView):
     template_name = "staff/changepassword/changepassword.html"
     form_class = PasswordForm
-    success_url = "/staff/changepassword/success"
+    success_url = reverse_lazy("staff:changepasswordsuccess")
 
     def get_form_kwargs(self):
         kwargs = super(PasswordView, self).get_form_kwargs()
