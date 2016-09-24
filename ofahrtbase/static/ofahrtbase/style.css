@@ -193,6 +193,14 @@ img#logo {
 }
 
 
+.closedticket {
+  color: #AAAAAA;
+  text-decoration: line-through !important;
+}
+
+.closedticket a {
+  color: #7777FF !important;
+}
 
 .defaultcontainer {
   padding: 25px;

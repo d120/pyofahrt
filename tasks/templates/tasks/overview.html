@@ -19,9 +19,9 @@
     </tr>
     {% endif%}
     {% for ticket in cat.task_set.all|dictsortreversed:"updated_at" %}
-    <tr>
-      <td>{% if ticket.status != "zugewiesen" and ticket.status != "neu" %}<s>{{ ticket.pk }}</s> {% else %}{{ ticket.pk }}{% endif %}{% if user in ticket.editors.all and ticket.status == "zugewiesen" %}&nbsp; <span class="label label-danger" style="padding-top:3px;">my</span>{% endif %}</td>
-      <td><a href="{% url "tasks:showticket" ticket.pk %}">{% if ticket.status != "zugewiesen" and ticket.status != "neu" %}<s>{{ ticket.name }}</s> {% else %}{{ ticket.name }}{% endif %}</a></td>
+    <tr{% if ticket.status != "zugewiesen" and ticket.status != "neu" %} class="closedticket"{% endif %}>
+      <td>{{ ticket.pk }}{% if user in ticket.editors.all and ticket.status == "zugewiesen" %}&nbsp; <span class="label label-danger" style="padding-top:3px;">my</span>{% endif %}</td>
+      <td><a href="{% url "tasks:showticket" ticket.pk %}">{{ ticket.name }}</a></td>
       <td>{% if ticket.editors.all.count == 0 %}<i>- derzeit niemand -</i>{% else %}{% for editor in ticket.editors.all %}
         {% if editor.first_name and editor.last_name%}
         {{ editor.first_name}} {{ editor.last_name}}
