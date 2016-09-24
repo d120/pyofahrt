@@ -7,11 +7,11 @@
   <a href="{% url "tasks:createinit" cat.id %}">Ticket anlegen</a>
   <table class="table table-striped">
     <tr>
-      <th>#</th>
-      <th>Aufgabe</th>
-      <th>Bearbeiter*in</th>
-      <th>Status</th>
-      <th>Letzte Änderung</th>
+      <th style="width:10%;">#</th>
+      <th style="width:30%;">Aufgabe</th>
+      <th style="width:30%;">Bearbeiter*in</th>
+      <th style="width:10%;">Status</th>
+      <th style="width:20%;">Letzte Änderung</th>
     </tr>
     {% if cat.task_set.all.count == 0 %}
     <tr>
