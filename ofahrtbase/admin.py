@@ -17,7 +17,8 @@ class LocationAdmin(admin.ModelAdmin):
 
 @admin.register(Room)
 class RoomAdmin(admin.ModelAdmin):
-    list_filter = ('building',)
+    list_filter = ('building', 'usecase_sleep', 'usecase_workshop', 'usecase_meal', 'usecase_store', 'usecase_outside')
+    list_display = ['__str__', 'capacity', 'usecase_sleep', 'usecase_workshop', 'usecase_meal', 'usecase_store', 'usecase_outside']
     save_as = True
     pass
 

@@ -54,11 +54,11 @@ class Room(models.Model):
 
     capacity = models.IntegerField("Kapazität", help_text="Wie viele Teilnehmer passen in diesen Raum?", default=0)
 
-    usecase_sleep = models.BooleanField("Nutzbar als Schlafraum", default=False)
-    usecase_workshop = models.BooleanField("Nutzbar für Workshops", default=False)
-    usecase_outside = models.BooleanField("Nutzbar als Freifläche", default=False)
-    usecase_store = models.BooleanField("Nutzbar als Lager", default=False)
-    usecase_meal = models.BooleanField("Nutzbar als Essensraum", default=False)
+    usecase_sleep = models.BooleanField("Schlafraum", default=False)
+    usecase_workshop = models.BooleanField("Workshops", default=False)
+    usecase_outside = models.BooleanField("Freifläche", default=False)
+    usecase_store = models.BooleanField("Lagerraum", default=False)
+    usecase_meal = models.BooleanField("Essensraum", default=False)
 
     def __str__(self):
         return self.name

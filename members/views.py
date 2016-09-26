@@ -1,4 +1,5 @@
 from django.views.generic import CreateView, TemplateView
+from django.db.models import Q
 from members.models import Member
 from ofahrtbase.models import Ofahrt, Setting, Room
 from django.core.mail import EmailMessage
@@ -66,8 +67,8 @@ class RoomassignmentView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(RoomassignmentView, self).get_context_data(**kwargs)
-        context["users"] = Member.objects.all().filter(room=None)
-        context["rooms"] = Room.objects.all()
+        context["users"] = Member.objects.all().filter(Q(room=None) | Q(room__usecase_sleep=False))
+        context["rooms"] = Room.objects.all().filter(usecase_sleep=True)
         return context
 
 def person_as_pdf(request):
