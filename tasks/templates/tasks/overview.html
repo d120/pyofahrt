@@ -24,12 +24,9 @@
       <td><a href="{% url "tasks:showticket" ticket.pk %}">{{ ticket.name }}</a></td>
       <td>{% if ticket.editors.all.count == 0 %}<i>- derzeit niemand -</i>{% else %}{% for editor in ticket.editors.all %}
         {% if editor.first_name and editor.last_name%}
-        {{ editor.first_name}} {{ editor.last_name}}
-        {% else %}
-        {{ editor.username}}
-        {% endif %}
-        {% if not forloop.last %}, {% endif %}
-        {% endfor %}{% endif %}</td>
+        {{ editor.first_name}} {{ editor.last_name}}{% else %}
+        {{ editor.username}}{% endif %}{% if not forloop.last %},{% endif %}{% endfor %}{% endif %}
+      </td>
       <td>{{ ticket.status }}</td>
       <td>{{ ticket.updated_at }}</td>
     </tr>
