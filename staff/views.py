@@ -79,36 +79,6 @@ class PasswordSuccessView(TemplateView):
 
 
 
-class CreateSuperuserView(TemplateView):
-    template_name = "staff/createsuperuser.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(CreateSuperuserView, self).get_context_data(**kwargs)
-        if User.objects.all().filter(username="leitung").count() == 0:
-            User.objects.create_superuser("leitung", "ofahrt-leitung@d120.de", settings.SUPER_PASSWORD)
-
-            mail = EmailMessage()
-            mail.subject = settings.MAIL_SUPERUSER_SUCCESS_SUBJECT
-            mail.body = settings.MAIL_SUPERUSER_SUCCESS_TEXT
-            mail.to = ["ofahrt-leitung@d120.de"]
-            mail.send()
-
-            context["success"] = True
-        else:
-            User.objects.all().filter(username="leitung")[0].set_password(settings.SUPER_PASSWORD)
-
-
-            mail = EmailMessage()
-            mail.subject = settings.MAIL_SUPERUSER_ERROR_SUBJECT
-            mail.body = settings.MAIL_SUPERUSER_ERROR_TEXT
-            mail.to = ["ofahrt-leitung@d120.de"]
-            mail.send()
-            context["success"] = False
-        return context
-
-
-
-
 class SignUpWorkshopView(CreateView):
     model = WorkshopCandidate
     template_name = "staff/signup_workshop.html"

@@ -16,5 +16,4 @@ urlpatterns = [
     url(r'^success$', views.SuccessView.as_view(), name='successcontact'),
     url(r'^changepassword$', views.PasswordView.as_view(), name='changepassword'),
     url(r'^changepassword/success$', views.PasswordSuccessView.as_view(), name='changepasswordsuccess'),
-    url(r'^createsuperuser$', views.CreateSuperuserView.as_view(), name='createsuperuser'),
 ]
