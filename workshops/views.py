@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.views.generic.base import TemplateView
-from django.views.generic.edit import UpdateView, DeleteView, CreateView
+from django.views.generic.edit import UpdateView, DeleteView, CreateView, FormView
 from django.views.generic import DetailView
 from .models import Workshop
+from .forms import DuplicateForm
 from ofahrtbase.models import Ofahrt
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User, Group
+from django.urls import reverse_lazy
 
 # Create your views here.
 
@@ -21,6 +23,25 @@ class OverviewView(TemplateView):
         return context
 
 
+class WorkshopDuplicateView(FormView):
+    template_name = "workshops/duplicateworkshop.html"
+    form_class = DuplicateForm
+    success_url = reverse_lazy("workshops:overview")
+
+    def get_context_data(self, **kwargs):
+        context = super(WorkshopDuplicateView, self).get_context_data(**kwargs)
+        context["object"] = Workshop.objects.get(pk=self.kwargs["pk"])
+        return context
+
+    def form_valid(self, form):
+        original = Workshop.objects.get(pk=self.kwargs["pk"])
+        original.pk = None
+        original.slot = form.cleaned_data.get('slot')
+        original.save()
+        return super(WorkshopDuplicateView, self).form_valid(form)
+
+
+
 class WorkshopView(DetailView):
     template_name = "workshops/showworkshop.html"
     model = Workshop
@@ -28,6 +49,8 @@ class WorkshopView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(WorkshopView, self).get_context_data(**kwargs)
         return context
+
+
 
 class WorkshopTakeView(DetailView):
     template_name = "workshops/takeworkshop.html"

@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/edit$', permission_required("workshops.can_use")(views.WorkshopEditView.as_view()), name='edit'),
     url(r'^(?P<pk>[0-9]+)/delete$', permission_required("workshops.can_use")(views.WorkshopDeleteView.as_view()), name='delete'),
     url(r'^(?P<pk>[0-9]+)/reassign$', permission_required("workshops.assignworkshop")(views.WorkshopAssignView.as_view()), name='reassign'),
+    url(r'^(?P<pk>[0-9]+)/duplicate$', permission_required("workshops.assignworkshop")(views.WorkshopDuplicateView.as_view()), name='duplicate'),
     url(r'^(?P<pk>[0-9]+)/take$', permission_required("workshops.can_use")(views.WorkshopTakeView.as_view()), name='take'),
     url(r'^(?P<pk>[0-9]+)/takeit$', permission_required("workshops.can_use")(views.takeit), name='takeit'),
     url(r'^create$', permission_required("workshops.can_use")(views.WorkshopCreateView.as_view()), name='create')
