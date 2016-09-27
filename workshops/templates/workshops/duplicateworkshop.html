@@ -1,0 +1,23 @@
+{% extends "workshops/workshopbase.html" %} {% load staticfiles %} {% block title %}Workshop dublizieren{% endblock %} {% block workshopcontent %} {% load bootstrap3 %}
+
+  <h3 style="margin-bottom:25px;">Workshop #{{ object.id }} - {{ object.name }}</h3>
+  <ol class="breadcrumb">
+    <li><a href="{% url "workshops:overview" %}">Workshopverwaltung</a></li>
+    <li><a href="{% url "workshops:show" object.id %}">{{ object.name }}</a></li>
+    <li class="active">Workshop dublizieren</li>
+  </ol>
+  <p>
+    Auf dieser Seite kannst du den Workshop <i>#{{ object.id }} - {{ object.name }}</i> (Slot: {{ object.slot }}) in einen anderen Zeitslot hineinduplizieren.
+  </p>
+  <form action="" method="post" class="form">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      {% bootstrap_icon "pencil" %} Workshop duplizieren
+    </button>
+  {% endbuttons %}
+</form>
+
+
+{% endblock %}
