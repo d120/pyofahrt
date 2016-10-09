@@ -98,7 +98,7 @@ class WorkshopDeleteView(DeleteView):
 class WorkshopCreateView(CreateView):
     template_name = "workshops/createworkshop.html"
     model = Workshop
-    fields = ["name", "description", "requirements", "conditions"]
+    fields = ["name", "description", "requirements", "conditions", "maxmembers", "otherstuff"]
 
     def get_context_data(self, **kwargs):
         context = super(WorkshopCreateView, self).get_context_data(**kwargs)

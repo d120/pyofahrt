@@ -14,12 +14,16 @@
   <br />{% if object.description|length == 0%}<i>- derzeit keine Beschreibung vorhanden -</i>{% else %}{{ object.description }}{% endif %}
 
   <br /><br />
+
+  <b>Maximale Teilnehmer*innen:</b> {{ object.maxmembers }}<br /><br />
   {% if  object.requirements|length == 0 %}
   <i>Für diesen Workshop werden keine weiteren Materialien benötigt.</i>
   {% else %}
   <b>Dieser Workshop benötigt folgende Materialien:</b><br />
   {{ object.requirements }}
-  {% endif %}  <br /><br />
+  {% endif %}
+  <br />
+  <br />
 
   {% if  object.conditions|length == 0 %}
   <i>Für diesen Workshop gibt es keine Teilnahmebeschränkung.</i>
@@ -29,6 +33,15 @@
   {% endif %}
     <br />
     <br />
+
+
+  {% if  object.otherstuff|length > 0 %}
+  <b>Sonstige Informationen:</b><br />
+  {{ object.otherstuff }}
+
+    <br />
+    <br />
+  {% endif %}
   <div class="btn-group" role="group" aria-label="...">
     {% if request.user in object.host.all or perms.workshops.editeveryworkshop %}<a href="{% url "workshops:edit" object.id %}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> bearbeiten</a>{% endif %}
     {% if perms.workshops.assignworkshop %}<a href="{% url "workshops:reassign" object.id %}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Zuweisung ändern</a>{% endif %}

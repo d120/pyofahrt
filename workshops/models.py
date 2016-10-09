@@ -79,6 +79,8 @@ class Workshop(models.Model):
     requirements = models.TextField("Materialbedarf", blank=True)
     conditions = models.TextField("Teilnahmebedingungen", blank=True)
     host = models.ManyToManyField(User, verbose_name="Workshopanbieter", blank=True)
+    maxmembers = models.IntegerField("Maximale Teilnehmer", blank=True, default=0)
+    otherstuff = models.TextField("Sonstiges", blank=True)
 
     accepted = models.BooleanField("Akzeptiert", help_text="Workshopidee ist in Ordnung", default=False)
     proved = models.BooleanField("Geprüft", help_text="Der aktuelle Workshopstand ist durch den Workshoporga geprüft.", default=False)
