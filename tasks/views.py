@@ -42,7 +42,7 @@ class TicketEditView(UpdateView):
         mail = EmailMessage()
         mail.subject = settings.MAIL_TICKETEDIT_SUBJECT % {'id' : self.object.id}
         mail.body = settings.MAIL_TICKETEDIT_TEXT % {'id' : self.object.id, 'subject' : self.object.name, 'cat' : self.object.category.name, 'name' : self.request.user.get_full_name(), 'link' : "http://d120.de/ofahrt/tasks/" + str(self.object.id)}
-        temp = User.objects.all().filter(groups__in=self.object.category.access_for.all())
+        temp = User.objects.all().filter(groups__in=self.object.category.responsible_for.all())
         bcc = []
         for user in temp:
             bcc.append(user.email)
@@ -99,7 +99,7 @@ class TicketAssignView(UpdateView):
         mail = EmailMessage()
         mail.subject = settings.MAIL_TICKETASSIGN_SUBJECT % {'id' : self.object.id}
         mail.body = settings.MAIL_TICKETASSIGN_TEXT % {'id' : self.object.id, 'subject' : self.object.name, 'cat' : self.object.category.name, 'name' : self.request.user.get_full_name(), 'link' : "http://d120.de/ofahrt/tasks/" + str(self.object.id), 'editors' : ", ".join(editorlist)}
-        temp = User.objects.all().filter(groups__in=self.object.category.access_for.all())
+        temp = User.objects.all().filter(groups__in=self.object.category.responsible_for.all())
         bcc = []
         for user in temp:
             bcc.append(user.email)
@@ -135,7 +135,7 @@ def push(request, ticket):
             mail = EmailMessage()
             mail.subject = settings.MAIL_TICKETPUSH_SUBJECT % {'id' : int(ticket)}
             mail.body = settings.MAIL_TICKETPUSH_TEXT % {'id' : int(ticket), 'subject' : element.name, 'cat' : element.category.name, 'name' : request.user.get_full_name(), 'link' : "http://d120.de/ofahrt/tasks/" + str(element.id)}
-            temp = User.objects.all().filter(groups__in=element.category.access_for.all())
+            temp = User.objects.all().filter(groups__in=element.category.responsible_for.all())
             bcc = []
             for user in temp:
                 bcc.append(user.email)
@@ -232,7 +232,7 @@ class CommentView(CreateView):
         mail = EmailMessage()
         mail.subject = settings.MAIL_TICKETNEWCOMMENT_SUBJECT % {'id' : self.object.id}
         mail.body = settings.MAIL_TICKETNEWCOMMENT_TEXT % {'id' : self.object.ticket.id, 'subject' : self.object.ticket.name, 'cat' : self.object.ticket.category.name, 'name' : self.request.user, 'link' : "http://d120.de/ofahrt/tasks/" + str(self.object.ticket.id)}
-        temp = User.objects.all().filter(groups__in=self.object.ticket.category.access_for.all())
+        temp = User.objects.all().filter(groups__in=self.object.ticket.category.responsible_for.all())
         bcc = []
         for user in temp:
             bcc.append(user.email)
@@ -276,7 +276,7 @@ class TicketCreateView(CreateView):
         mail = EmailMessage()
         mail.subject = settings.MAIL_TICKETNEW_SUBJECT % {'cat' : self.object.category.name}
         mail.body = settings.MAIL_TICKETNEW_TEXT % {'id' : self.object.id, 'subject' : self.object.name, 'cat' : self.object.category.name, 'name' : self.request.user.get_full_name(), 'link' : "http://d120.de/ofahrt/tasks/" + str(self.object.id)}
-        temp = User.objects.all().filter(groups__in=self.object.category.access_for.all())
+        temp = User.objects.all().filter(groups__in=self.object.category.responsible_for.all())
         bcc = []
         for user in temp:
             bcc.append(user.email)

@@ -12,6 +12,7 @@ class TaskCategory(models.Model):
     name = models.CharField("Aufgabe", max_length=255)
     description = models.TextField("Beschreibung", blank=True)
     access_for = models.ManyToManyField(Group, verbose_name="Zugang für")
+    responsible_for = models.ManyToManyField(Group, verbose_name="Hauptzuständige Gruppe", related_name="responsible")
 
     def __str__(self):
         return self.name
