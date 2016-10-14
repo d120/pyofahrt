@@ -11,6 +11,8 @@ SECRET_KEY = secrets.SECRET_KEY
 
 SUPER_PASSWORD = secrets.SUPER_PASSWORD
 
+MAIL_MEMBERSIGNUP_TEXT = secrets.MAIL_MEMBERSIGNUP_TEXT
+
 DEBUG = False
 
 ALLOWED_HOSTS = ['.fachschaft.informatik.tu-darmstadt.de', '.d120.de']
@@ -47,3 +49,5 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'pyofahrt'
 EMAIL_HOST_PASSWORD = secrets.MAIL_PASSWORD
+
+

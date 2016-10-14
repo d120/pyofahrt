@@ -3,7 +3,8 @@ from django.db.models import Q
 from members.models import Member
 from ofahrtbase.models import Ofahrt, Setting, Room
 from django.core.mail import EmailMessage
-from pyofahrt import settings
+#from pyofahrt import settings
+from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Context
 from django.template.loader import get_template
