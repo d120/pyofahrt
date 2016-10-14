@@ -8,6 +8,7 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Context
 from django.template.loader import get_template
+from django.urls import reverse_lazy
 from subprocess import Popen, PIPE
 import tempfile
 import math
@@ -35,10 +36,9 @@ def saveroomassignment(request):
 
 class SignUpView(CreateView):
     template_name = "members/signup.html"
-    success_url = "/members/success"
+    success_url = reverse_lazy('members:success')
     model = Member
     fields = ['first_name', 'last_name', 'gender', 'email', 'birth_date', 'food_preference', 'food_handicaps', 'free_text']
-    success_url = "/ofahrt/members/success"
 
     def form_valid(self, form):
         member = form.save(commit=False)

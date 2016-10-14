@@ -31,7 +31,7 @@ class SignUpView(TemplateView):
 class ContactView(FormView):
     template_name = "staff/contact.html"
     form_class = ContactForm
-    success_url = "/staff/success"
+    success_url = reverse_lazy('staff:successcontact')
 
     def form_valid(self, form):
         email = form.cleaned_data.get('email')
@@ -82,7 +82,7 @@ class PasswordSuccessView(TemplateView):
 class SignUpWorkshopView(CreateView):
     model = WorkshopCandidate
     template_name = "staff/signup_workshop.html"
-    success_url = "/staff/signup/success"
+    success_url = reverse_lazy('staff:success')
 
     fields = ['first_name', 'last_name', 'email', 'phone', 'workshop_ideas']
 
@@ -114,7 +114,7 @@ class SignUpOrgaView(CreateView):
     model = OrgaCandidate
 
     template_name = "staff/signup_orga.html"
-    success_url = "/staff/signup/success"
+    success_url = reverse_lazy('staff:success')
 
     fields = ['first_name', 'last_name', 'email', 'phone', 'orga_for']
 
