@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.utils import OperationalError
 from datetime import date
 
 class Ofahrt(models.Model):
@@ -17,7 +18,7 @@ class Ofahrt(models.Model):
     def current():
         try:
             return Ofahrt.objects.get(active=True)
-        except Ofahrt.DoesNotExist:
+        except (Ofahrt.DoesNotExist, OperationalError):
             return None
 
 class Location(models.Model):
