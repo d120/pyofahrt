@@ -38,7 +38,7 @@ class SignUpView(CreateView):
     success_url = "/members/success"
     model = Member
     fields = ['first_name', 'last_name', 'gender', 'email', 'birth_date', 'food_preference', 'food_handicaps', 'free_text']
-    success_url = "/members/success"
+    success_url = "/ofahrt/members/success"
 
     def form_valid(self, form):
         member = form.save(commit=False)
