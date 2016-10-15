@@ -9,8 +9,6 @@ import pyofahrt.settings_secrets as secrets
 
 SECRET_KEY = secrets.SECRET_KEY
 
-SUPER_PASSWORD = secrets.SUPER_PASSWORD
-
 BANK_ACCOUNT = secrets.BANK_ACCOUNT
 
 DEBUG = False
