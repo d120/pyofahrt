@@ -77,9 +77,9 @@ class Setting(models.Model):
             return False
 
         dicts = {
-            "orga_reg_open": "Orgaregistrierung geöffnet",
-            "workshop_reg_open": "Workshopanmeldung geöffnet",
-            "member_reg_open": "Teilnehmerregistrierung geöffnet",
+            "orga_reg_open": "Orgaregistrierung",
+            "workshop_reg_open": "Workshopanmeldung",
+            "member_reg_open": "Teilnehmerregistrierung",
         }
 
         # Löscht veraltete Einträge
@@ -97,4 +97,4 @@ class Setting(models.Model):
 
 
     def __str__(self):
-        return self.key
+        return self.readable
