@@ -39,7 +39,7 @@ class ContactView(FormView):
 
         mail = EmailMessage()
         mail.subject = settings.MAIL_CONTACTFORM_SUBJECT
-        mail.body = settings.MAIL_CONTACTFORM_SUBJECT % {'sender' : email, 'text' : text}
+        mail.body = settings.MAIL_CONTACTFORM_TEXT % {'sender' : email, 'text' : text}
         mail.to = [settings.SERVER_EMAIL]
         mail.send()
 
