@@ -46,7 +46,7 @@ class SignUpView(CreateView):
 
         email = EmailMessage()
         email.subject = settings.MAIL_MEMBERSIGNUP_SUBJECT % (member.base.begin_date.year)
-        email.body = settings.MAIL_MEMBERSIGNUP_TEXT % (member.first_name, member.base.begin_date.year)
+        email.body = settings.MAIL_MEMBERSIGNUP_TEXT % (member.first_name, member.base.begin_date.year, settings.BANK_ACCOUNT)
         email.to = [member.email]
         email.send()
 
