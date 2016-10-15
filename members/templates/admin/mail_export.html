@@ -1,0 +1,12 @@
+{% extends "admin/breadcrumbs_adminaction.html" %}
+
+
+{% block content %}
+<p>
+Es wurde{{ persons.count|pluralize:"n" }} {{ persons.count }} Person{{ persons.count|pluralize:"en" }} ausgewählt.
+</p>
+
+<textarea cols="60" rows="15">
+{% for person in persons %}{{ person.first_name }} {{ person.last_name}} <{{person.email}}>, {% endfor %}</textarea>
+
+{% endblock %}
