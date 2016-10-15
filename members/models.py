@@ -5,7 +5,14 @@ from ofahrtbase.models import Ofahrt, Room
 # Create your models here.
 
 class FoodHandicaps(models.Model):
-    pass
+    class Meta:
+        verbose_name = "Lebensmittelunverträglichkeit"
+        verbose_name_plural = "Lebensmittelunverträglichkeiten"
+
+    text = models.CharField("Lebensmittelunverträglichkeit", max_length=50)
+
+    def __str__(self):
+        return self.text
 
 
 class Member(models.Model):
