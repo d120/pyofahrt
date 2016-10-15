@@ -18,7 +18,25 @@
     {% endbuttons %}
     </form>
     {% else %}
-      <div class="alert alert-warning" role="alert"><b>Hinweis:</b> Die Anmeldung für Erstsemester*innen ist derzeit geschlossen. Die Anmeldung wird während der Abschlussveranstaltung der Ophase am Freitag live geöffnet.</div>
+      {% if members_cond == 0 and members_fin == 0 %}
+      {% comment %}Niemand ist angemeldet, zeitlich also vor der ersten Öffnung{% endcomment %}
+      <div class="alert alert-warning" role="alert">
+        <b>Hinweis:</b> Die Anmeldung für Erstsemester*innen ist derzeit noch geschlossen und wird während der Abschlussveranstaltung der Ophase am Freitag live geöffnet.
+      </div>
+      {% elif members_fin < 70 %}
+      {% comment %}Jemand ist angemeldet, die festen Plätze aber noch nicht voll. Derzeit wird also auf Überweisungen gewartet{% endcomment %}
+      <div class="alert alert-warning" role="alert">
+        <b>Hinweis:</b> Die Anmeldung für Erstsemester*innen ist aktuell geschlossen, da genügend Anmeldungen vorhanden sind.
+        <br /><br />
+        Derzeit haben jedoch noch nicht alle angemeldeten Teilnehmer*innen den Teilnahmebeitrag überwiesen und sind somit noch nicht fest angemeldet.
+        Falls dies nicht in den nächsten Tagen geschieht wird die Anmeldung erneut geöffnet werden. Schau also am besten später nocheinmal vorbei.
+      </div>
+      {% else %}
+      {% comment %}Jemand ist angemeldet und die festen Plätze voll. Die Anmeldung wird daher nicht mehr geöffnet werden{% endcomment %}
+      <div class="alert alert-warning" role="alert">
+        <b>Hinweis:</b> Die Anmeldung für Erstsemester*innen ist leider bereits geschlossen, da die maximale Teilnehmerzahl erreicht wurde.
+      </div>
+      {% endif %}
     {% endif %}
   </div>
 {% endblock %}

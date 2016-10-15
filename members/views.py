@@ -55,6 +55,8 @@ class SignUpView(CreateView):
     def get_context_data(self, **kwargs):
         context = super(SignUpView, self).get_context_data(**kwargs)
         context["member_reg_open"] = Setting.get_Setting("member_reg_open")
+        context["members_fin"] = Member.objects.filter(money_received=True).count()
+        context["members_cond"] = Member.objects.filter(money_received=False).count()
         return context
 
 
