@@ -141,9 +141,9 @@ class IntegerSetting(models.Model):
 
         temp = IntegerSetting.objects.filter(key=keyx)
         if temp.count() == 0:
-            newtemp = IntegerSetting(key=keyx, value=0, readable=dicts[keyx])
+            newtemp = IntegerSetting(key=keyx, value=1, readable=dicts[keyx])
             newtemp.save()
-            temp = 0
+            temp = 1
         else:
             temp = temp[0].value
         return temp

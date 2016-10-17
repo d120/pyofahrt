@@ -1,7 +1,7 @@
 from django.views.generic import CreateView, TemplateView
 from django.db.models import Q
 from members.models import Member
-from ofahrtbase.models import Ofahrt, Setting, Room
+from ofahrtbase.models import Ofahrt, Setting, Room, IntegerSetting
 from django.core.mail import EmailMessage
 #from pyofahrt import settings
 from django.conf import settings
@@ -128,10 +128,14 @@ class MemberlistView(TemplateView):
     template_name = "members/memberlist.html"
 
     def get_context_data(self, **kwargs):
+
+        max_members = IntegerSetting.get_Setting("max_members")
+
         context = super(MemberlistView, self).get_context_data(**kwargs)
         context["members_cond"] = Member.objects.filter(money_received = False)
         context["members_fin"] = Member.objects.filter(money_received = True)
-        context["width"] = math.ceil((context["members_fin"].count() / 70.) * 100)
+        context["width"] = math.ceil((context["members_fin"].count() / max_members) * 100)
+        context["max_members"] = max_members
 
         for index, member in enumerate(context["members_cond"]):
             context["members_cond"][index].last_name = member.last_name[:1] + "."
