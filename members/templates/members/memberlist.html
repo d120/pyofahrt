@@ -8,6 +8,7 @@
 <ul style="list-style-type: square;">
   <li><a href="#fin">feste Teilnehmer*innenliste</a></li>
   <li><a href="#cond">vorläufige Teilnehmer*innenliste</a></li>
+  <li><a href="#queue">Warteschlange</a></li>
 </ul>
 
 
@@ -49,6 +50,26 @@
     <th>Anmeldedatum</th>
   </tr>
 {% for member in members_cond %}
+  <tr>
+    <td>{{ member.first_name }} {{ member.last_name }}</td>
+    <td>{{ member.created_at }}</td>
+  </tr>
+{% endfor %}
+</table>
+<br /><br /><br />
+<a name="cond"></a><h2 class="h2">Warteschlange ({{ members_queue.count }})</h2>
+<p>Wenn dein Name auf dieser Liste steht bist du in der Nachrücker*innenwarteschlange und wirst per Email informiert sobald ein Platz frei wird. Die Anmeldungen aus der vorläufigen Teilnehmer*innenliste werden nach etwa einer Woche gelöscht, sofern der Teilnahmebeitrag bei uns nicht eingegangen ist.</p>
+<table class="table table-striped">
+{% if members_queue.count == 0 %}
+  <tr>
+    <td colspan="3" style="text-align:center;" table-striped><i>Derzeit gibt es keine Teilnehmer*innen auf dieser Liste.</i></td>
+  </tr>
+{% endif %}
+  <tr>
+    <th>Name</th>
+    <th>Anmeldedatum</th>
+  </tr>
+{% for member in members_queue %}
   <tr>
     <td>{{ member.first_name }} {{ member.last_name }}</td>
     <td>{{ member.created_at }}</td>

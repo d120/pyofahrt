@@ -3,7 +3,6 @@ from django.db.models import Q
 from members.models import Member
 from ofahrtbase.models import Ofahrt, Setting, Room, IntegerSetting
 from django.core.mail import EmailMessage
-#from pyofahrt import settings
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Context
@@ -13,6 +12,7 @@ from subprocess import Popen, PIPE
 import tempfile
 import math
 import os
+import datetime
 
 
 def saveroomassignment(request):
@@ -44,6 +44,21 @@ class SignUpView(CreateView):
         member = form.save(commit=False)
         member.base = Ofahrt.current()
 
+        max_members = IntegerSetting.get_Setting("max_members")
+        queue_size = IntegerSetting.get_Setting("queue_tolerance")
+        members_fin = Member.objects.filter(money_received=True).count()
+        members_queue = Member.objects.filter(money_received=False).filter(queue=True).count()
+
+        #Einstufung // Fall voll gibt es nicht
+        if (members_fin + members_queue) < (max_members + queue_size):
+            #Gesamtanmeldung noch nicht ausgelastet, Platz in der Queue
+            #Neuanmeldungen fließen direkt auf die vorläufige Anmeldeliste
+            member.queue = True
+            member.queue_deadline = datetime.datetime.now() + datetime.timedelta(7)
+        else:
+            #vorläufige Anmeldeliste ist voll. Anmeldungen kommen in die Warteschlange
+            member.queue = False
+
         email = EmailMessage()
         email.subject = settings.MAIL_MEMBERSIGNUP_SUBJECT % (member.base.begin_date.year)
         email.body = settings.MAIL_MEMBERSIGNUP_TEXT % (member.first_name, member.base.begin_date.year, settings.BANK_ACCOUNT)
@@ -53,10 +68,17 @@ class SignUpView(CreateView):
         return super(SignUpView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
+
+        max_members = IntegerSetting.get_Setting("max_members")
+        queue_size = IntegerSetting.get_Setting("queue_tolerance")
+        members_fin = Member.objects.filter(money_received=True).count()
+        members_queue = Member.objects.filter(money_received=False).filter(queue=True).count()
+
         context = super(SignUpView, self).get_context_data(**kwargs)
         context["member_reg_open"] = Setting.get_Setting("member_reg_open")
-        context["members_fin"] = Member.objects.filter(money_received=True).count()
-        context["members_cond"] = Member.objects.filter(money_received=False).count()
+        context["members_fin"] = members_fin
+        context["queue"] = (members_fin + members_queue) < (max_members + queue_size)
+
         return context
 
 
@@ -132,7 +154,8 @@ class MemberlistView(TemplateView):
         max_members = IntegerSetting.get_Setting("max_members")
 
         context = super(MemberlistView, self).get_context_data(**kwargs)
-        context["members_cond"] = Member.objects.filter(money_received = False)
+        context["members_cond"] = Member.objects.filter(money_received = False).filter(queue=True)
+        context["members_queue"] = Member.objects.filter(money_received = False).filter(queue=False)
         context["members_fin"] = Member.objects.filter(money_received = True)
         context["width"] = math.ceil((context["members_fin"].count() / max_members) * 100)
         context["max_members"] = max_members
@@ -142,5 +165,8 @@ class MemberlistView(TemplateView):
 
         for index, member in enumerate(context["members_fin"]):
             context["members_fin"][index].last_name = member.last_name[:1] + "."
+
+        for index, member in enumerate(context["members_queue"]):
+            context["members_queue"][index].last_name = member.last_name[:1] + "."
 
         return context

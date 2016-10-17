@@ -8,6 +8,12 @@
     <p>
       Mit diesem Formular kannst du dich als Teilnehmer*in für die Erstsemesterfahrt anmelden.
     </p>
+    {% if not queue %}
+    <div class="alert alert-warning" role="alert">
+    <b>Hinweis:</b> Aktuell sind bereits zu viele Anmeldungen eingegangen. Sofern du dich im folgenden anmeldest wirst du in die Warteschlange eingereiht. <br />
+    Angemeldete Teilnehmer*innen befinden sich bis zum Geldeingang auf der <a href="{% url "members:list" %}#cond">vorläufigen Anmeldeliste</a>. Nach etwa einer Woche ohne Geldeingang werden die Anmeldungen wieder gelöscht und mit Anmeldungen aus der Warteschlange aufgefüllt. Wir informieren dich in diesem Fall per Email.
+  </div>
+    {% endif %}
     <form action="" method="post" class="form">
     {% csrf_token %}
     {% bootstrap_form form %}
@@ -18,25 +24,15 @@
     {% endbuttons %}
     </form>
     {% else %}
-      {% if members_cond == 0 and members_fin == 0 %}
-      {% comment %}Niemand ist angemeldet, zeitlich also vor der ersten Öffnung{% endcomment %}
+    {% if members_fin > 0 %}
       <div class="alert alert-warning" role="alert">
-        <b>Hinweis:</b> Die Anmeldung für Erstsemester*innen ist derzeit noch geschlossen und wird während der Abschlussveranstaltung der Ophase am Freitag live geöffnet.
+        <b>Hinweis:</b> Die Anmeldung für Erstsemester*innen ist leider bereits geschlossen.
       </div>
-      {% elif members_fin < 70 %}
-      {% comment %}Jemand ist angemeldet, die festen Plätze aber noch nicht voll. Derzeit wird also auf Überweisungen gewartet{% endcomment %}
-      <div class="alert alert-warning" role="alert">
-        <b>Hinweis:</b> Die Anmeldung für Erstsemester*innen ist aktuell geschlossen, da genügend Anmeldungen vorhanden sind.
-        <br /><br />
-        Derzeit haben jedoch noch nicht alle angemeldeten Teilnehmer*innen den Teilnahmebeitrag überwiesen und sind somit noch nicht fest angemeldet.
-        Falls dies nicht in den nächsten Tagen geschieht wird die Anmeldung erneut geöffnet werden. Schau also am besten später nocheinmal vorbei.
-      </div>
-      {% else %}
-      {% comment %}Jemand ist angemeldet und die festen Plätze voll. Die Anmeldung wird daher nicht mehr geöffnet werden{% endcomment %}
-      <div class="alert alert-warning" role="alert">
-        <b>Hinweis:</b> Die Anmeldung für Erstsemester*innen ist leider bereits geschlossen, da die maximale Teilnehmerzahl erreicht wurde.
-      </div>
-      {% endif %}
+    {% else %}
+    <div class="alert alert-warning" role="alert">
+      <b>Hinweis:</b> Die Anmeldung für Erstsemester*innen ist bisher noch geschlossen und wirst erst auf der Abschlussveranstaltung der Ophase am Freitag live eröffnet werden.
+    </div>
+    {% endif%}
     {% endif %}
   </div>
 {% endblock %}

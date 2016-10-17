@@ -46,7 +46,9 @@ class Member(models.Model):
     food_handicaps = models.ManyToManyField(FoodHandicaps ,verbose_name = "Sonstige Lebensmittelunverträglichkeiten", blank=True)
 
     is_really_ersti = models.BooleanField("Geprüft ob Ersti?", default=False)
-    money_received = models.BooleanField("Geld eingegangen?", default=False)
+    queue = models.BooleanField("Warten auf Geldeingang")
+    queue_deadline = models.DateTimeField("Deadline für Geldeingang", null=True)
+    money_received = models.BooleanField("Festangemeldet?", default=False)
 
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Eingetragen am")
@@ -59,7 +61,7 @@ class Member(models.Model):
     def is_full_aged(self):
         return date.today() >= date(self.birth_date.year + 18, int(self.birth_date.month), int(self.birth_date.day) )
     is_full_aged.boolean = True
-    is_full_aged.short_description = "Volljährig?"
+    is_full_aged.short_description = "Derzeit volljährig?"
 
 
     def __str__(self):

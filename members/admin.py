@@ -10,7 +10,7 @@ admin.site.register(FoodHandicaps)
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
     actions = [admin_actions.mail_export, admin_actions.mark_participants_contributing_paid]
-    list_display = ('first_name', 'last_name', 'gender', 'money_received', 'is_really_ersti', 'is_full_aged')
+    list_display = ('first_name', 'last_name', 'gender', 'money_received', 'is_really_ersti', 'is_full_aged', 'queueinfo')
     list_filter = ('gender', 'money_received', 'is_really_ersti', 'room')
     fieldsets = (
         ('Ofahrt', {
@@ -23,9 +23,18 @@ class MemberAdmin(admin.ModelAdmin):
             'fields': ('food_preference', 'food_handicaps'),
         }),
         ('Status', {
-            'fields': ('money_received', 'is_really_ersti'),
+            'fields': ('is_really_ersti', 'queue', 'queue_deadline', 'money_received'),
         }),
         ('Sonstiges', {
             'fields': ('room', 'free_text'),
         }),
     )
+
+    def queueinfo(self, obj):
+        if obj.money_received:
+            return "festangemeldet"
+        elif obj.queue:
+            return "vorläufig (Geldeingang bis %s Uhr)" % obj.queue_deadline.strftime("%d.%m.%Y - %H:%M")
+        else:
+            return "Warteschlange"
+    queueinfo.short_description = "Liste"

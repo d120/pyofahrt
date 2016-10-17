@@ -133,6 +133,7 @@ class IntegerSetting(models.Model):
     def get_Setting(keyx):
         dicts = {
             "max_members" : "Maximale Platzanzahl",
+            "queue_tolerance" : "Registrierungstolleranz",
             "self_participation" : "Teilnahmebeitrag",
         }
 

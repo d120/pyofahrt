@@ -42,7 +42,7 @@ class SettingsAdmin(admin.ModelAdmin):
 
 
 @admin.register(StringSetting)
-class StringSettingAdmin(admin.ModelAdmin):
+class StringSettingsAdmin(admin.ModelAdmin):
     fields = ['readable', 'key', 'value']
     readonly_fields = ['key', 'readable']
     list_display = ['readable', 'value']
