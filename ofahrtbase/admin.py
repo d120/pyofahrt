@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Ofahrt, Building, Location, Room, Setting
+from .models import Ofahrt, Building, Location, Room, Setting, StringSetting, IntegerSetting
 
 # Register your models here.
 
@@ -31,6 +31,44 @@ class SettingsAdmin(admin.ModelAdmin):
 
     def get_actions(self, request):
         actions = super(SettingsAdmin, self).get_actions(request)
+        del actions['delete_selected']
+        return actions
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(StringSetting)
+class StringSettingAdmin(admin.ModelAdmin):
+    fields = ['readable', 'key', 'value']
+    readonly_fields = ['key', 'readable']
+    list_display = ['readable', 'value']
+    pass
+
+    def get_actions(self, request):
+        actions = super(StringSettingsAdmin, self).get_actions(request)
+        del actions['delete_selected']
+        return actions
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(IntegerSetting)
+class IntegerSettingsAdmin(admin.ModelAdmin):
+    fields = ['readable', 'key', 'value']
+    readonly_fields = ['key', 'readable']
+    list_display = ['readable', 'value']
+    pass
+
+    def get_actions(self, request):
+        actions = super(IntegerSettingsAdmin, self).get_actions(request)
         del actions['delete_selected']
         return actions
 

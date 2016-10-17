@@ -73,9 +73,6 @@ class Setting(models.Model):
     value = models.BooleanField('Aktiv?')
 
     def get_Setting(keyx):
-        if Ofahrt.current() == None:
-            return False
-
         dicts = {
             "orga_reg_open": "Orgaregistrierung",
             "workshop_reg_open": "Workshopanmeldung",
@@ -94,7 +91,62 @@ class Setting(models.Model):
             temp = temp[0].value
         return temp
 
+    def __str__(self):
+        return self.readable
 
+
+class StringSetting(models.Model):
+    class Meta:
+        verbose_name = "Einstellung"
+        verbose_name_plural = "Einstellungen (Strings)"
+    key = models.CharField('Schlüssel', max_length=50, unique=True)
+    readable = models.CharField("Eigenschaft", max_length=50, unique=True)
+    value = models.TextField('Wert')
+
+    def get_Setting(keyx):
+        dicts = {
+        }
+
+        # Löscht veraltete Einträge
+        StringSetting.objects.exclude(key__in=dicts).delete()
+
+        temp = StringSetting.objects.filter(key=keyx)
+        if temp.count() == 0:
+            newtemp = StringSetting(key=keyx, value="", readable=dicts[keyx])
+            newtemp.save()
+            temp = ""
+        else:
+            temp = temp[0].value
+        return temp
+
+    def __str__(self):
+        return self.readable
+
+class IntegerSetting(models.Model):
+    class Meta:
+        verbose_name = "Einstellung"
+        verbose_name_plural = "Einstellungen (Zahlen)"
+    key = models.CharField('Schlüssel', max_length=50, unique=True)
+    readable = models.CharField("Eigenschaft", max_length=50, unique=True)
+    value = models.IntegerField('Wert')
+
+    def get_Setting(keyx):
+        dicts = {
+            "max_members" : "Maximale Platzanzahl",
+            "self_participation" : "Teilnahmebeitrag",
+        }
+
+        # Löscht veraltete Einträge
+        StringSetting.objects.exclude(key__in=dicts).delete()
+
+        temp = IntegerSetting.objects.filter(key=keyx)
+        if temp.count() == 0:
+            newtemp = IntegerSetting(key=keyx, value=0, readable=dicts[keyx])
+            newtemp.save()
+            temp = 0
+        else:
+            temp = temp[0].value
+        return temp
 
     def __str__(self):
         return self.readable
