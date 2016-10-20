@@ -7,7 +7,7 @@ class MemberQueueFilter(admin.SimpleListFilter):
     def lookups(self, request, modeladmin):
         return (
             ('queue', 'Warteschlange'),
-            ('cond', 'temporär angemeldet'),
+            ('cond', 'vorläufig angemeldet'),
             ('fin', 'festangemeldet')
         )
 
