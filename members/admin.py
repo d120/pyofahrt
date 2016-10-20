@@ -38,7 +38,7 @@ class MemberAdmin(admin.ModelAdmin):
             if obj.queue_deadline:
                 time = obj.queue_deadline.strftime("%d.%m.%Y - %H:%M")
             else:
-                time = "<i>kein Wert gesetzt</i>"
+                time = "unbekannt"
             return "vorläufig (Geldeingang bis %s Uhr)" % time
         else:
             return "Warteschlange"
