@@ -83,7 +83,7 @@ class SignUpView(CreateView):
         ofahrt = Ofahrt.current()
 
         max_members = ofahrt.max_members
-        queue_size = ofahrtqueue_tolerance
+        queue_size = ofahrt.queue_tolerance
         members_fin = Member.objects.filter(money_received=True).count()
         members_queue = Member.objects.filter(money_received=False).filter(queue=True).count()
 
