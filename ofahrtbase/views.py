@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
-from .models import Setting, Ofahrt
+from .models import Ofahrt
 from workshops.models import Slot
 
 
@@ -8,8 +8,6 @@ class WelcomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(WelcomeView, self).get_context_data(**kwargs)
-        context['orga_reg_open'] = Setting.get_Setting("orga_reg_open")
-        context['workshop_reg_open'] = Setting.get_Setting("workshop_reg_open")
         context['ofahrt'] = Ofahrt.current()
         return context
 
@@ -29,5 +27,5 @@ class ScheduleView(TemplateView):
 
         context["first"] = date2moment(Ofahrt.current().begin_date)
         context["events"] = Slot.objects.all();
-        
+
         return context

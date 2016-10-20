@@ -9,7 +9,7 @@ from django.db.models import Q
 
 from staff.models import OrgaCandidate, WorkshopCandidate
 from workshops.models import Workshop
-from ofahrtbase.models import Setting, Ofahrt
+from ofahrtbase.models import Ofahrt
 from staff.forms import ContactForm, PasswordForm
 from pyofahrt import settings
 
@@ -21,9 +21,11 @@ class SignUpView(TemplateView):
     template_name = "staff/signup.html"
 
     def get_context_data(self, **kwargs):
+        ofahrt = Ofahrt.current()
+
         context = super(SignUpView, self).get_context_data(**kwargs)
-        context["orga_reg_open"] = Setting.get_Setting("orga_reg_open")
-        context["workshop_reg_open"] = Setting.get_Setting("workshop_reg_open")
+        context["orga_reg_open"] = ofahrt.orga_reg_open
+        context["workshop_reg_open"] = ofahrt.workshop_reg_open
         return context
 
 
@@ -67,9 +69,11 @@ class SuccessView(TemplateView):
     template_name = "staff/success.html"
 
     def get_context_data(self, **kwargs):
+        ofahrt = Ofahrt.current()
+
         context = super(SuccessView, self).get_context_data(**kwargs)
-        context["orga_reg_open"] = Setting.get_Setting("orga_reg_open")
-        context["workshop_reg_open"] = Setting.get_Setting("workshop_reg_open")
+        context["orga_reg_open"] = ofahrt.orga_reg_open
+        context["workshop_reg_open"] = ofahrt.workshop_reg_open
         return context
 
 
@@ -104,8 +108,9 @@ class SignUpWorkshopView(CreateView):
         return super(SignUpWorkshopView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
+        ofahrt = Ofahrt.current()
         context = super(SignUpWorkshopView, self).get_context_data(**kwargs)
-        context["workshop_reg_open"] = Setting.get_Setting("workshop_reg_open")
+        context["workshop_reg_open"] = ofahrt.workshop_reg_open
         context["workshop_ideas"] = Workshop.objects.all().filter(host=None)
         return context
 
@@ -134,6 +139,7 @@ class SignUpOrgaView(CreateView):
         return super(SignUpOrgaView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
+        ofahrt = ofahrt.current()
         context = super(SignUpOrgaView, self).get_context_data(**kwargs)
-        context["orga_reg_open"] = Setting.get_Setting("orga_reg_open") and not (Group.objects.exclude(permissions__codename = "group_full").count() == 0)
+        context["orga_reg_open"] = Sofahrt.orga_reg_open and not (Group.objects.exclude(permissions__codename = "group_full").count() == 0)
         return context

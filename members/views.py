@@ -1,7 +1,7 @@
 from django.views.generic import CreateView, TemplateView
 from django.db.models import Q
 from members.models import Member
-from ofahrtbase.models import Ofahrt, Setting, Room, IntegerSetting
+from ofahrtbase.models import Ofahrt, Room
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
@@ -43,10 +43,12 @@ class SignUpView(CreateView):
 
     def form_valid(self, form):
         member = form.save(commit=False)
-        member.base = Ofahrt.current()
 
-        max_members = IntegerSetting.get_Setting("max_members")
-        queue_size = IntegerSetting.get_Setting("queue_tolerance")
+        ofahrt = Ofahrt.current()
+        member.base = ofahrt
+
+        max_members = ofahrt.max_members
+        queue_size = ofahrt.queue_tolerance
         members_fin = Member.objects.filter(money_received=True).count()
         members_queue = Member.objects.filter(money_received=False).filter(queue=True).count()
 
@@ -78,13 +80,15 @@ class SignUpView(CreateView):
 
     def get_context_data(self, **kwargs):
 
-        max_members = IntegerSetting.get_Setting("max_members")
-        queue_size = IntegerSetting.get_Setting("queue_tolerance")
+        ofahrt = Ofahrt.current()
+
+        max_members = ofahrt.max_members
+        queue_size = ofahrtqueue_tolerance
         members_fin = Member.objects.filter(money_received=True).count()
         members_queue = Member.objects.filter(money_received=False).filter(queue=True).count()
 
         context = super(SignUpView, self).get_context_data(**kwargs)
-        context["member_reg_open"] = Setting.get_Setting("member_reg_open")
+        context["member_reg_open"] = ofahrt.member_reg_open
         context["members_fin"] = members_fin
         context["queue"] = (members_fin + members_queue) < (max_members + queue_size)
 
@@ -160,7 +164,9 @@ class MemberlistView(TemplateView):
 
     def get_context_data(self, **kwargs):
 
-        max_members = IntegerSetting.get_Setting("max_members")
+        ofahrt = Ofahrt.current()
+
+        max_members = ofahrt.max_members
 
         context = super(MemberlistView, self).get_context_data(**kwargs)
         context["members_cond"] = Member.objects.filter(money_received = False).filter(queue=True)

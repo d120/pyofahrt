@@ -10,6 +10,18 @@ class Ofahrt(models.Model):
     begin_date = models.DateField("Anreisedatum")
     end_date = models.DateField("Abreisedatum")
 
+    # Einstellungen
+    ## Booleans
+    orga_reg_open = models.BooleanField("Orgaregistrierung", help_text="Ist dieser Wert aktiviert können sich Studierende als Ofahrtorga bewerben.", default=False)
+    workshop_reg_open = models.BooleanField("Workshopregistrierung", help_text="Ist dieser Wert aktiviert werden derzeit Workshops gesucht.", default=False)
+    member_reg_open = models.BooleanField("Teilnehmeregistrierung", help_text="Ist dieser Wert aktiviert können sich Teilnehmer*innen registrieren.", default=False)
+
+    ## Integers
+    max_members = models.IntegerField("Maximale Teilnehmerzahl", help_text="Dieser Wert bestimmt die maximale Größe der Festanmeldeliste.", default=70)
+    queue_tolerance = models.IntegerField("Warteschlangentolleranz", help_text="Dieser Wert legt fest ab wann Neuanmeldungen von Teilnehmer*innen in die Warteschlange müssen. (Warteschlange falls: aktuelle Festanmeldungen + aktuell vorläufige Anmeldungen > maximale Festanmeldungen + dieser Wert)", default=20)
+    self_participation = models.IntegerField("Teilnahmebetrag", help_text="Eingenanteil der Teilnehmer*innen in Cent", default=2000)
+
+
     active = models.BooleanField("Aktiv?", default=True, unique=True)
 
     def __str__(self):
@@ -63,91 +75,3 @@ class Room(models.Model):
 
     def __str__(self):
         return self.name
-
-class Setting(models.Model):
-    class Meta:
-        verbose_name = "Einstellung"
-        verbose_name_plural = "Einstellungen"
-    key = models.CharField('Schlüssel', max_length=50, unique=True)
-    readable = models.CharField("Eigenschaft", max_length=50, unique=True)
-    value = models.BooleanField('Aktiv?')
-
-    def get_Setting(keyx):
-        dicts = {
-            "orga_reg_open": "Orgaregistrierung",
-            "workshop_reg_open": "Workshopanmeldung",
-            "member_reg_open": "Teilnehmerregistrierung",
-        }
-
-        # Löscht veraltete Einträge
-        Setting.objects.exclude(key__in=dicts).delete()
-
-        temp = Setting.objects.filter(key=keyx)
-        if temp.count() == 0:
-            newtemp = Setting(key=keyx, value=False, readable=dicts[keyx])
-            newtemp.save()
-            temp = False
-        else:
-            temp = temp[0].value
-        return temp
-
-    def __str__(self):
-        return self.readable
-
-
-class StringSetting(models.Model):
-    class Meta:
-        verbose_name = "Einstellung"
-        verbose_name_plural = "Einstellungen (Strings)"
-    key = models.CharField('Schlüssel', max_length=50, unique=True)
-    readable = models.CharField("Eigenschaft", max_length=50, unique=True)
-    value = models.TextField('Wert')
-
-    def get_Setting(keyx):
-        dicts = {
-        }
-
-        # Löscht veraltete Einträge
-        StringSetting.objects.exclude(key__in=dicts).delete()
-
-        temp = StringSetting.objects.filter(key=keyx)
-        if temp.count() == 0:
-            newtemp = StringSetting(key=keyx, value="", readable=dicts[keyx])
-            newtemp.save()
-            temp = ""
-        else:
-            temp = temp[0].value
-        return temp
-
-    def __str__(self):
-        return self.readable
-
-class IntegerSetting(models.Model):
-    class Meta:
-        verbose_name = "Einstellung"
-        verbose_name_plural = "Einstellungen (Zahlen)"
-    key = models.CharField('Schlüssel', max_length=50, unique=True)
-    readable = models.CharField("Eigenschaft", max_length=50, unique=True)
-    value = models.IntegerField('Wert')
-
-    def get_Setting(keyx):
-        dicts = {
-            "max_members" : "Maximale Platzanzahl",
-            "queue_tolerance" : "Registrierungstolleranz",
-            "self_participation" : "Teilnahmebeitrag",
-        }
-
-        # Löscht veraltete Einträge
-        StringSetting.objects.exclude(key__in=dicts).delete()
-
-        temp = IntegerSetting.objects.filter(key=keyx)
-        if temp.count() == 0:
-            newtemp = IntegerSetting(key=keyx, value=1, readable=dicts[keyx])
-            newtemp.save()
-            temp = 1
-        else:
-            temp = temp[0].value
-        return temp
-
-    def __str__(self):
-        return self.readable

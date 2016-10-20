@@ -1,11 +1,19 @@
 from django.contrib import admin
-from .models import Ofahrt, Building, Location, Room, Setting, StringSetting, IntegerSetting
+from .models import Ofahrt, Building, Location, Room
 
 # Register your models here.
 
 @admin.register(Ofahrt)
 class OfahrtAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["__str__", "begin_date", "end_date"]
+    fieldsets = (
+    ("Allgemeines", {
+        "fields": ("begin_date", "end_date")
+    }),
+    ("Einstellungen", {
+        "fields" : ("member_reg_open", "orga_reg_open", "workshop_reg_open", "max_members", "queue_tolerance" ,"self_participation")
+    })
+    )
 
 @admin.register(Building)
 class BuildingAdmin(admin.ModelAdmin):
@@ -21,59 +29,3 @@ class RoomAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'capacity', 'usecase_sleep', 'usecase_workshop', 'usecase_meal', 'usecase_store', 'usecase_outside']
     save_as = True
     pass
-
-@admin.register(Setting)
-class SettingsAdmin(admin.ModelAdmin):
-    fields = ['readable', 'key', 'value']
-    readonly_fields = ['key', 'readable']
-    list_display = ['readable', 'value']
-    pass
-
-    def get_actions(self, request):
-        actions = super(SettingsAdmin, self).get_actions(request)
-        del actions['delete_selected']
-        return actions
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-    def has_add_permission(self, request, obj=None):
-        return False
-
-
-@admin.register(StringSetting)
-class StringSettingsAdmin(admin.ModelAdmin):
-    fields = ['readable', 'key', 'value']
-    readonly_fields = ['key', 'readable']
-    list_display = ['readable', 'value']
-    pass
-
-    def get_actions(self, request):
-        actions = super(StringSettingsAdmin, self).get_actions(request)
-        del actions['delete_selected']
-        return actions
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-    def has_add_permission(self, request, obj=None):
-        return False
-
-
-@admin.register(IntegerSetting)
-class IntegerSettingsAdmin(admin.ModelAdmin):
-    fields = ['readable', 'key', 'value']
-    readonly_fields = ['key', 'readable']
-    list_display = ['readable', 'value']
-    pass
-
-    def get_actions(self, request):
-        actions = super(IntegerSettingsAdmin, self).get_actions(request)
-        del actions['delete_selected']
-        return actions
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-    def has_add_permission(self, request, obj=None):
-        return False
