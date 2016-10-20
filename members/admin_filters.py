@@ -18,6 +18,3 @@ class MemberQueueFilter(admin.SimpleListFilter):
             return queryset.filter(money_received=False).filter(queue=True)
         elif self.value() == "queue":
             return queryset.filter(money_received=False).filter(queue=False)
-        else:
-            print(self.value())
-            return queryset.none()

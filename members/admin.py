@@ -35,7 +35,11 @@ class MemberAdmin(admin.ModelAdmin):
         if obj.money_received:
             return "festangemeldet"
         elif obj.queue:
-            return "vorläufig (Geldeingang bis %s Uhr)" % obj.queue_deadline.strftime("%d.%m.%Y - %H:%M")
+            if obj.queue_deadline:
+                time = obj.queue_deadline.strftime("%d.%m.%Y - %H:%M")
+            else:
+                time = "<i>kein Wert gesetzt</i>"
+            return "vorläufig (Geldeingang bis %s Uhr)" % time
         else:
             return "Warteschlange"
     queueinfo.short_description = "Liste"
