@@ -6,6 +6,7 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Context
+from . import forms
 from django.template.loader import get_template
 from django.urls import reverse_lazy
 from subprocess import Popen, PIPE
@@ -35,10 +36,10 @@ def saveroomassignment(request):
     return HttpResponse(results)
 
 class SignUpView(CreateView):
+
     template_name = "members/signup.html"
     success_url = reverse_lazy('members:success')
-    model = Member
-    fields = ['first_name', 'last_name', 'gender', 'email', 'birth_date', 'food_preference', 'food_handicaps', 'free_text']
+    form_class = forms.SignupForm
 
     def form_valid(self, form):
         member = form.save(commit=False)
