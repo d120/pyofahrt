@@ -22,8 +22,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '8hb0nmhm&hwlq6)*(@95092dw-$lp$v*yp+9yib459h82*penf'
 
-SUPER_PASSWORD = "dummypassword"
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -145,13 +143,42 @@ SERVER_EMAIL = "ofahrt-leitung@fachschaft.informatik.tu-darmstadt.de"
 DEFAULT_FROM_EMAIL = SERVER_EMAIL
 
 # Mail settings
+MAIL_MEMBERSIGNUP_QUEUE_SUBJECT = "Anmeldung zur Ofahrt im Wintersemester %d"
+MAIL_MEMBERSIGNUP_QUEUE_TEXT = """Hallo %s,
+
+wir haben deine Anmeldung für die Ofahrt für Bachelor-Erstsemester im WiSe %d erfolgreich gespeichert.
+Bis zum Eingang des Teilnahmebetrags von 20€ stehst du lediglich auf der vorläufigen Teilnehmer*innenliste. Bitte überweise den Teilnahmebetrag schnellstmöglich an die unten genannten Kontodaten. Wähle als Verwendungszweck bitte "Informatik Erstsemesterfahrt - VORNAME NACHNAME" damit wir die Überweisung deiner Anmeldung zuordnen können. Solltest du keinen Zugriff auf ein Bankkonto oder eine andere Möglichkeit der Überweisung haben, kontaktiere uns bitte unter ofahrt-leitung@d120.de. In diesem Fall finden wir eine Regelung für eine Barzahlung im Fachschaftsraum.
+
+Sobald wir den Teilnahmebetrag erhalten haben setzen wir dich schnellstmöglich auf die feste Teilnahmeliste. Alle weiteren Infos erhälst du dann per Email.
+
+Liebe Grüße,
+die Ofahrt-Leitung
+
+-------------------------------
+
+Kontodaten:
+%s"""
+
+MAIL_MEMBER_MOVETOQUEUE_SUBJECT = "Deine Anmeldung zur Ofahrt"
+MAIL_MEMBER_MOVETOQUEUE_TEXT = """Hallo %s,
+
+du wurdest soeben aus der Warteschlange auf die vorläufige Anmeldeliste gesetzt. Um auf die feste Anmeldeliste übernommen zu werden überweise bitte innerhalb von 7 Tagen den Teilnahmebeitrag von 20,00€ auf die unten angegebenen Kontodaten. Wähle als Verwendungszweck bitte "Erstsemesterfahrt Informatik - VORNAME NACHNAME" damit wir die Überweisung deiner Anmeldung zuordnen können. Solltest du keinen Zugriff auf ein Bankkonto oder eine andere Möglichkeit der Überweisung haben, kontaktiere uns bitte unter ofahrt-leitung@d120.de. In diesem Fall finden wir eine Regelung für eine Barzahlung im Fachschaftsraum.
+
+Sobald wir den Teilnahmebetrag erhalten haben setzen wir dich schnellstmöglich auf die feste Teilnahmeliste. Alle weiteren Infos erhälst du dann per Email.
+
+Liebe Grüße,
+die Ofahrt-Leitung
+
+-------------------------------
+
+Kontodaten:
+%s"""
+
 MAIL_MEMBERSIGNUP_SUBJECT = "Anmeldung zur Ofahrt im Wintersemester %d"
 MAIL_MEMBERSIGNUP_TEXT = """Hallo %s,
 
 wir haben deine Anmeldung für die Ofahrt für Bachelor-Erstsemester im WiSe %d erfolgreich gespeichert.
-Bis zum Eingang des Teilnahmebetrags von 20€ stehst du lediglich auf der vorläufigen Teilnehmer*innenliste. Bitte überweise den Teilnahmebetrag schnellstmöglich an die unten genannten Kontodaten. Wähle als Verwendungszweck bitte "Ofahrt Teilnahmebetrag - VORNAME NACHNAME" damit wir die Überweisung deiner Anmeldung zuordnen können. Solltest du keinen Zugriff auf ein Bankkonto oder eine andere Möglichkeit der Überweisung haben, kontaktiere uns bitte unter ofahrt-leitung@d120.de. In diesem Fall finden wir eine Regelung für eine Barzahlung im Fachschaftsraum.
-
-Sobald wir den Teilnahmebetrag erhalten haben setzen wir dich schnellstmöglich auf die feste Teilnahmeliste. Alle weiteren Infos erhälst du dann per Email.
+Da derzeit alle Plätze belegt sind bist du aktuell noch in der Warteschlange. Sollte bei den bereits angemeldeten Teilnehmer*innen der Teilnahmebeitrag nach einer Woche nicht bei uns eingegangen sein werden wir aus der Warteschlange auffüllen. Du erhälst in diesem Fall eine Email.
 
 Liebe Grüße,
 die Ofahrt-Leitung

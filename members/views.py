@@ -49,19 +49,27 @@ class SignUpView(CreateView):
         members_fin = Member.objects.filter(money_received=True).count()
         members_queue = Member.objects.filter(money_received=False).filter(queue=True).count()
 
+
+        email = EmailMessage()
+
+
         #Einstufung // Fall voll gibt es nicht
         if (members_fin + members_queue) < (max_members + queue_size):
             #Gesamtanmeldung noch nicht ausgelastet, Platz in der Queue
             #Neuanmeldungen fließen direkt auf die vorläufige Anmeldeliste
             member.queue = True
             member.queue_deadline = datetime.datetime.now() + datetime.timedelta(7)
+
+            email.subject = settings.MAIL_MEMBERSIGNUP_QUEUE_SUBJECT % (member.base.begin_date.year)
+            email.body = settings.MAIL_MEMBERSIGNUP_QUEUE_TEXT % (member.first_name, member.base.begin_date.year, settings.BANK_ACCOUNT)
+
         else:
             #vorläufige Anmeldeliste ist voll. Anmeldungen kommen in die Warteschlange
             member.queue = False
+            email.subject = settings.MAIL_MEMBERSIGNUP_SUBJECT % (member.base.begin_date.year)
+            email.body = settings.MAIL_MEMBERSIGNUP_TEXT % (member.first_name, member.base.begin_date.year, settings.BANK_ACCOUNT)
 
-        email = EmailMessage()
-        email.subject = settings.MAIL_MEMBERSIGNUP_SUBJECT % (member.base.begin_date.year)
-        email.body = settings.MAIL_MEMBERSIGNUP_TEXT % (member.first_name, member.base.begin_date.year, settings.BANK_ACCOUNT)
+
         email.to = [member.email]
         email.send()
 
