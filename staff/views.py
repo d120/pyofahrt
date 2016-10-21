@@ -139,7 +139,7 @@ class SignUpOrgaView(CreateView):
         return super(SignUpOrgaView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
-        ofahrt = ofahrt.current()
+        ofahrt = Ofahrt.current()
         context = super(SignUpOrgaView, self).get_context_data(**kwargs)
         context["orga_reg_open"] = Sofahrt.orga_reg_open and not (Group.objects.exclude(permissions__codename = "group_full").count() == 0)
         return context
