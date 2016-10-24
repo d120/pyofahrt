@@ -36,9 +36,18 @@
   list-style-type: square;
 }
 
+#faq{
+  display: flex;
+}
+
+#answercontainer{
+  flex: 5;
+}
+
 #faqnav {
+  flex: 1;
   float: left;
-  width: 20%;
+  height: 10%;
   background-color: #f5f5f5;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -97,7 +106,7 @@ div#faqnav > ul {
 }
 
 #faq .panel, #faq h1{
-  margin-left: 21%;
+  margin-left: 2%;
 }
 
 #signupform {
