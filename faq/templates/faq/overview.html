@@ -17,6 +17,7 @@
       {% endfor %}
     </ul>
   </div>
+  <div id="answercontainer">
   {% for cat in categories %}
   <h1><a name="c{{ cat.pk }}"></a>{{ cat.name }}</h1>
   {% if cat.question_set.all.count == 0 %}
@@ -34,6 +35,7 @@
     {% endfor %}
     {% endif %}
   {% endfor %}
+  </div>
 </div>
 {% endif %}
 {% endblock %}
