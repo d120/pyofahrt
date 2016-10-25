@@ -5,7 +5,7 @@ from django.views.generic.edit import UpdateView, DeleteView, CreateView, FormVi
 from django.views.generic import DetailView
 from .models import Workshop
 from .forms import DuplicateForm
-from ofahrtbase.models import Ofahrt
+from ofahrtbase.models import Ofahrt, Room
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User, Group
 from django.urls import reverse_lazy
@@ -118,7 +118,7 @@ class WorkshopCreateView(CreateView):
 class WorkshopAssignView(UpdateView):
     template_name = "workshops/assignworkshop.html"
     model = Workshop
-    fields = ["host"]
+    fields = ["host", "room"]
 
     def get_success_url(self):
         return reverse('workshops:show', args=(self.object.id,))
@@ -126,4 +126,5 @@ class WorkshopAssignView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(WorkshopAssignView, self).get_context_data(**kwargs)
         context["form"].fields["host"].queryset = User.objects.all().exclude(groups=None)
+        context["form"].fields["room"].queryset = Room.objects.all().filter(usecase_workshop=True)
         return context

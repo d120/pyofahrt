@@ -2,7 +2,7 @@ from django.db import models
 from staff.models import WorkshopCandidate
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from ofahrtbase.models import Ofahrt
+from ofahrtbase.models import Ofahrt, Room
 from datetime import datetime
 
 # Create your models here.
@@ -83,6 +83,7 @@ class Workshop(models.Model):
     requirements = models.TextField("Materialbedarf", blank=True)
     conditions = models.TextField("Teilnahmebedingungen", blank=True)
     host = models.ManyToManyField(User, verbose_name="Workshopanbieter", blank=True)
+
     maxmembers = models.IntegerField("Maximale Teilnehmer", blank=True, default=0)
     otherstuff = models.TextField("Sonstiges", blank=True)
 
@@ -90,6 +91,7 @@ class Workshop(models.Model):
     proved = models.BooleanField("Geprüft", help_text="Der aktuelle Workshopstand ist durch den Workshoporga geprüft.", default=False)
 
     slot = models.ForeignKey(Slot, verbose_name="Zugeteilter Zeitslot", null=True, blank=True)
+    room = models.ForeignKey(Room, verbose_name="Zugeteilter Raum", null=True, blank=True)
 
     def __str__(self):
         return self.name

@@ -10,7 +10,7 @@
   <div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <b>Hinweis:</b> Dieser Workshop ist bisher noch nicht durch den Workshoporga geprüft worden und somit unter Vorbehalt im System aufgeführt.</div>
   {% endif %}
   <h3 class="h3">{{ object.name }}</h3>
-  <div style="margin-top: -22px;">Akzeptiert: {% if object.accepted %}<span style="color:green;" class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% else %}<span style="color:red;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>{% endif %} &nbsp; Geprüft: {% if object.proved%}<span style="color:green;" class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% else %}<span style="color:red;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>{% endif %}</div>
+  <div style="margin-top: -22px;">Akzeptiert: {% if object.accepted %}<span style="color:green;" class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% else %}<span style="color:red;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>{% endif %} &nbsp; Geprüft: {% if object.proved%}<span style="color:green;" class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% else %}<span style="color:red;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>{% endif %} &nbsp; Raum: {% if object.room %}{{ object.room }}{% else %}<i>noch nicht zugeteilt</i>{% endif %}</div>  
   <br />{% if object.description|length == 0%}<i>- derzeit keine Beschreibung vorhanden -</i>{% else %}{{ object.description }}{% endif %}
 
   <br /><br />
