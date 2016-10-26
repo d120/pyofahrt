@@ -74,7 +74,7 @@ def takeit(request, pk):
 class WorkshopEditView(UpdateView):
     template_name = "workshops/editworkshop.html"
     model = Workshop
-    fields = ["description", "requirements", "conditions"]
+    fields = ["description", "requirements", "conditions", "maxmembers"]
 
     def get_context_data(self, **kwargs):
         context = super(WorkshopEditView, self).get_context_data(**kwargs)
