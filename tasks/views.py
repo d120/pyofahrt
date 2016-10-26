@@ -100,6 +100,7 @@ class TicketAssignView(UpdateView):
         mail.subject = settings.MAIL_TICKETASSIGN_SUBJECT % {'id' : self.object.id}
         mail.body = settings.MAIL_TICKETASSIGN_TEXT % {'id' : self.object.id, 'subject' : self.object.name, 'cat' : self.object.category.name, 'name' : self.request.user.get_full_name(), 'link' : self.request.build_absolute_uri(reverse('tasks:showticket', args=(self.object.id,))), 'editors' : ", ".join(editorlist)}
         temp = User.objects.all().filter(groups__in=self.object.category.responsible_for.all())
+        temp = temp | self.object.editors.all()
         bcc = []
         for user in temp:
             bcc.append(user.email)
@@ -136,6 +137,7 @@ def push(request, ticket):
             mail.subject = settings.MAIL_TICKETPUSH_SUBJECT % {'id' : int(ticket)}
             mail.body = settings.MAIL_TICKETPUSH_TEXT % {'id' : int(ticket), 'subject' : element.name, 'cat' : element.category.name, 'name' : request.user.get_full_name(), 'link' : request.build_absolute_uri(reverse('tasks:showticket', args=(element.id,)))}
             temp = User.objects.all().filter(groups__in=element.category.responsible_for.all())
+            temp = temp | element.editors.all()
             bcc = []
             for user in temp:
                 bcc.append(user.email)
