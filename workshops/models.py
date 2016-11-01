@@ -43,12 +43,6 @@ class Slot(models.Model):
     def __str__(self):
         return self.name
 
-    def begin_moment(self):
-        return self.begin.strftime("%Y-%m-%dT%H:%M:%S")
-
-    def end_moment(self):
-        return self.end.strftime("%Y-%m-%dT%H:%M:%S")
-
     def calendarcolor(self):
         if self.slottype == "workshop":
             return "blue"

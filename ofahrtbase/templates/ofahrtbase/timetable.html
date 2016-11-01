@@ -27,8 +27,8 @@
         {% for event in events%}
         {
             title: '{{event.name | safe }}',
-            start: '{{event.begin_moment}}',
-            end: '{{event.end_moment}}',
+            start: '{{event.begin|date:"c"}}',
+            end: '{{event.end|date:"c"}}',
             color: '{{event.calendarcolor}}',
             description : {% if event.slottype == "workshop" %}'{% for workshop in event.workshop_set.all %}{{workshop}}{% if not forloop.last %}, {% endif %}{% empty %}<font style="color: lightgrey;">Diesem Slot sind noch keine Workshops zugeteilt.</font>{% endfor %}' {% else %} ''{% endif %}
         },
