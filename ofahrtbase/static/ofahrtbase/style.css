@@ -217,3 +217,9 @@ img#logo {
   margin: 25px;
   background-color: #eee;
 }
+
+#utilizationlabel {
+  font-weight: bold;
+  margin-bottom: 3px;
+  display: block;
+}
