@@ -6,7 +6,7 @@
     <li><a href="{% url "workshops:overview" %}">Workshopverwaltung</a></li>
     <li class="active">{{ object.name }}</li>
   </ol>
-  {% if True %}
+  {% if not object.accepted %}
   <div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <b>Hinweis:</b> Dieser Workshop ist bisher noch nicht durch den Workshoporga geprüft worden und somit unter Vorbehalt im System aufgeführt.</div>
   {% endif %}
   <h3 class="h3">{{ object.name }}</h3>
