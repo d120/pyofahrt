@@ -17,7 +17,12 @@ class OfahrtAdmin(admin.ModelAdmin):
 
 @admin.register(Building)
 class BuildingAdmin(admin.ModelAdmin):
-    list_filter = ('location',)
+    list_display = ['name', 'rooms']
+    list_filter = ['location']
+
+    def rooms(self, obj):
+        return obj.room_set.all().count()
+    rooms.short_description = "Anzahl Räume"
 
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
@@ -26,6 +31,19 @@ class LocationAdmin(admin.ModelAdmin):
 @admin.register(Room)
 class RoomAdmin(admin.ModelAdmin):
     list_filter = ('building', 'usecase_sleep', 'usecase_workshop', 'usecase_meal', 'usecase_store', 'usecase_outside')
-    list_display = ['__str__', 'capacity', 'usecase_sleep', 'usecase_workshop', 'usecase_meal', 'usecase_store', 'usecase_outside']
-    save_as = True
-    pass
+    list_display = ['roomname', 'capacity_string', 'usecase_sleep', 'usecase_workshop', 'usecase_meal', 'usecase_store', 'usecase_outside']
+
+    def roomname(self, obj):
+        return obj.name + "(" + obj.number + ")"
+    roomname.short_description = "Raumname"
+
+    def capacity_string(self, obj):
+        if obj.usecase_sleep:
+            if obj.capacity < 0:
+                return "-"
+            else:
+                return obj.capacity
+        else:
+            return "<i>nicht relevant</i>"
+    capacity_string.short_description = "Kapazität"
+    capacity_string.allow_tags = True
