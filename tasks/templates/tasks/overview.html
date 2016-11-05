@@ -32,5 +32,14 @@
     </tr>
     {% endfor %}
   </table>
+      {% if cat.responsible_for.all.count > 0 %}
+      <span class="responsiblelabel">Hauptzuständig:
+          {% for group in cat.responsible_for.all %}
+              {{ group.name }}
+              {% if not group.user_set.all.count == 0 %}
+                ({% for user in group.user_set.all %}{% if user.get_full_name %} {{ user.get_full_name }} {% else %} {{ user }} {% endif %}{% if not forloop.last %}, {% endif %} {% endfor %}){% if not forloop.last %}, {% endif %}
+              {% endif %}
+          {% endfor %}</span>
+      {% endif %}
   {% endfor %}
 {% endblock %}

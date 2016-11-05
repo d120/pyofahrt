@@ -94,7 +94,6 @@
 
 div#faqnav  ul {
   margin-top: 0;
-  margin-bottom: 10px;
   list-style: none;
   padding-left: 0;
   margin-bottom: 0;
@@ -222,4 +221,12 @@ img#logo {
   font-weight: bold;
   margin-bottom: 3px;
   display: block;
+}
+
+.responsiblelabel {
+  color: grey;
+  margin-top: -20px;
+  margin-bottom: 40px;
+  display: block;
+  font-style: italic;
 }
