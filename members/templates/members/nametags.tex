@@ -1,0 +1,132 @@
+% Tobias Otterbein (totterbein@d120.de),Stand: 08.11.2016
+% Namensschilder für die Ofahrt
+
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[paperwidth=105mm,paperheight=75mm,nohead,nofoot,margin=0mm]{geometry}
+\usepackage{times}
+\usepackage{color}
+\usepackage{ifthen}
+\usepackage{graphicx}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{GS1}
+
+\pagestyle{empty}
+\raggedright
+
+% Farbdefinition und Höhe
+\definecolor{ORGA}{RGB}{0, 157,129 }
+\definecolor{ERSTIE}{RGB}{255, 198, 97 }
+\newcommand{\tagheight}{35mm}
+
+% Name einer Person
+% 1: Vorname
+% 2: Nachname
+\newcommand{\Name}[2]{%
+	\centering{ {\fontsize{35}{30} \selectfont #1} \vspace{3mm}\\
+	{#2} } }
+
+% Tätigkeitenbox
+\newcommand{\Tagbox}[2]{%
+	\centering{ {\Large #1} \\ {\footnotesize #2} } }
+
+% Namensschild Vorlage
+% 1: \Name{Vorname}{Nachname}
+% 2: Rolle(ORGA oder ERSTIE))
+% 3: Barcode
+% 4: Schlafraum
+% 5: \Tagbox{T}{Tätigkeit} 1
+% 6: \Tagbox{T}{Tätigkeit} 2
+% 7: \Tagbox{T}{Tätigkeit} 3
+% 8: \Tagbox{T}{Tätigkeit} 4
+% 9: \Tagbox{T}{Tätigkeit} 5
+\newcommand{\Namensschild}[9]{%
+
+	% Hintergrundfarbe auswählen
+	\ifthenelse{\equal{#2}{ORGA} }
+				{\pagecolor{ORGA}
+				\renewcommand{\tagheight}{35mm}
+				}
+				{\pagecolor{ERSTIE}
+				\renewcommand{\tagheight}{50mm} }
+	\sf{
+	% Überschrift
+	\colorbox{white}{\parbox[c][6mm]{115mm}{\hspace{20mm}\textbf{ \Large Ofahrt Informatik \the\year} }}
+	\hrule height 2pt
+ 	\vfill
+	% Namensfeld
+    {~\hfill\textbf{
+  	\fboxrule 1pt
+ 	\fcolorbox{black}{white}{\parbox[c][35mm]{30mm}{\includegraphics[height=30mm]{weggeWesen} } \parbox[c][\tagheight]{62mm}{#1} }
+  	}\hfill}
+    \vfill
+
+
+	\ifthenelse{\equal{#2}{ORGA} }
+				% Tätigkeitsboxen
+  				{\hfill\textbf{
+  				{\framebox[18mm][c]{\parbox[c][10mm]{18mm}{#5} } }
+  				{\framebox[18mm][c]{\parbox[c][10mm]{18mm}{#6} } }
+  				{\framebox[18mm][c]{\parbox[c][10mm]{18mm}{#7} } }
+  				{\framebox[18mm][c]{\parbox[c][10mm]{18mm}{#8} } }
+ 				{\framebox[18mm][c]{\parbox[c][10mm]{18mm}{#9} } }
+  				}\hfill}
+  				{}
+
+
+  	\vspace*{2mm}
+  	\hrule height 2pt
+
+ 	% Schlusszeile/Datum
+	{\colorbox{white}{\parbox[c][6mm]{115mm}{\hspace{5mm} \textbf{TU Darmstadt | Fachschaft Informatik} } } }
+  	\clearpage }
+
+  	% Überschrift
+	\colorbox{white}{\parbox[c][6mm]{115mm}{\hspace{20mm}\textbf{ \Large Ofahrt Informatik \the\year} } }
+	\hrule height 2pt
+ 	\vfill
+
+ 	% Rückseite
+    {~\hfill\textbf{
+  	\fboxrule 1pt
+ 	\fcolorbox{black}{white}{ \parbox[t][50mm]{92mm}{\vspace{3mm} #1} }
+  	}\hfill}
+    \vfill
+
+	% Barcode
+    \begin{textblock*}{16mm}(62mm,48mm)
+   	\EANBarcode[module_width=0.5mm,module_height=11mm,code=EAN-8]{#3}
+    \end{textblock*}
+
+    \begin{textblock*}{40mm}(62mm,33mm)
+    	\centering Dein Zimmer: #4
+    \end{textblock*}
+
+	% Wichtige Termine
+    \begin{textblock*}{40mm}(8.5mm,33mm)
+		\begin{tabular}{r|l}
+		Wann? & Was?\\
+		\hline
+		Fr. 	16:30 & Anfangsplenum\\
+		Sa./So. 08:30 & Frühstück\\
+		Sa./So. 12:30 & Mittagessen\\
+		Fr./Sa. 19:00 & Frühstück\\
+		Fr. 	20:00 & Abendprogramm\\
+		Sa. 	21:00 & Abendprogramm\\
+		\end{tabular}
+    \end{textblock*}
+
+	% Schlusszeile/Datum
+  	\hrule height 2pt
+	{\colorbox{white}{\parbox[c][6mm]{115mm}{\hspace{5mm} \textbf{TU Darmstadt | Fachschaft Informatik} } } }
+	\clearpage
+}
+
+% Ab hier Namensschilder einfügen
+\begin{document}
+{% for member in members %}
+\Namensschild{\Name{ {{member.first_name}} }{ {{member.last_name}} } }{ERSTIE}{0}{ {{member.get_room_for_nametag}} }{~}{~}{~}{~}{~}
+{% endfor %}
+\end{document}

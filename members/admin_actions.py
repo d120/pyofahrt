@@ -2,6 +2,8 @@ from django.template.response import SimpleTemplateResponse
 from django.template import loader
 from django.core.mail import EmailMessage
 from django.conf import settings
+from django.http import HttpResponse
+from ofahrtbase.helper import LaTeX
 import datetime
 
 from .models import Member
@@ -14,6 +16,27 @@ def mail_export(modeladmin, request, queryset):
     return SimpleTemplateResponse(template, context)
 
 mail_export.short_description = "Mailexport"
+
+
+def nametag_export(modeladmin, request, queryset):
+    (pdf, pdflatex_output) = LaTeX.render(
+        {"members": queryset},
+        'members/nametags.tex', ['weggeWesen.jpg'],
+        'members')
+
+    if pdf is None:
+        return HttpResponse(pdflatex_output[0].decode("utf-8"))
+
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=nametags-members.pdf'
+    response.write(pdf)
+
+
+    return response
+
+
+
+nametag_export.short_description = "Namensschilder generieren"
 
 
 def mark_participants_contributing_paid(modeladmin, request, queryset):

@@ -4,7 +4,7 @@ from members.models import Member
 from ofahrtbase.models import Ofahrt, Room
 from django.core.mail import EmailMessage
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.template import Context
 from . import forms
 from django.template.loader import get_template
@@ -105,7 +105,7 @@ class RoomassignmentView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(RoomassignmentView, self).get_context_data(**kwargs)
-        context["users"] = Member.objects.all().filter(Q(room=None) | Q(room__usecase_sleep=False))
+        context["users"] = Member.objects.all().filter(Q(room=None) | Q(room__usecase_sleep=False)).filter(money_received=True)
         context["rooms"] = Room.objects.all().filter(usecase_sleep=True)
         return context
 

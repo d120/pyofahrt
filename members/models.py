@@ -63,6 +63,12 @@ class Member(models.Model):
     is_full_aged.boolean = True
     is_full_aged.short_description = "Derzeit volljährig?"
 
+    def get_room_for_nametag(self):
+        if self.room == None:
+            return "Kein Raum zugeteilt!"
+        else:
+            return self.room
+
 
     def __str__(self):
         return self.first_name + " " + self.last_name
