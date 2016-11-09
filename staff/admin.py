@@ -1,11 +1,14 @@
+from django.template.response import SimpleTemplateResponse
+from django.template import loader
 from django.contrib import admin
-from .models import WorkshopCandidate, OrgaCandidate
+from .models import WorkshopCandidate, OrgaCandidate, StaffBarcode
 from django.contrib.auth.models import Group, Permission, User
 from django.contrib.messages import constants as messages
 from django.core.mail import EmailMessage
 from pyofahrt import settings
 from django.http import HttpResponse
 from ofahrtbase.helper import LaTeX
+from random import randint
 
 # Register your models here.
 class WorkshopCandidateAdmin(admin.ModelAdmin):
@@ -137,11 +140,42 @@ admin.site.unregister(Group)
 admin.site.register(Group, GroupAdmin)
 
 
+class StaffBarcodeInline(admin.StackedInline):
+    model = StaffBarcode
+    can_delete = False
+    verbose_name_plural = "Staff-Barcode"
+
+
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ['username', 'first_name', 'last_name', 'email']
     list_filter = ['groups']
-    actions = ['nametag_export']
+    actions = ['nametag_export', 'kdv_barcode_renew', 'kdv_barcode_export']
+    inlines = (StaffBarcodeInline, )
+
+    def kdv_barcode_export(self, request, queryset):
+        template = loader.get_template("admin/kdv_staffbarcode_export.html")
+        context = {'persons': queryset,
+                   'opts': self.opts,
+                   'title': 'KDV-Barcodeexport'}
+        return SimpleTemplateResponse(template, context)
+
+    kdv_barcode_export.short_description = "KDV-Barcodes exportieren"
+
+    def kdv_barcode_renew(self, request, queryset):
+        for member in queryset.all():
+            code = str(randint(2000000, 2999999))
+            weighed_sum = int(code[0]) * 3 + int(code[1]) * 1 + int(code[2]) * 3 + \
+                          int(code[3]) * 1 + int(code[4]) * 3 + int(code[5]) * 1 + int(code[6]) * 3
+            checksum = (10 - (weighed_sum % 10)) % 10
+            code = code + str(checksum)
+            bc = StaffBarcode.objects.get(user=member)
+            print(bc.kdv_barcode)
+            print(code)
+            bc.kdv_barcode = code
+            bc.save()
+        self.message_user(request, "KDV-Barcodes erfolgreich resetet.")
+    kdv_barcode_renew.short_description = "KDV-Barcodes reseten"
 
 
     def nametag_export(self, request, queryset):
@@ -160,8 +194,6 @@ class UserAdmin(admin.ModelAdmin):
         return response
 
     nametag_export.short_description = "Namensschilder generieren"
-
-
 
 
 admin.site.unregister(User)

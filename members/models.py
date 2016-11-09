@@ -50,13 +50,13 @@ class Member(models.Model):
     queue_deadline = models.DateTimeField("Deadline für Geldeingang", null=True)
     money_received = models.BooleanField("Festangemeldet?", default=False)
 
+    kdv_barcode = models.IntegerField("KDV-Barcode", null=True, blank=True, unique=True)
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Eingetragen am")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Verändert am")
 
     free_text = models.TextField("Sonstige Anmerkungen", blank=True)
     room = models.ForeignKey(Room, verbose_name = "Zugeteilter Raum", null=True, blank=True)
-
 
     def is_full_aged(self):
         return date.today() >= date(self.birth_date.year + 18, int(self.birth_date.month), int(self.birth_date.day) )

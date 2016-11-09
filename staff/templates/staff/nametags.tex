@@ -1,7 +1,5 @@
 {% for member in members %}
 {% with tags=member.get_nametag_boxes%}
-\Namensschild{\Name{ {{member.first_name}} }{ {{member.last_name}} } }{ORGA}{0}{}{~}{~}{~}{~}{\Tagbox{ {{member.}} }{ {{}} }}
+\Namensschild{\Name{ {{member.first_name}} }{ {{member.last_name}} } }{ORGA}{ {{member.get_kdv_barcode}} }{\$RAUM}{ {{tags.0}} }{ {{tags.1}} }{ {{tags.2}} }{ {{tags.3}} }{ {{tags.4}} }
+{% endwith %}
 {% endfor %}
-
-
-\Tagbox{T}{TeX}

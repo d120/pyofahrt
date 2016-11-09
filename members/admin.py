@@ -10,7 +10,7 @@ admin.site.register(FoodHandicaps)
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
     search_fields = ["first_name", "last_name", "email"]
-    actions = [admin_actions.mail_export, admin_actions.nametag_export, admin_actions.move_to_queue, admin_actions.mark_participants_contributing_paid]
+    actions = [admin_actions.mail_export, admin_actions.nametag_export, admin_actions.kdv_barcode_export, admin_actions.kdv_barcode_renew, admin_actions.move_to_queue, admin_actions.mark_participants_contributing_paid]
     list_display = ('first_name', 'last_name', 'gender', 'is_really_ersti', 'is_full_aged', 'queueinfo')
     list_filter = (admin_filters.MemberQueueFilter ,'gender', 'is_really_ersti', 'room')
     fieldsets = (
@@ -27,7 +27,7 @@ class MemberAdmin(admin.ModelAdmin):
             'fields': ('is_really_ersti', 'queue', 'queue_deadline', 'money_received'),
         }),
         ('Sonstiges', {
-            'fields': ('room', 'free_text'),
+            'fields': ('room', 'kdv_barcode', 'free_text'),
         }),
     )
 
