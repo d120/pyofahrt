@@ -1,6 +1,6 @@
 from django.db import models
 from ofahrtbase.models import Ofahrt
-from django.contrib.auth.models import Group, Permission
+from django.contrib.auth.models import Group, Permission, User
 
 # Create your models here.
 
@@ -41,3 +41,24 @@ class WorkshopCandidate(Candidate):
         )
 
     workshop_ideas = models.TextField("Workshopidee(n)", help_text='Bei mehreren Ideen, bitte eine Zeile pro Idee verwenden. Die Ideen sollen nur grob umrissen werden. Ein ausführlicherer Text wird erst an späterer Stelle benötigt.')
+
+
+def get_nametag_boxes(self):
+    out = []
+
+    for group in self.groups:
+        out.append({"key": group.name[1], "name": group.name})
+
+    while len(out) < 4:
+        out.append({"key": "~", "name": "~"})
+
+    if self.is_staff:
+        #Person ist Orga
+        out.append({"key": "O", "name": "ORGA"})
+    else:
+        #Person ist "nur" Workshopanbieter
+        out.append({"key": "WS", "name": "WORKSHOP"})
+
+    return list(reversed(out))
+
+User.add_to_class('get_nametag_boxes', get_nametag_boxes)

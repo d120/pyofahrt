@@ -20,9 +20,9 @@ mail_export.short_description = "Mailexport"
 
 def nametag_export(modeladmin, request, queryset):
     (pdf, pdflatex_output) = LaTeX.render(
-        {"members": queryset},
-        'members/nametags.tex', ['weggeWesen.jpg'],
-        'members')
+        {"members": queryset, "generator": "members/nametags.tex"},
+        'ofahrtbase/nametags.tex', ['weggeWesen.jpg'],
+        'ofahrtbase')
 
     if pdf is None:
         return HttpResponse(pdflatex_output[0].decode("utf-8"))

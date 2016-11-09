@@ -65,7 +65,7 @@ class Member(models.Model):
 
     def get_room_for_nametag(self):
         if self.room == None:
-            return "Kein Raum zugeteilt!"
+            return "~"
         else:
             return self.room
 

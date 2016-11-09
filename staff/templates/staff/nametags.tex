@@ -1,0 +1,7 @@
+{% for member in members %}
+{% with tags=member.get_nametag_boxes%}
+\Namensschild{\Name{ {{member.first_name}} }{ {{member.last_name}} } }{ORGA}{0}{}{~}{~}{~}{~}{\Tagbox{ {{member.}} }{ {{}} }}
+{% endfor %}
+
+
+\Tagbox{T}{TeX}

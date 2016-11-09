@@ -46,7 +46,7 @@
     {% if request.user in object.host.all or perms.workshops.editeveryworkshop %}<a href="{% url "workshops:edit" object.id %}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> bearbeiten</a>{% endif %}
     {% if perms.workshops.assignworkshop %}<a href="{% url "workshops:reassign" object.id %}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Zuweisung ändern</a>{% endif %}
     {% if object.host.all.count == 0 %}<a href="{% url "workshops:take" object.id %}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> diesen Workshop übernehmen</a>{% endif %}
-    {% if perms.workshops.assignworkshop %}<a href="{% url "workshops:duplicate" object.id %}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span> diesen Workshop dublizieren</a>{% endif %}
+    {% if perms.workshops.assignworkshop %}<a href="{% url "workshops:duplicate" object.id %}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span> diesen Workshop duplizieren</a>{% endif %}
     {% if request.user in object.host.all or perms.workshops.editeveryworkshop %}<a href="{% url "workshops:delete" object.id %}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> diesen Workshop löschen</a>{% endif %}
   </div>
 {% endblock %}

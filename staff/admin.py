@@ -1,11 +1,11 @@
 from django.contrib import admin
 from .models import WorkshopCandidate, OrgaCandidate
 from django.contrib.auth.models import Group, Permission, User
-from django.db.models import Q
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.messages import constants as messages
 from django.core.mail import EmailMessage
 from pyofahrt import settings
+from django.http import HttpResponse
+from ofahrtbase.helper import LaTeX
 
 # Register your models here.
 class WorkshopCandidateAdmin(admin.ModelAdmin):
@@ -135,3 +135,34 @@ class GroupAdmin(admin.ModelAdmin):
 
 admin.site.unregister(Group)
 admin.site.register(Group, GroupAdmin)
+
+
+
+class UserAdmin(admin.ModelAdmin):
+    list_display = ['username', 'first_name', 'last_name', 'email']
+    list_filter = ['groups']
+    actions = ['nametag_export']
+
+
+    def nametag_export(self, request, queryset):
+        (pdf, pdflatex_output) = LaTeX.render(
+            {"members": queryset, "generator": "staff/nametags.tex"},
+            'ofahrtbase/nametags.tex', ['weggeWesen.jpg'],
+            'ofahrtbase')
+
+        if pdf is None:
+            return HttpResponse(pdflatex_output[0].decode("utf-8"))
+
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename=nametags-staff.pdf'
+        response.write(pdf)
+
+        return response
+
+    nametag_export.short_description = "Namensschilder generieren"
+
+
+
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
