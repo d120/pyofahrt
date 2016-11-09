@@ -26,6 +26,21 @@ class StaffBarcode(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     kdv_barcode = models.IntegerField("KDV-Barcode", null=True, blank=True, unique=True)
 
+
+class StaffTagBox(models.Model):
+    class Meta:
+        verbose_name = "Tagbox"
+        verbose_name_plural = "Tagboxen"
+
+    group = models.OneToOneField(Group, on_delete=models.CASCADE)
+
+    letter = models.CharField("Key", unique=True, max_length=3)
+    text = models.CharField("Text", unique=True, max_length=10)
+
+    def __str__(self):
+        return ""
+
+
 class OrgaCandidate(Candidate):
     class Meta:
         verbose_name = "Orgabewerber"
@@ -51,7 +66,11 @@ def get_nametag_boxes(self):
     out = []
 
     for group in self.groups.all():
-        out.append("\\Tagbox{ " + group.name[0] + " }{ " + group.name + " }")
+        try:
+            box = StaffTagBox.objects.get(group=group)
+            out.append("\\Tagbox{ " + box.letter + " }{ " + box.text + " }")
+        except StaffTagBox.DoesNotExist:
+            out.append("\\Tagbox{ " + group.name[0] + " }{ " + group.name + " }")
 
     while len(out) < 4:
         out.append("~")

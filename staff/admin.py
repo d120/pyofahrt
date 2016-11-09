@@ -1,7 +1,7 @@
 from django.template.response import SimpleTemplateResponse
 from django.template import loader
 from django.contrib import admin
-from .models import WorkshopCandidate, OrgaCandidate, StaffBarcode
+from .models import *
 from django.contrib.auth.models import Group, Permission, User
 from django.contrib.messages import constants as messages
 from django.core.mail import EmailMessage
@@ -113,13 +113,34 @@ admin.site.register(OrgaCandidate, OrgaCandidateAdmin)
 
 
 
+
+class StaffTagBoxInline(admin.StackedInline):
+    model = StaffTagBox
+    can_delete = False
+    verbose_name_plural = "Namensschild-Tagboxen"
+
+
+
 class GroupAdmin(admin.ModelAdmin):
     actions = ['enable_reg', 'disable_reg']
-    list_display = ['name', 'reg_enabled']
+    list_display = ['name', 'reg_enabled', 'nametagbox']
+    inlines = (StaffTagBoxInline, )
+
+    def nametagbox(self, obj):
+        try:
+            info = StaffTagBox.objects.get(group=obj)
+            return info.letter + " / " + info.text
+
+        except StaffTagBox.DoesNotExist:
+            return "-"
+    nametagbox.short_description = "Namensschild Tag"
+
+
+
+
 
     def reg_enabled(self, obj):
         return Permission.objects.get(codename="group_full") not in obj.permissions.all()
-
     reg_enabled.short_description = "Registrierung möglich?"
     reg_enabled.boolean = True
 
@@ -127,6 +148,7 @@ class GroupAdmin(admin.ModelAdmin):
     def enable_reg(self, request, queryset):
         for x in queryset.all():
             x.permissions = x.permissions.all().exclude(codename="group_full")
+
 
 
     def disable_reg(self, request, queryset):
