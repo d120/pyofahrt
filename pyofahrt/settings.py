@@ -142,8 +142,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SERVER_EMAIL = "ofahrt-leitung@fachschaft.informatik.tu-darmstadt.de"
 DEFAULT_FROM_EMAIL = SERVER_EMAIL
 
+MAIL_PREFIX = "[Ofahrt-Info]" + " "
+
 # Mail settings
-MAIL_MEMBERSIGNUP_QUEUE_SUBJECT = "Anmeldung zur Ofahrt im Wintersemester %d"
+MAIL_MEMBERSIGNUP_QUEUE_SUBJECT = MAIL_PREFIX + "Anmeldung zur Ofahrt im Wintersemester %d"
 MAIL_MEMBERSIGNUP_QUEUE_TEXT = """Hallo %s,
 
 wir haben deine Anmeldung für die Ofahrt für Bachelor-Erstsemester im WiSe %d erfolgreich gespeichert.
@@ -159,7 +161,7 @@ die Ofahrt-Leitung
 Kontodaten:
 %s"""
 
-MAIL_MEMBER_MOVETOQUEUE_SUBJECT = "Deine Anmeldung zur Ofahrt"
+MAIL_MEMBER_MOVETOQUEUE_SUBJECT = MAIL_PREFIX + "Deine Anmeldung zur Ofahrt"
 MAIL_MEMBER_MOVETOQUEUE_TEXT = """Hallo %s,
 
 du wurdest soeben aus der Warteschlange auf die vorläufige Anmeldeliste gesetzt. Um auf die feste Anmeldeliste übernommen zu werden überweise bitte innerhalb von 7 Tagen den Teilnahmebeitrag von 20,00€ auf die unten angegebenen Kontodaten. Wähle als Verwendungszweck bitte "Erstsemesterfahrt Informatik - VORNAME NACHNAME" damit wir die Überweisung deiner Anmeldung zuordnen können. Solltest du keinen Zugriff auf ein Bankkonto oder eine andere Möglichkeit der Überweisung haben, kontaktiere uns bitte unter ofahrt-leitung@d120.de. In diesem Fall finden wir eine Regelung für eine Barzahlung im Fachschaftsraum.
@@ -174,7 +176,7 @@ die Ofahrt-Leitung
 Kontodaten:
 %s"""
 
-MAIL_MEMBERSIGNUP_SUBJECT = "Anmeldung zur Ofahrt im Wintersemester %d"
+MAIL_MEMBERSIGNUP_SUBJECT = MAIL_PREFIX + "Anmeldung zur Ofahrt im Wintersemester %d"
 MAIL_MEMBERSIGNUP_TEXT = """Hallo %s,
 
 wir haben deine Anmeldung für die Ofahrt für Bachelor-Erstsemester im WiSe %d erfolgreich gespeichert.
@@ -191,7 +193,7 @@ Kontodaten:
 BANK_ACCOUNT = "folgt separat" #wird in secret_settings überschrieben
 
 
-MAIL_WORKSHOPSIGNUP_SUBJECT = "Willkommen als Workshopanbieter bei der Ofahrt!"
+MAIL_WORKSHOPSIGNUP_SUBJECT = MAIL_PREFIX + "Willkommen als Workshopanbieter bei der Ofahrt!"
 MAIL_WORKSHOPSIGNUP_TEXT = """Hallo %(name)s,
 
 willkommen als Workshopanbieter der Ofahrt! Mit dem Erhalt dieser Email wurde dein Account in pyofahrt, unserem Verwaltungstool zur Planung uns Strukturierung der OFahrt, freigeschaltet. Im folgenden findest du deine Logindaten.
@@ -206,7 +208,7 @@ Mit freundlichen Grüßen,
 (okay, das ist eine automatische Mail)"""
 
 
-MAIL_ORGASIGNUP_SUBJECT = "Willkommen im Orgateam der Ofahrt!"
+MAIL_ORGASIGNUP_SUBJECT = MAIL_PREFIX + "Willkommen im Orgateam der Ofahrt!"
 MAIL_ORGASIGNUP_TEXT = """Hallo %(name)s,
 
 willkommen im Orgateam der Ofahrt! Mit dem Erhalt dieser Email wurde dein Account in pyofahrt, unserem Verwaltungstool zur Planung und Strukturierung der Ofahrt, freigeschaltet. Im Folgenden findest du deine Logindaten.
@@ -221,7 +223,7 @@ Mit freundlichen Grüßen,
 (okay, das ist eine automatische Mail)"""
 
 
-MAIL_CONTACTFORM_SUBJECT = "Ofahrt Kontaktformular"
+MAIL_CONTACTFORM_SUBJECT = MAIL_PREFIX + "Ofahrt Kontaktformular"
 MAIL_CONTACTFORM_TEXT = """Ofahrt Kontaktformular (Anfrage von %(sender)s)
 
 
@@ -229,7 +231,7 @@ MAIL_CONTACTFORM_TEXT = """Ofahrt Kontaktformular (Anfrage von %(sender)s)
 """
 
 
-MAIL_SUPERUSER_SUCCESS_SUBJECT = "SuperUser neu angelegt"
+MAIL_SUPERUSER_SUCCESS_SUBJECT = MAIL_PREFIX + "SuperUser neu angelegt"
 MAIL_SUPERUSER_SUCCESS_TEXT = """
 Der Superuseraccount "leitung" wurde in pyofahrt neu angelegt.
 
@@ -240,7 +242,7 @@ Die Zugangsdaten findest du unter mnt/media/ofahrt/pw.txt
 
 
 
-MAIL_SUPERUSER_ERROR_SUBJECT = "SuperUser konnte nicht neu angelegt werden"
+MAIL_SUPERUSER_ERROR_SUBJECT = MAIL_PREFIX + "SuperUser konnte nicht neu angelegt werden"
 MAIL_SUPERUSER_ERROR_TEXT = """
 Es wurde beantragt den Superuseraccount \"leitung\" in pyofahrt neu anzulegen. Da der Account allerdings nicht gelöscht wurde, wurde das Passwort zurückgesetzt.
 
@@ -251,7 +253,7 @@ Die Zugangsdaten findest du unter mnt/media/ofahrt/pw.txt
 
 
 
-MAIL_NEW_ORGA_SUBJECT = "pyofahrt: Neuer Orga-Eintrag"
+MAIL_NEW_ORGA_SUBJECT = MAIL_PREFIX + "pyofahrt: Neuer Orga-Eintrag"
 MAIL_NEW_ORGA_TEXT = """
 Eine neue Orga-Bewerbung ist eingegangen. Bitte zeitnah bearbeiten.
 
@@ -261,7 +263,7 @@ Nachname: %(lastname)s
 
 
 
-MAIL_NEW_WORKSHOP_SUBJECT = "pyofahrt: Neuer Orga-Eintrag"
+MAIL_NEW_WORKSHOP_SUBJECT = MAIL_PREFIX + "pyofahrt: Neuer Orga-Eintrag"
 MAIL_NEW_WORKSHOP_TEXT = """
 Eine neue Workshop-Bewerbung ist eingegangen. Bitte zeitnah bearbeiten.
 
@@ -271,7 +273,7 @@ Nachname: %(lastname)s
 
 
 
-MAIL_TICKETEDIT_SUBJECT = "Ticket #%(id)d bearbeitet"
+MAIL_TICKETEDIT_SUBJECT = MAIL_PREFIX + "Ticket #%(id)d bearbeitet"
 MAIL_TICKETEDIT_TEXT = """
 Hallo,
 diese Mail soll dich informieren, dass das Ticket #%(id)d "%(subject)s" in der für dich freigegebenen Aufgabenkategorie "%(cat)s" soeben von %(name)s bearbeitet wurde.
@@ -287,7 +289,7 @@ Diese Mail wurde automatisch generiert und ist daher auch ohne Unterschrift gül
 
 
 
-MAIL_TICKETASSIGN_SUBJECT = "Ticket #%(id)d neu zugewiesen"
+MAIL_TICKETASSIGN_SUBJECT = MAIL_PREFIX + "Ticket #%(id)d neu zugewiesen"
 MAIL_TICKETASSIGN_TEXT = """
 Hallo,
 diese Mail soll dich informieren, dass die Bearbeiterzuweisung für das Ticket #%(id)d "%(subject)s" in der für dich freigegebenen Aufgabenkategorie "%(cat)s" soeben von %(name)s verändert wurde.
@@ -302,7 +304,7 @@ Diese Mail wurde automatisch generiert und ist daher auch ohne Unterschrift gül
 
 
 
-MAIL_TICKETPUSH_SUBJECT = "PUSH: Ticket #%(id)d"
+MAIL_TICKETPUSH_SUBJECT = MAIL_PREFIX + "PUSH: Ticket #%(id)d"
 MAIL_TICKETPUSH_TEXT = """
 Hallo,
 diese Mail soll dich informieren, dass das Ticket #%(id)d "%(subject)s" in der für dich freigegebenen Aufgabenkategorie "%(cat)s" soeben von %(name)s einen Push! erhalten hat.
@@ -318,7 +320,7 @@ Diese Mail wurde automatisch generiert und ist daher auch ohne Unterschrift gül
 
 
 
-MAIL_TICKETNEWCOMMENT_SUBJECT = "Neuer Kommentar im Ticket #%(id)d"
+MAIL_TICKETNEWCOMMENT_SUBJECT = MAIL_PREFIX + "Neuer Kommentar im Ticket #%(id)d"
 MAIL_TICKETNEWCOMMENT_TEXT = """
 Hallo,
 diese Mail soll dich informieren, dass %(name)s im Ticket #%(id)d "%(subject)s" in der für dich freigegebenen Aufgabenkategorie "%(cat)s" soeben einen neuen Kommentar hinterlassen hat.
@@ -331,7 +333,7 @@ Diese Mail wurde automatisch generiert und ist daher auch ohne Unterschrift gül
 
 
 
-MAIL_TICKETNEW_SUBJECT = "Neues Ticket in der Kategorie %(cat)s"
+MAIL_TICKETNEW_SUBJECT = MAIL_PREFIX + "Neues Ticket in der Kategorie %(cat)s"
 MAIL_TICKETNEW_TEXT = """
 Hallo,
 diese Mail soll dich informieren, dass %(name)s soeben in der für dich freigegebenen Aufgabenkategorie "%(cat)s" ein neues Ticket (#%(id)d -  "%(subject)s") angelegt hat.
