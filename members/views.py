@@ -7,6 +7,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.template import Context
 from . import forms
+from django.contrib.auth.models import User
 from django.template.loader import get_template
 from django.urls import reverse_lazy
 from subprocess import Popen, PIPE
@@ -105,7 +106,8 @@ class RoomassignmentView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(RoomassignmentView, self).get_context_data(**kwargs)
-        context["users"] = Member.objects.all().filter(Q(room=None) | Q(room__usecase_sleep=False)).filter(money_received=True)
+        context["members"] = Member.objects.all().filter(Q(room=None) | Q(room__usecase_sleep=False)).filter(money_received=True)
+        context["users"] = User.objects.all().filter()
         context["rooms"] = Room.objects.all().filter(usecase_sleep=True)
         return context
 

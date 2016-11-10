@@ -74,5 +74,11 @@ class Room(models.Model):
     usecase_store = models.BooleanField("Lagerraum", default=False)
     usecase_meal = models.BooleanField("Essensraum", default=False)
 
+    def get_staff_users(self):
+        out = []
+        for user in self.staffroomassignement_set.all():
+            out.append(user.user)
+        return out
+
     def __str__(self):
         return self.name
