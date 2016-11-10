@@ -1,5 +1,5 @@
 from django.db import models
-from ofahrtbase.models import Ofahrt
+from ofahrtbase.models import Ofahrt, Room
 from django.db.models.query_utils import Q
 from django.contrib.auth.models import Group, Permission, User
 
@@ -26,6 +26,9 @@ class StaffBarcode(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     kdv_barcode = models.IntegerField("KDV-Barcode", null=True, blank=True, unique=True)
 
+class StaffRoomAssignement(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, verbose_name = "Zugeteilter Raum", null=True, blank=True)
 
 class StaffTagBox(models.Model):
     class Meta:

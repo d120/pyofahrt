@@ -167,13 +167,17 @@ class StaffBarcodeInline(admin.StackedInline):
     can_delete = False
     verbose_name_plural = "Staff-Barcode"
 
+class StaffRoomInline(admin.StackedInline):
+    model = StaffRoomAssignement
+    can_delete = False
+    verbose_name_plural = "Staff-Room"
 
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ['username', 'first_name', 'last_name', 'email']
     list_filter = ['groups']
     actions = ['nametag_export', 'kdv_barcode_renew', 'kdv_barcode_export']
-    inlines = (StaffBarcodeInline, )
+    inlines = (StaffBarcodeInline, StaffRoomInline,)
 
     def kdv_barcode_export(self, request, queryset):
         template = loader.get_template("admin/kdv_staffbarcode_export.html")
