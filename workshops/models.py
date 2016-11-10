@@ -87,5 +87,11 @@ class Workshop(models.Model):
     slot = models.ForeignKey(Slot, verbose_name="Zugeteilter Zeitslot", null=True, blank=True)
     room = models.ForeignKey(Room, verbose_name="Zugeteilter Raum", null=True, blank=True)
 
+    def get_room_id(self):
+        return 0 if self.room == None else self.room.pk
+
+    def get_slot_id(self):
+        return 0 if self.slot == None else self.slot.pk
+
     def __str__(self):
         return self.name

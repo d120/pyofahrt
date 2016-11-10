@@ -63,7 +63,7 @@ $( function() {
           userid = ui.item.attr("userid")
 
           obj = { user: userid, room: roomid }
-          $.getJSON("/members/saveroomassignment/", obj);
+          $.getJSON(ajaxurl, obj);
 
 
 

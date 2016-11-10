@@ -7,7 +7,7 @@ Es wurde{{ persons.count|pluralize:"n" }} {{ persons.count }} Person{{ persons.c
 </p>
 
 <textarea cols="60" rows="15">
-{% for person in persons %}insert into users (id,email,fullname,debt_limit) values ({{ person.get_kdv_barcode }},"{{ person.email }}","{{ person.first_name }} {{ person.last_name }}",100);
+{% for person in persons %}insert into users (id,email,fullname,debt_limit) values ({{ person.get_kdv_barcode }},"{{ person.email }}","{{ person.first_name }} {{ person.last_name }}",10000);
 insert into user_barcodes(user_id,code) values ({{ person.get_kdv_barcode }},"{{ person.get_kdv_barcode }}");
 {% endfor %}</textarea>
 

@@ -1,0 +1,43 @@
+table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+td, th {
+    border: 1px solid black;
+    padding: 5px 7px 5px 7px;
+}
+th {
+    background-color: floralwhite;
+}
+td.sortablearea {
+    padding: 0;
+}
+
+td.noslotroom {
+    background-color: lightsalmon;
+}
+
+td.noslotnoroom {
+    background-color: grey;
+}
+
+td .workshop {
+    width: 100%;
+}
+div.workshop {
+    background-color: yellow;
+    padding: 5px;
+    text-align: center;
+    display: inline-block;
+}
+
+div#unassigned {
+    background-color: #3a87ad;
+    height:50px;
+    margin-top: 5px;
+}
+
+#unassigned .workshop {
+    margin: 2px;
+}

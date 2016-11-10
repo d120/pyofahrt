@@ -27,6 +27,7 @@ class Ofahrt(models.Model):
     def __str__(self):
         return "Ofahrt im Wintersemester " + str(self.begin_date.year)
 
+    @staticmethod
     def current():
         try:
             return Ofahrt.objects.get(active=True)

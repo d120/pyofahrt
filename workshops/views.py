@@ -1,13 +1,12 @@
-from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView, FormView
 from django.views.generic import DetailView
-from .models import Workshop
+from .models import Workshop, Slot
 from .forms import DuplicateForm
 from ofahrtbase.models import Ofahrt, Room
-from django.http import HttpResponseRedirect
-from django.contrib.auth.models import User, Group
+from django.http import HttpResponseRedirect, Http404, HttpResponse
+from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 
 # Create your views here.
@@ -128,3 +127,39 @@ class WorkshopAssignView(UpdateView):
         context["form"].fields["host"].queryset = User.objects.all().exclude(groups=None)
         context["form"].fields["room"].queryset = Room.objects.all().filter(usecase_workshop=True)
         return context
+
+
+class WorkshopPlanView(TemplateView):
+    template_name = "workshops/planer.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(WorkshopPlanView, self).get_context_data(**kwargs)
+        context["rooms"] = Room.objects.all().filter(usecase_workshop=True).order_by("number")
+        context["slots"] = Slot.objects.all().filter(slottype="workshop").order_by("begin")
+        context["workshops"] = Workshop.objects.all()
+        return context
+
+
+
+def saveworkshopassignment(request):
+    results = {'success': False}
+    if request.method == u'GET':
+        GET = request.GET
+
+        slotid = int(GET['slot'])
+        roomid = int(GET['room'])
+        workshopid = int(GET['workshop'])
+
+        try:
+            workshop = Workshop.objects.get(pk=workshopid)
+            room = None if roomid == 0 else Room.objects.get(pk=roomid)
+            slot = None if slotid == 0 else Slot.objects.get(pk=slotid)
+        except (Workshop.DoesNotExist, Room.DoesNotExist, Slot.DoesNotExist):
+            return HttpResponse(results)
+
+        workshop.room = room
+        workshop.slot = slot
+
+        workshop.save()
+        results = {'success': True}
+    return HttpResponse(results)

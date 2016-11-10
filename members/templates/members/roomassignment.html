@@ -37,4 +37,8 @@
     {% endfor%}
   </div>
 </div>
+
+<script>
+    ajaxurl = "{% url "members:saveroomassignment" %}";
+</script>
 {% endblock %}

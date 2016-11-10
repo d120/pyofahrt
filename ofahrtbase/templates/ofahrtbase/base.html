@@ -47,7 +47,8 @@
               {% if perms.tasks.can_use %}<li><a href="{% url 'tasks:overview' %}">Aufgabenverwaltung {% if perms.tasks.can_use and user_tasks_counter > 0 %} <span class="badge">{{user_tasks_counter}}</span>{% endif %}</a></li>{% endif %}
               {% if perms.wiki.can_use %}<li><a href="{% url 'wiki:mainpage' %}">Wiki</a></li>{% endif %}
               {% if perms.workshops.can_use %}<li><a href="{% url 'workshops:overview' %}">Workshops</a></li>{% endif %}
-              {% if perms.member.edit %}<li><a href="{% url 'members:roomassignment'%}">Zimmerzuteilung</a></li>{% endif %}
+              {% if perms.workshops.assignworkshop %}<li><a href="{% url 'workshops:planer' %}">Workshopplaner</a></li>{% endif %}
+              {% if perms.members.change_member %}<li><a href="{% url 'members:roomassignment'%}">Zimmerzuteilung</a></li>{% endif %}
               {% if user.is_staff %}
             <li role="separator" class="divider"></li>
             <li><a href="{% url 'admin:index' %}"><b><i>Adminbereich</i></b></a></li>{% endif %}
