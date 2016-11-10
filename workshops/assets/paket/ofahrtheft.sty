@@ -1,0 +1,163 @@
+% Tobias Otterbein, Stand: 08.11.2016
+% Anpassungen für das Ofahrtheft
+
+\usepackage{ifthen}
+\usepackage{multicol}
+\usepackage{rotating}
+\usepackage{wallpaper}
+\usepackage[absolute]{textpos}
+\usepackage{graphicx}
+\usepackage{wasysym}
+\usepackage{longtable}
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{contour}
+\usepackage{multirow}
+
+
+\usepackage[left=15mm,right=15mm,top=15mm,bottom=20mm]{geometry}
+
+%Einrückungen vor Absätzen aus
+\setlength{\parindent}{0pt}
+
+%% Schriftgröße Überschriften
+\setkomafont{section}{\huge}
+\setkomafont{chapter}{\Huge}
+
+
+%% Chapterseiten
+
+% Linien für Chapterüberschriften (oben)
+\newcommand*{\ORIGchapterheadstartvskip}{}%
+\let\ORIGchapterheadstartvskip=\chapterheadstartvskip
+\renewcommand*{\chapterheadstartvskip}{%
+  \ORIGchapterheadstartvskip
+  {%
+    \setlength{\parskip}{0pt}%
+    \noindent\rule[.3\baselineskip]{\linewidth}{1pt}\par
+  }%
+}
+
+% Linien für Chapterüberschriften (unten)
+\newcommand*{\ORIGchapterheadendvskip}{}%
+\let\ORIGchapterheadendvskip=\chapterheadendvskip
+\renewcommand*{\chapterheadendvskip}{%
+  {%
+    \setlength{\parskip}{0pt}%
+    \noindent\rule[.3\baselineskip]{\linewidth}{1pt}\par
+  }%
+  \ORIGchapterheadendvskip
+}
+
+% Ausrichtung der Chapterüberschrift
+\addtokomafont{chapter}{\raggedleft}
+
+% Chapter ohne Seitenzahl
+\renewcommand*{\chapterpagestyle}{empty}
+
+% Anpassung der Zitate
+\renewcommand{\dictumwidth}{0.5\textwidth}
+\renewcommand{\raggeddictumtext}{\raggedleft}
+\addtokomafont{dictumauthor}{\tiny}
+
+
+%% Kopf- und Fußzeile
+\pagestyle{fancy}
+\fancyhf{}
+
+%\fancyhead[EL,OR]{\textbf{\sffamily\nouppercase\leftmark}}
+\renewcommand{\headrulewidth}{1pt}
+
+\renewcommand{\footrulewidth}{1pt}
+\fancyfoot[EL,OR]{\ifthispageodd{\pagemark$~>$}{$<~$\pagemark}}
+\fancyfoot[EC,OC]{\textbf{\sffamily Workshop-Infoheft Ofahrt \the\year}}
+
+
+
+
+%% Fußnote
+\deffootnotemark{$[$\thefootnotemark$]$}
+\deffootnote[1em]{1.5em}{1em}{$[$\thefootnotemark$]$}
+\addtokomafont{footnote}{\small}
+
+
+%% Weitere Kommandos
+
+
+% Kapiteldeckblätter
+% 1: Kapitelname
+% 2: Bild
+% 3: Zitat
+% 4: Autor des Zitats
+\newcommand{\kapitel}[4]{%
+	\addchap{#1}
+	\dictum[#4]{#3}
+	\vfill
+	\ifthenelse{\equal{#2}{}}{}{
+	\begin{center}
+	\includegraphics[width=10cm]{#2}
+	\end{center}}
+	\newpage
+}
+
+% Bild mit Unterschrift
+% 1: Bild
+% 2: Bildgröße
+% 3: Bildunterschrift
+% 4: Bildautor
+\newcommand{\bildmitunterschrift}[4]{%
+	\begin{center}
+	\includegraphics[#2]{#1}
+
+	#3 
+	
+	\ifthenelse{\equal{#4}{}}{}{\sffamily\tiny (Bild: #4)}
+	\end{center}
+}
+
+
+% \workshop
+% 1: Titel
+% 2: Anbietende Personen
+% 3: Zeitslots
+% 4: Beschreibungstext
+% 5: Maximale Teilnehmer*innenzahl
+% 6: Benötigtes Material
+% 7: Voraussetzungen zur Teilnahme
+% 8: Sonstige Infos
+% 9: Raum
+
+\newcommand{\workshop}[9]{%
+	\addsec{#1 \hfill \faThumbsOUp~\faSquareO}
+	\textbf{\sffamily{Anbietende Person(en): #2}}\\
+	\textbf{\sffamily{Zeitslot: #3}}\\
+	\textbf{\sffamily{Raum: #9}}\\
+	\vspace{0.5cm}
+
+	#4
+	
+	\vspace{0.5cm}
+
+	\textbf{\sffamily{Maximale Teilnehmer*innenzahl: #5}}\\
+	\textbf{\sffamily{Benötigtes Material: #6}}\\
+	\textbf{\sffamily{Voraussetzung zur Teilnahme: #7}}\\
+	\textbf{\sffamily{Sonstige Infos: #8}}\\
+	
+	\newpage
+}
+
+\newcommand{\notizen}{
+\addsec{Notizen:}
+\newpage}
+
+% Eigenständiger Autor
+\newcommand{\autor}[1]{%
+	\begin{flushright}
+	\sffamily{#1}
+	\end{flushright}
+}
+
+
+
+
+

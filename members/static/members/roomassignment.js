@@ -55,14 +55,18 @@ $( function() {
           $('#messages').children().delay(1250).fadeOut('slow');
 
 
-          roomid = $("#" + newroomid + " .roomname").attr("roomid");
+          roomid = $("#" + newroomid + " .roomname").attr("data-roomid");
 
           if(roomid == undefined)
             roomid = "-1"
 
-          userid = ui.item.attr("userid")
+          userid = ui.item.attr("data-userid")
+          usertype = ui.item.attr("data-type")
 
-          obj = { user: userid, room: roomid }
+          //alert("User: " + userid + "; Room: " + roomid + "; Type: " + usertype)
+
+
+          obj = { user: userid, room: roomid, datatype: usertype }
           $.getJSON(ajaxurl, obj);
 
 

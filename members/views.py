@@ -2,6 +2,7 @@ from django.views.generic import CreateView, TemplateView
 from django.db.models import Q
 from members.models import Member
 from ofahrtbase.models import Ofahrt, Room
+from staff.models import StaffRoomAssignement
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.http import HttpResponse
@@ -23,15 +24,28 @@ def saveroomassignment(request):
         GET = request.GET
         userid = int(GET['user'])
         roomid = int(GET['room'])
+        type = GET['datatype']
 
-        user = Member.objects.get(pk=userid)
+        if type == "member":
+            user = Member.objects.get(pk=userid)
+            if roomid == -1:
+                user.room = None
+            else:
+                room = Room.objects.get(pk=roomid)
+                user.room = room
+            user.save()
+        elif type == "staff":
+            user = User.objects.get(pk=userid)
+            try:
+                room = StaffRoomAssignement.objects.get(user=user)
+            except StaffRoomAssignement.DoesNotExist:
+                room = StaffRoomAssignement(user=user)
 
-        if roomid == -1:
-            user.room = None
-        else:
-            room = Room.objects.get(pk=roomid)
-            user.room = room
-        user.save()
+            if roomid == -1:
+                room.room = None
+            else:
+                room.room = Room.objects.get(pk=roomid)
+            room.save()
 
         results = {'success':True}
     return HttpResponse(results)
@@ -104,10 +118,26 @@ class SuccessView(TemplateView):
 class RoomassignmentView(TemplateView):
     template_name = "members/roomassignment.html"
 
+    @staticmethod
+    def get_users_with_no_room():
+        out = []
+        for user in User.objects.all():
+            try:
+                obj = StaffRoomAssignement.objects.get(user=user)
+            except StaffRoomAssignement.DoesNotExist:
+                obj = StaffRoomAssignement(user=user, room=None)
+                obj.save()
+
+            if obj.room == None:
+                out.append(user)
+
+        return out
+
     def get_context_data(self, **kwargs):
         context = super(RoomassignmentView, self).get_context_data(**kwargs)
         context["members"] = Member.objects.all().filter(Q(room=None) | Q(room__usecase_sleep=False)).filter(money_received=True)
-        context["users"] = User.objects.all().filter()
+        context["users"] = self.get_users_with_no_room()
+        context["usercount"] = len(context["users"])
         context["rooms"] = Room.objects.all().filter(usecase_sleep=True)
         return context
 

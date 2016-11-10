@@ -80,5 +80,8 @@ class Room(models.Model):
             out.append(user.user)
         return out
 
+    def get_staff_users_count(self):
+        return len(self.get_staff_users())
+
     def __str__(self):
         return self.name

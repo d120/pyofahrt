@@ -19,9 +19,9 @@
 <div id="rooms">
   {% for room in rooms %}
   {% with members=room.member_set.all staff=room.get_staff_users %}
-  <div id="{{ room.id }}" class="room{% if members.count > room.capacity %} fullroom{% endif%}">
+  <div id="{{ room.id }}" class="room{% if members.count|add:room.get_staff_users_count > room.capacity %} fullroom{% endif%}">
     <div class="roomtitle">
-        <span class="roomname" data-roomid="{{ room.id }}">{{ room }}</span> (<span class="counter">{{members.count}}</span>/<span class="max">{{ room.capacity }}</span>){% if members.count > room.capacity %} <span class="label label-danger">zu voll!</span>{% endif%}
+        <span class="roomname" data-roomid="{{ room.id }}">{{ room }}</span> (<span class="counter">{{members.count|add:room.get_staff_users_count}}</span>/<span class="max">{{ room.capacity }}</span>){% if members.count > room.capacity %} <span class="label label-danger">zu voll!</span>{% endif%}
     </div>
     <div class="sortablearea">
       {% for member in members %}
@@ -40,7 +40,7 @@
   {% endfor %}
 </div>
 <div id="unassignedmembers">
-  <b>Noch nicht zugeteilt (<span class="counter">{{users.count}}</span>):</b>
+  <b>Noch nicht zugeteilt (<span class="counter">{{members.count|add:usercount}}</span>):</b>
   <div class="sortablearea">
     {% for member in members %}
     <div class="member" data-type="member" data-userid="{{ member.id }}">{{ member }}  <span class="{% if member.gender == 'm' %} fa fa-mars {% elif member.gender == 'w' %} fa fa-venus {% else %} fa fa-neuter {% endif %}"></span></div>
