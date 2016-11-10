@@ -3,6 +3,7 @@
 {% block morehead %}
 {% load static %}<link rel='stylesheet' href='{% static "ofahrtbase/jquery-ui.min.css" %}' />
   <link rel='stylesheet' href='{% static "members/roomassignment.css" %}' />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <script src='{% static "members/roomassignment.js" %}'></script>
   <script src='{% static "ofahrtbase/jquery-ui.min.js" %}'></script>{% endblock %}
 {% block content %}
@@ -33,7 +34,7 @@
   <b>Noch nicht zugeteilt (<span class="counter">{{users.count}}</span>):</b>
   <div class="sortablearea">
     {% for member in users %}
-    <div class="member" userid="{{ member.id }}">{{ member }}</div>
+    <div class="member" userid="{{ member.id }}">{{ member }}  <span class="{% if member.gender == 'm' %} fa fa-mars {% elif member.gender == 'w' %} fa fa-venus {% else %} fa fa-neuter {% endif %}"</span></div>
     {% endfor%}
   </div>
 </div>
