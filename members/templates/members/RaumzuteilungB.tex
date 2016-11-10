@@ -22,7 +22,7 @@
 Vorname & Nachname & Zimmer\\
 \hline
 {% for member in members %}
-\tabellenzeile{ {{ member.first_name }} }{ {{ member.last_name }} }{ {% if member.room == None%} \textcolor{red}{\textit{kein Raum zugeteilt}} {% else %} {{ member.room }} {% endif %} }
+\tabellenzeile{ {{ member.first_name }} }{ {{ member.last_name }} }{ {% if member.room == None%} \textcolor{red}{\textit{kein Raum zugeteilt}} {% else %} {{ member.room }} (Nr. {{member.room.number}}) {% endif %} }
 {% endfor %}
 \end{tabularx}
 

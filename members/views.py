@@ -134,7 +134,7 @@ def person_as_pdf(request):
 
 
 def room_as_pdf(request):
-    rooms = Room.objects.order_by('name')
+    rooms = Room.objects.filter(usecase_sleep=True).order_by('name')
     context = Context({
             'rooms': rooms,
         })
