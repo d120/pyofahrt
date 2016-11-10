@@ -195,9 +195,10 @@ class UserAdmin(admin.ModelAdmin):
                           int(code[3]) * 1 + int(code[4]) * 3 + int(code[5]) * 1 + int(code[6]) * 3
             checksum = (10 - (weighed_sum % 10)) % 10
             code = code + str(checksum)
-            bc = StaffBarcode.objects.get(user=member)
-            print(bc.kdv_barcode)
-            print(code)
+            try:
+                bc = StaffBarcode.objects.get(user=member)
+            except StaffBarcode.DoesNotExist:
+                bc = StaffBarcode(user=member)
             bc.kdv_barcode = code
             bc.save()
         self.message_user(request, "KDV-Barcodes erfolgreich resetet.")

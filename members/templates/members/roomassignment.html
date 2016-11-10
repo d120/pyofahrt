@@ -26,7 +26,7 @@
     <div class="sortablearea">
       {% for member in members %}
       <div class="member" data-type="member" data-userid="{{ member.id }}">
-          {{ member }}
+          {{ member }}   <span class="{% if member.gender == 'm' %} fa fa-mars {% elif member.gender == 'w' %} fa fa-venus {% else %} fa fa-neuter {% endif %}"></span>
       </div>
       {% endfor %}
       {% for member in staff %}
