@@ -9,6 +9,7 @@ from pyofahrt import settings
 from django.http import HttpResponse
 from ofahrtbase.helper import LaTeX
 from random import randint
+from django.template.loader import get_template
 
 # Register your models here.
 class WorkshopCandidateAdmin(admin.ModelAdmin):
@@ -176,7 +177,7 @@ class StaffRoomInline(admin.StackedInline):
 class UserAdmin(admin.ModelAdmin):
     list_display = ['username', 'first_name', 'last_name', 'email']
     list_filter = ['groups']
-    actions = ['nametag_export', 'kdv_barcode_renew', 'kdv_barcode_export']
+    actions = ['nametag_export', 'nametag_export_raw', 'kdv_barcode_renew', 'kdv_barcode_export']
     inlines = (StaffBarcodeInline, StaffRoomInline,)
 
     def kdv_barcode_export(self, request, queryset):
@@ -221,6 +222,15 @@ class UserAdmin(admin.ModelAdmin):
         return response
 
     nametag_export.short_description = "Namensschilder generieren"
+
+
+    def nametag_export_raw(self, request, queryset):
+        template = get_template("ofahrtbase/nametags.tex")
+        rendered_tpl = template.render({"members": queryset, "generator": "staff/nametags.tex"}).encode('utf-8')
+
+        return HttpResponse(rendered_tpl)
+
+    nametag_export_raw.short_description = "Namensschilder generieren (TeX)"
 
 
 admin.site.unregister(User)

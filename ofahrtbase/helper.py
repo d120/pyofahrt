@@ -1,7 +1,6 @@
 from subprocess import Popen, PIPE
 import tempfile, os, shutil
 from django.template.loader import get_template
-from django.http import HttpResponse
 
 class LaTeX:
     @staticmethod
