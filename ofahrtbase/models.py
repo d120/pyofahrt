@@ -84,4 +84,7 @@ class Room(models.Model):
         return len(self.get_staff_users())
 
     def __str__(self):
-        return self.name + " (Nr. " + self.number + ")"
+        if self.number == -1:
+            return self.name
+        else:
+            return self.name + " (Nr. " + self.number + ")"
