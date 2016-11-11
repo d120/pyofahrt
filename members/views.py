@@ -168,15 +168,12 @@ def person_as_pdf(request):
 
 
 def room_as_pdf(request):
-    temp = Room.objects.filter(usecase_sleep=True).order_by('name')
+    temp = Room.objects.filter(usecase_sleep=True).order_by('number', 'name')
     rooms = []
 
     for room in temp:
         if room.get_person_count() > 0:
             rooms.append(room)
-            print("A: " + str(room.get_person_count()))
-        else:
-            print("B")
 
     context = Context({
             'rooms': rooms,
