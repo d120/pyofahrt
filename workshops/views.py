@@ -165,8 +165,6 @@ def saveworkshopassignment(request):
         results = {'success': True}
     return HttpResponse(results)
 
-from django.template.loader import get_template
-
 def infoexport(request):
     queryset = Workshop.objects.all().filter(accepted=True).filter(proved=True)
     (pdf, pdflatex_output) = LaTeX.render(
