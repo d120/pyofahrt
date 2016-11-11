@@ -84,4 +84,4 @@ class Room(models.Model):
         return len(self.get_staff_users())
 
     def __str__(self):
-        return self.name
+        return self.name + " (Nr. " + self.number + ")"
