@@ -142,9 +142,11 @@ class RoomassignmentView(TemplateView):
         return context
 
 def person_as_pdf(request):
-    members = Member.objects.order_by('last_name')
+    members = Member.objects.filter(money_received=True).order_by('last_name')
+    staff = User.objects.order_by('last_name')
     context = Context({
             'members': members,
+            'staff': staff
         })
     template = get_template('members/RaumzuteilungB.tex')
     rendered_tpl = template.render(context).encode('utf-8')
@@ -166,7 +168,16 @@ def person_as_pdf(request):
 
 
 def room_as_pdf(request):
-    rooms = Room.objects.filter(usecase_sleep=True).order_by('name')
+    temp = Room.objects.filter(usecase_sleep=True).order_by('name')
+    rooms = []
+
+    for room in temp:
+        if room.get_person_count() > 0:
+            rooms.append(room)
+            print("A: " + str(room.get_person_count()))
+        else:
+            print("B")
+
     context = Context({
             'rooms': rooms,
         })

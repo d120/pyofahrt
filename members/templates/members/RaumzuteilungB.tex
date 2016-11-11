@@ -6,7 +6,7 @@
 \usepackage{ltablex}
 
 \title{Zimmerverteilung}
-\subtitle{Diese Liste zeigt die Verteilung der Teilnehmer auf die Zimmer an.}
+\subtitle{Diese Liste zeigt die Verteilung der Teilnehmer*innen auf die Zimmer an.}
 
 
 \newcommand{\tabellenzeile}[3]{
@@ -22,7 +22,10 @@
 Vorname & Nachname & Zimmer\\
 \hline
 {% for member in members %}
-\tabellenzeile{ {{ member.first_name }} }{ {{ member.last_name }} }{ {% if member.room == None%} \textcolor{red}{\textit{kein Raum zugeteilt}} {% else %} {{ member.room }} (Nr. {{member.room.number}}) {% endif %} }
+\tabellenzeile{ {{ member.first_name }} }{ {{ member.last_name }} }{ {% if member.room == None%} \textcolor{red}{\textit{kein Raum zugeteilt}} {% else %} {{ member.room }}{% endif %} }
+{% endfor %}
+{% for member in staff %}
+\tabellenzeile{ {{ member.first_name }} }{ {{ member.last_name }} }{ {% if member.get_room == None%} \textcolor{red}{\textit{kein Raum zugeteilt}} {% else %} {{ member.get_room }}{% endif %} }
 {% endfor %}
 \end{tabularx}
 

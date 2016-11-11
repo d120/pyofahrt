@@ -90,5 +90,16 @@ def get_nametag_boxes(self):
 def get_kdv_barcode(self):
     return StaffBarcode.objects.get(user=self).kdv_barcode
 
+
+def get_room(self):
+    try:
+        temp = StaffRoomAssignement.objects.get(user=self).room
+    except StaffRoomAssignement.DoesNotExist:
+        temp = StaffRoomAssignement(user=self)
+        temp.save()
+    return temp
+
+
 User.add_to_class('get_nametag_boxes', get_nametag_boxes)
 User.add_to_class('get_kdv_barcode', get_kdv_barcode)
+User.add_to_class('get_room', get_room)

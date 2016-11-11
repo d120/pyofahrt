@@ -34,7 +34,7 @@
 ~\\
 
 {% for room in rooms%}
-\zimmer{ {{room}} (Nr. {{room.number}}) }{ {% for member in room.member_set.all %} \eintrag{ {{member}} } {% endfor %} }
+\zimmer{ {{room}} }{ {% for member in room.member_set.all %} \eintrag{ {{member}} } {% endfor %} {% for member in room.get_staff_users %} \eintrag{ {{member.get_full_name}} } {% endfor %} }
 {% endfor %}
 
 \end{document}

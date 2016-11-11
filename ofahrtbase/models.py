@@ -83,6 +83,15 @@ class Room(models.Model):
     def get_staff_users_count(self):
         return len(self.get_staff_users())
 
+    def get_person_count(self):
+        return self.get_member_users_count() + self.get_staff_users_count()
+
+    def get_member_users(self):
+        return self.member_set.all()
+
+    def get_member_users_count(self):
+        return len(self.get_member_users())
+
     def __str__(self):
         if self.number == "-1":
             return self.name
