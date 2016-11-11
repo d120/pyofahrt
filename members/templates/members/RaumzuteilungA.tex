@@ -13,7 +13,7 @@
 
 \newcommand{\zimmer}[2]{
 \begin{minipage}{0.25\textwidth}
-\begin{tabular}{|p{3.5cm}|}
+\begin{tabular}{|p{4cm}|}
 \hline
 \textbf{#1}\\
 \hline
@@ -33,8 +33,6 @@
 
 ~\\
 
-{% for room in rooms%}
-\zimmer{ {{room}} }{ {% for member in room.member_set.all %} \eintrag{ {{member}} } {% endfor %} {% for member in room.get_staff_users %} \eintrag{ {{member.get_full_name}} } {% endfor %} }
-{% endfor %}
+{% for room in rooms%}\zimmer{ {{room}} }{ {% for member in room.member_set.all %} \eintrag{ {{member}} } {% endfor %} {% for member in room.get_staff_users %} \eintrag{ {{member.get_full_name}} } {% endfor %} }{% endfor %}
 
 \end{document}
