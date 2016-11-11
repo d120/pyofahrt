@@ -169,7 +169,7 @@ def infoexport(request):
     queryset = Workshop.objects.all().filter(accepted=True).filter(proved=True)
     (pdf, pdflatex_output) = LaTeX.render(
         {"workshops": queryset,
-         "blankpages": range((4 - (queryset.count() + 2)) % 4)},
+         "blankpages": range( 4 -((9 + queryset.count()) %4) % 4  )},
         'workshops/ofahrtheft.tex', ['grafik/logo_ohne_rand.png', 'grafik/titel.png', 'grafik/umgebung_big.png', 'grafik/umgebung_small.png', 'inhalt/einleitung.tex', 'inhalt/rueckseite.tex', 'inhalt/titelseite.tex', 'paket/ofahrtheft.sty'],
         'workshops')
 

@@ -39,6 +39,8 @@
 \addsec{Ablauf}
 Einen detaillierten Ablaufplan findest du auf der Rückseite dieses Hefts. Wir unterscheiden zwischen Gemeinschafts- und Kleingruppen-Veranstaltungen.
 
+\vspace{-2mm}
+
 \addsec{Essen}
 Feste Essenszeiten gemeinsam im großen Speisesaal:
 \begin{itemize}
@@ -129,7 +131,7 @@ Eure Ofahrt-Orga
 %\workshop{Einführung in \LaTeX}{Tobias Otterbein}{Slot 1}{\blindtext[2]}{15 Teilnehmer*innen}{Laptop}{Installiertes TeX}{Ähnlich zum Ophasenworkshop. Weiterführendes im nächsten Slot}{Raum A}
 %\workshop{Ein weiterer toller Workshop mit \LaTeX}{Tobias Otterbein}{Slot 2}{\blindtext[2]}{15 Teilnehmer*innen}{Laptop}{Installiertes TeX}{Ähnlich zum Ophasenworkshop. Weiterführendes im nächsten Slot}{Raum B}
 {% for workshop in workshops %}
-\workshop{% templatetag openbrace %}{{workshop.name|tex_escape}} }{ {% for host in workshop.host.all %}{{host}}{% if not forloop.last%}, {% endif %}{% endfor %} }{ {{workshop.slot}} }{ {{workshop.description|tex_escape}} }{ {{workshop.maxmembers|tex_escape}} }{ {{workshop.requirements|tex_escape}} }{ {{workshop.conditions|tex_escape}} }{ {{workshop.otherstuff|tex_escape}} }{ {{workshop.room}} }
+\workshop{% templatetag openbrace %}{{workshop.name|tex_escape}} }{ {% for host in workshop.host.all %}{{host.get_full_name}}{% if not forloop.last%}, {% endif %}{% endfor %} }{ {{workshop.slot}} }{ {{workshop.description|tex_escape}} }{ {{workshop.maxmembers|tex_escape}} }{ {{workshop.requirements|tex_escape}} }{ {{workshop.conditions|tex_escape}} }{ {{workshop.otherstuff|tex_escape}} }{ {{workshop.room}} }
 {% endfor %}
 {% endautoescape %}
 
