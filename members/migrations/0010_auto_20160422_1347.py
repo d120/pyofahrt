@@ -15,10 +15,10 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='member',
             name='email',
-            field=models.EmailField(max_length=254, unique=True, verbose_name='Emailadresse'),
+            field=models.EmailField(max_length=180, unique=True, verbose_name='Emailadresse'),
         ),
-        migrations.AlterUniqueTogether(
-            name='member',
-            unique_together=set([('first_name', 'last_name')]),
-        ),
+        #migrations.AlterUniqueTogether(
+        #    name='member',
+        #    unique_together=set([('first_name', 'last_name')]),
+        #),
     ]

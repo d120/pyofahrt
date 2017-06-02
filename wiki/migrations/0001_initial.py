@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Article',
             fields=[
-                ('title', models.CharField(max_length=255, primary_key=True, serialize=False, verbose_name='Titel')),
+                ('title', models.CharField(max_length=180, primary_key=True, serialize=False, verbose_name='Titel')),
             ],
             options={
                 'verbose_name': 'Artikel',
