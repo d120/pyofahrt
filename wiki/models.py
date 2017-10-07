@@ -14,7 +14,7 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
-    title = models.CharField("Titel", max_length=255, primary_key=True)
+    title = models.CharField("Titel", max_length=180, primary_key=True)
 
 
 

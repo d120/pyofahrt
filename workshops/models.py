@@ -13,10 +13,11 @@ class Slot(models.Model):
         verbose_name = "Zeitslot"
         verbose_name_plural = "Zeitslots"
 
-    defaultdate = None
+    def __init__(self):
+        if Ofahrt.current() and Ofahrt.current().begin_date:
+            defaultdate = datetime.combine(Ofahrt.current().begin_date, datetime.min.time())
 
-    if Ofahrt.current() and Ofahrt.current().begin_date:
-        defaultdate = datetime.combine(Ofahrt.current().begin_date, datetime.min.time())
+    defaultdate = None
 
     name = models.CharField("Bezeichnung", max_length=30)
     begin = models.DateTimeField("Start", default=defaultdate)
