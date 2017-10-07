@@ -8,7 +8,7 @@
   <b>Willkommen auf der Startseite der Ofahrt.</b>
   <p>Die Ofahrt ist die Erstsemester*innenfahrt der Fachschaft Informatik an der TU-Darmstadt. Ziel der Ofahrt ist es, Kontakte zwischen den neuen Studierenden zu knüpfen, die Gelegenheit zu geben sich in verschiedenen Workshops über gemeinsame Interessen auszutauschen und über die <a href="http://d120.de/ophase">Ophase</a> herrausgehende hilfreiche Informationen zu vermitteln.</p>
   {% if ofahrt %}
-  <p>Die Ofahrt für Studienanfänger*innen im Wintersemester {{ ofahrt.begin_date.year }}/{{ ofahrt.end_date.year |add:"1" }} findet vom <b>{{ ofahrt.begin_date|date:"d.m.Y" }}</b> bis zum <b>{{ ofahrt.end_date|date:"d.m.Y" }}</b> auf der Starkenburg bei Heppenheim (ungefähr 30km südlich von Darmstadt) statt. Die Anmeldung für Erstsemester des Studiengangs Bachelor of Science Informatik an der TU Darmstadt erfolgt auf dieser Seite unter dem Menüpunkt <i>Anmeldung</i>.</p>
+  <p>Die Ofahrt für Studienanfänger*innen im Wintersemester {{ ofahrt.begin_date.year }}/{{ ofahrt.end_date.year |add:"1" }} findet vom <b>{{ ofahrt.begin_date|date:"d.m.Y" }}</b> bis zum <b>{{ ofahrt.end_date|date:"d.m.Y" }}</b> auf der Starkenburg bei Heppenheim (ungefähr 30km südlich von Darmstadt) statt. Die Anmeldung für Erstsemester des Studiengangs Bachelor of Science Informatik bzw. Bachelor of Education Informatik an der TU Darmstadt erfolgt auf dieser Seite unter dem Menüpunkt <i>Anmeldung</i>. Weitere Informationen zur Ofahrt werden im Rahmen der Ophase vermittelt.</p>
   {% endif %}
 </div>
 {% endblock %}
