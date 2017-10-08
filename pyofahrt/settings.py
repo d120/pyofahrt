@@ -343,3 +343,10 @@ Du kannst das Ticket unter folgendem Link einsehen:
 
 Diese Mail wurde automatisch generiert und ist daher auch ohne Unterschrift gültig.
 """
+
+BANK_ACCOUNT = """
+Vorstand des Fördervereins der Fachschaft Informatik an der TU Darmstadt e.V.
+Raum D120
+Hochschulstraße 10
+64289 Darmstadt
+"""
