@@ -3,10 +3,9 @@ from staff.models import WorkshopCandidate
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from ofahrtbase.models import Ofahrt, Room
+from django.utils import timezone
 from datetime import datetime
-
-# Create your models here.
-
+import pytz
 
 class Slot(models.Model):
     class Meta:
@@ -16,6 +15,7 @@ class Slot(models.Model):
     def __init__(self):
         if Ofahrt.current() and Ofahrt.current().begin_date:
             defaultdate = datetime.combine(Ofahrt.current().begin_date, datetime.min.time())
+            defaultdate = pytz.timezones(timezone.get_default_timezone_name()).localize(defaultdate)
 
     defaultdate = None
 
