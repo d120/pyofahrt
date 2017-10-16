@@ -3,6 +3,7 @@ from django.template import loader
 from django.contrib import admin
 from .models import *
 from django.contrib.auth.models import Group, Permission, User
+from django.contrib.auth.admin import UserAdmin
 from django.contrib.messages import constants as messages
 from django.core.mail import EmailMessage
 from pyofahrt import settings
@@ -174,7 +175,7 @@ class StaffRoomInline(admin.StackedInline):
     verbose_name_plural = "Staff-Room"
 
 
-class UserAdmin(admin.ModelAdmin):
+class UserAdmin(UserAdmin):
     list_display = ['username', 'first_name', 'last_name', 'email']
     list_filter = ['groups']
     actions = ['nametag_export', 'nametag_export_raw', 'kdv_barcode_renew', 'kdv_barcode_export']
