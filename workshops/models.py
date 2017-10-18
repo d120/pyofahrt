@@ -3,21 +3,15 @@ from staff.models import WorkshopCandidate
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from ofahrtbase.models import Ofahrt, Room
-from django.utils import timezone
-from datetime import datetime
-import pytz
+from datetime import datetime, time
 
 class Slot(models.Model):
     class Meta:
         verbose_name = "Zeitslot"
         verbose_name_plural = "Zeitslots"
 
-    def __init__(self):
-        if Ofahrt.current() and Ofahrt.current().begin_date:
-            defaultdate = datetime.combine(Ofahrt.current().begin_date, datetime.min.time())
-            defaultdate = pytz.timezones(timezone.get_default_timezone_name()).localize(defaultdate)
-
-    defaultdate = None
+    def defaultdate():
+        return datetime.combine(Ofahrt.current().begin_date, time())
 
     name = models.CharField("Bezeichnung", max_length=30)
     begin = models.DateTimeField("Start", default=defaultdate)
