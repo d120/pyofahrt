@@ -1,115 +1,114 @@
 #loginbutton {
-  padding: 0;
-  display: inherit;
+    padding: 0;
+    display: inherit;
 }
 
 #pwbutton {
-  padding: 0;
-  margin-right: 5px;
-  display: inherit;
+    padding: 0;
+    margin-right: 5px;
+    display: inherit;
 }
 
 #content {
-  padding: 10px;
-  padding-bottom: 60px;
+    padding: 10px;
+    padding-bottom: 60px;
 }
 
 #bigcontent {
-  position: relative;
-  min-height: 100%;
-  margin: 0 auto;
+    position: relative;
+    min-height: 100%;
+    margin: 0 auto;
 }
 
 .prefix-glyphicon {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 
 .jumbotron {
-  padding-bottom: 5px !important;
+    padding-bottom: 5px !important;
 }
 
 #suggestionlist {
-  display: none;
+    display: none;
 }
 
 #suggestionlist ul {
-  list-style-type: square;
+    list-style-type: square;
 }
 
-#faq{
-  display: flex;
+#faq {
+    display: flex;
 }
 
-#answercontainer{
-  flex: 5;
+#answercontainer {
+    flex: 5;
 }
 
 #faqnav {
-  flex: 1;
-  float: left;
-  height: 10%;
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px;
+    flex: 1;
+    float: left;
+    height: 10%;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
 }
 
 #faqnav ul {
-  list-style: none;
+    list-style: none;
 }
 
 #faqnav a {
-  color: #000;
+    color: #000;
 }
 
 #innercontent {
-  margin: 0 50px 0 50px;
+    margin: 0 50px 0 50px;
 }
 
 #innercontent {
-  line-height: 25px;
-  font-size: 12pt;
+    line-height: 25px;
+    font-size: 12pt;
 }
 
 #faqnav a:hover {
-  text-decoration: none;
-  background: #88c;
-  color: #fff;
-  display: block;
-  padding: .2rem;
+    text-decoration: none;
+    background: #88c;
+    color: #fff;
+    display: block;
+    padding: .2rem;
 }
 
 #faqnav .sublist li:hover {
-  background-color: #88c;
-  margin-left: -2rem;
-  padding-left: 2rem;
+    background-color: #88c;
+    margin-left: -2rem;
+    padding-left: 2rem;
 }
 
 #faqnav a {
-  display: block;
-  padding: .2rem;
-  color: #000;
+    display: block;
+    padding: .2rem;
+    color: #000;
 }
 
-
-div#faqnav  ul {
-  margin-top: 0;
-  list-style: none;
-  padding-left: 0;
-  margin-bottom: 0;
-  margin-left: 2rem;
+div#faqnav ul {
+    margin-top: 0;
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+    margin-left: 2rem;
 }
 
 div#faqnav > ul {
-  margin-left: 0;
+    margin-left: 0;
 }
 
-#faq .panel, #faq h1{
-  margin-left: 2%;
+#faq .panel, #faq h1 {
+    margin-left: 2%;
 }
 
 #signupform {
-  margin: 25px 20% 0 20%;
+    margin: 25px 20% 0 20%;
 }
 
 html, body {
@@ -131,102 +130,106 @@ html, body {
 }
 
 #staffsignup {
-  margin: 0 50px;
+    margin: 0 50px;
 }
 
 img#logo {
-  float: right;
-  height: 40px;
+    float: right;
+    height: 40px;
 }
 
 .h1, .h2, .h3, .h4, .h5, .h6 {
-  border-bottom: 1px solid lightgrey;
-  padding-bottom: 10px;
-  margin-bottom: 25px !important;
-  margin-top: 25px !important;
+    border-bottom: 1px solid lightgrey;
+    padding-bottom: 10px;
+    margin-bottom: 25px !important;
+    margin-top: 25px !important;
 }
 
 .taskcomment {
-  width: 100%;
+    width: 100%;
 }
 
 .taskcomment {
-  border: 1px solid grey;
-  border-radius: 10px;
-  margin-bottom: 20px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 .taskcomment table {
-  width: 100%;
+    width: 100%;
 }
 
 .taskcommenttext {
-  width: 75%;
-  border-top: 1px solid grey;
-  border-left: 1px solid grey;
-  vertical-align: top;
+    width: 75%;
+    border-top: 1px solid grey;
+    border-left: 1px solid grey;
+    vertical-align: top;
 }
 
 .glyphicon-highlight {
-  color:#337ab7;
-  text-shadow: 2px 2px #aaa;
+    color: #337ab7;
+    text-shadow: 2px 2px #aaa;
 }
 
 .taskcommentuserinfos {
-  vertical-align: top;
-  border-top: 1px solid grey;
-  border-bottom: 1px solid grey;
+    vertical-align: top;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
 }
 
 .taskcommentuser {
-  height:25px;
-  font-size:17px;
-  border-top: 1px solid grey;
+    height: 25px;
+    font-size: 17px;
+    border-top: 1px solid grey;
 }
 
 .taskcomment td, .taskcomment th {
-  padding: 5px;
+    padding: 5px;
 }
 
 .joblist {
-  list-style-type: none;
-  padding-left: 10px;
+    list-style-type: none;
+    padding-left: 10px;
 }
-
 
 .wikinav {
-  margin-right: -18px;
-  margin-left: -18px;
-  margin-top: 5px;
+    margin-right: -18px;
+    margin-left: -18px;
+    margin-top: 5px;
 }
 
-
 .closedticket {
-  color: #AAAAAA;
-  text-decoration: line-through !important;
+    color: #AAAAAA;
+    text-decoration: line-through !important;
 }
 
 .closedticket a {
-  color: #7777FF !important;
+    color: #7777FF !important;
 }
 
 .defaultcontainer {
-  padding: 25px;
-  padding-top: 5px;
-  margin: 25px;
-  background-color: #eee;
+    padding: 25px;
+    padding-top: 5px;
+    margin: 25px;
+    background-color: #eee;
 }
 
 #utilizationlabel {
-  font-weight: bold;
-  margin-bottom: 3px;
-  display: block;
+    font-weight: bold;
+    margin-bottom: 3px;
+    display: block;
 }
 
 .responsiblelabel {
-  color: grey;
-  margin-top: -20px;
-  margin-bottom: 40px;
-  display: block;
-  font-style: italic;
+    color: grey;
+    margin-top: -20px;
+    margin-bottom: 40px;
+    display: block;
+    font-style: italic;
+}
+
+#welcomeimage {
+    float: left;
+    width: 220px;
+    margin: 0 15px 15px 0;
 }

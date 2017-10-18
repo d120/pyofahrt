@@ -4,12 +4,19 @@ table {
 }
 
 td, th {
-    border: 1px solid black;
+    border: 3px solid #eeeeee;
     padding: 5px 7px 5px 7px;
 }
-th {
-    background-color: floralwhite;
+
+td {
+    background-color: white;
 }
+
+th {
+    background-color: #464646;
+    color: white;
+}
+
 td.sortablearea {
     padding: 0;
 }
@@ -25,19 +32,22 @@ td.noslotnoroom {
 td .workshop {
     width: 100%;
 }
+
 div.workshop {
-    background-color: yellow;
+    background-color: #3a87ad;
     padding: 5px;
     text-align: center;
     display: inline-block;
+    color: white;
+    cursor: grab;
 }
 
 div#unassigned {
-    background-color: #3a87ad;
-    height:50px;
+    background-color: lightgrey;
+    padding: 10px;
     margin-top: 5px;
 }
 
 #unassigned .workshop {
-    margin: 2px;
+    margin-left: 5px;
 }

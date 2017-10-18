@@ -26,7 +26,7 @@
 {% for room in rooms %}
     <tr>
         <th>{{ room.building.name }}: {{ room.name }} ({{ room.number }})</th>
-        <td class="noslotroom sortablearea" data-slot="0" data-room="{{ room.pk }}">&nbsp;</td>
+        <td class="noslotroom sortablearea" data-slot="0" data-room="{{ room.pk }}"></td>
         {% for slot in slots %}
             <td class="sortablearea" data-slot="{{ slot.pk }}" data-room="{{ room.pk }}"></td>
         {% endfor %}

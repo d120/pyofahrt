@@ -170,7 +170,7 @@ class StaffBarcodeInline(admin.StackedInline):
     verbose_name_plural = "Staff-Barcode"
 
 class StaffRoomInline(admin.StackedInline):
-    model = StaffRoomAssignement
+    model = StaffRoomAssignment
     can_delete = False
     verbose_name_plural = "Staff-Room"
 

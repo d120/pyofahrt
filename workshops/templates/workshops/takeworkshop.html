@@ -1,33 +1,39 @@
-{% extends "workshops/workshopbase.html" %} {% load staticfiles %} {% block title %}Workshop übernehmen{% endblock %} {% block workshopcontent %} {% load bootstrap3 %}
+{% extends "workshops/workshopbase.html" %} {% load staticfiles %} {% block title %}Workshop übernehmen{% endblock %}
+{% block workshopcontent %} {% load bootstrap3 %}
 
-  <ol class="breadcrumb">
-    <li><a href="{% url "workshops:overview" %}">Workshopverwaltung</a></li>
-    <li><a href="{% url "workshops:show" object.id %}">{{ object.name}}</a></li>
-    <li class="active">Workshop übernehmen</li>
-  </ol>
-  <h3 class="h3">Workshop übernehmen</h3>
-  <p>Du bist dabei den Workshop "{{ object.name }}" als eigenen Workshop zu übernehmen. Damit erklärst du dich bereit diesen Workshop defintitiv anzubieten und er verschwindet von der Vorschlagsliste. Im folgenden noch einmal alle Infos zu dem Workshop.</p>
-  <br />
-  <b>Beschreibung:</b><br />
-  {% if object.description|length == 0%}<i>- derzeit keine Beschreibung vorhanden -</i>{% else %}{{ object.description }}{% endif %}
-  <br /><br />
-  {% if  object.requirements|length == 0 %}
-  <i>Für diesen Workshop ist bisher kein Materialbedarf hinterlegt.</i>
-  {% else %}
-  <b>Teilnehmer dieses Workshops benötigen folgende Materialien:</b><br />
-  {{ object.requirements }}
-  {% endif %}  <br /><br />
+    <ol class="breadcrumb">
+        <li><a href="{% url "workshops:overview" %}">Workshopverwaltung</a></li>
+        <li><a href="{% url "workshops:show" object.id %}">{{ object.name }}</a></li>
+        <li class="active">Workshop übernehmen</li>
+    </ol>
+    <h3 class="h3">Workshop übernehmen</h3>
+    <p>Du bist dabei den Workshop "{{ object.name }}" als eigenen Workshop zu übernehmen. Damit erklärst du dich bereit
+        diesen Workshop defintitiv anzubieten und er verschwindet von der Vorschlagsliste. Im folgenden noch einmal alle
+        Infos zu dem Workshop.</p>
+    <br/>
+    <b>Beschreibung:</b><br/>
+    {% if object.description|length == 0 %}<i>- derzeit keine Beschreibung vorhanden -</i>{% else %}
+        {{ object.description }}{% endif %}
+    <br/><br/>
+    {% if  object.requirements|length == 0 %}
+        <i>Für diesen Workshop ist bisher kein Materialbedarf hinterlegt.</i>
+    {% else %}
+        <b>Teilnehmer dieses Workshops benötigen folgende Materialien:</b><br/>
+        {{ object.requirements }}
+    {% endif %}  <br/><br/>
 
-  {% if  object.conditions|length == 0 %}
-  <i>Für diesen Workshop gibt es keine Teilnahmebeschränkung.</i>
-  {% else %}
-  <b>Zur Teilnahme an diesem Workshop wird folgendes vorrausgesetzt:</b><br />
-  {{ object.conditions }}
-  {% endif %}
-    <br />
-    <br />
-  <div class="btn-group" role="group" aria-label="...">
-    <a href="{% url "workshops:takeit" object.id %}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Workshop übernehmen</a>
-    <a href="{% url "workshops:overview" %}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> zurück</a>
+    {% if  object.conditions|length == 0 %}
+        <i>Für diesen Workshop gibt es keine Teilnahmebeschränkung.</i>
+    {% else %}
+        <b>Zur Teilnahme an diesem Workshop wird folgendes vorrausgesetzt:</b><br/>
+        {{ object.conditions }}
+    {% endif %}
+    <br/>
+    <br/>
+    <div class="btn-group" role="group" aria-label="...">
+        <a href="{% url "workshops:takeit" object.id %}" class="btn btn-success" role="button"><span
+                class="glyphicon glyphicon-ok" aria-hidden="true"></span> Workshop übernehmen</a>
+        <a href="{% url "workshops:overview" %}" class="btn btn-default" role="button"><span
+                class="glyphicon glyphicon-repeat" aria-hidden="true"></span> zurück</a>
     </div>
 {% endblock %}

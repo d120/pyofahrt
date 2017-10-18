@@ -13,9 +13,6 @@ from staff.forms import ContactForm, PasswordForm
 from pyofahrt import settings
 
 
-
-# Create your views here.
-
 class SignUpView(TemplateView):
     template_name = "staff/signup.html"
 
@@ -26,7 +23,6 @@ class SignUpView(TemplateView):
         context["orga_reg_open"] = ofahrt.orga_reg_open
         context["workshop_reg_open"] = ofahrt.workshop_reg_open
         return context
-
 
 
 class ContactView(FormView):
@@ -40,7 +36,7 @@ class ContactView(FormView):
 
         mail = EmailMessage()
         mail.subject = settings.MAIL_CONTACTFORM_SUBJECT
-        mail.body = settings.MAIL_CONTACTFORM_TEXT % {'sender' : email, 'text' : text}
+        mail.body = settings.MAIL_CONTACTFORM_TEXT % {'sender': email, 'text': text}
         mail.to = [settings.SERVER_EMAIL]
         mail.send()
 
@@ -63,7 +59,6 @@ class PasswordView(FormView):
         return super(PasswordView, self).form_valid(form)
 
 
-
 class SuccessView(TemplateView):
     template_name = "staff/success.html"
 
@@ -76,10 +71,8 @@ class SuccessView(TemplateView):
         return context
 
 
-
 class PasswordSuccessView(TemplateView):
     template_name = "staff/changepassword/success.html"
-
 
 
 class SignUpWorkshopView(CreateView):
@@ -93,14 +86,14 @@ class SignUpWorkshopView(CreateView):
         member = form.save(commit=False)
         member.base = Ofahrt.current()
 
-        #Adressen aller Workshoporgas erfragen
+        # Adressen aller Workshoporgas erfragen
         perm = Permission.objects.get(codename='editeveryworkshop')
         orgas = User.objects.filter(Q(groups__permissions=perm) | Q(user_permissions=perm)).distinct()
         print(list(orgas.values_list('email', flat=True)))
 
         mail = EmailMessage()
         mail.subject = settings.MAIL_NEW_WORKSHOP_SUBJECT
-        mail.body = settings.MAIL_NEW_WORKSHOP_TEXT % {'firstname' : member.first_name, 'lastname' : member.last_name}
+        mail.body = settings.MAIL_NEW_WORKSHOP_TEXT % {'firstname': member.first_name, 'lastname': member.last_name}
         mail.to = list(orgas.values_list('email', flat=True))
         mail.send()
 
@@ -120,9 +113,7 @@ class SignUpOrgaView(CreateView):
     template_name = "staff/signup_orga.html"
     success_url = reverse_lazy('staff:success')
 
-    fields = ['first_name', 'last_name', 'email', 'phone', 'orga_for']
-
-
+    fields = ['first_name', 'last_name', 'email', 'phone', 'roommate_preference', 'orga_for']
 
     def form_valid(self, form):
         member = form.save(commit=False)
@@ -130,15 +121,15 @@ class SignUpOrgaView(CreateView):
 
         mail = EmailMessage()
         mail.subject = settings.MAIL_NEW_ORGA_SUBJECT
-        mail.body = settings.MAIL_NEW_ORGA_TEXT % {'firstname' : member.first_name, 'lastname' : member.last_name}
+        mail.body = settings.MAIL_NEW_ORGA_TEXT % {'firstname': member.first_name, 'lastname': member.last_name}
         mail.to = [settings.SERVER_EMAIL]
         mail.send()
-
 
         return super(SignUpOrgaView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
         ofahrt = Ofahrt.current()
         context = super(SignUpOrgaView, self).get_context_data(**kwargs)
-        context["orga_reg_open"] = ofahrt.orga_reg_open and not (Group.objects.exclude(permissions__codename = "group_full").count() == 0)
+        context["orga_reg_open"] = ofahrt.orga_reg_open and not (
+        Group.objects.exclude(permissions__codename="group_full").count() == 0)
         return context

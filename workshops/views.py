@@ -10,7 +10,6 @@ from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from ofahrtbase.helper import LaTeX
 
-# Create your views here.
 
 class OverviewView(TemplateView):
     template_name = "workshops/overview.html"
@@ -41,7 +40,6 @@ class WorkshopDuplicateView(FormView):
         return super(WorkshopDuplicateView, self).form_valid(form)
 
 
-
 class WorkshopView(DetailView):
     template_name = "workshops/showworkshop.html"
     model = Workshop
@@ -51,7 +49,6 @@ class WorkshopView(DetailView):
         return context
 
 
-
 class WorkshopTakeView(DetailView):
     template_name = "workshops/takeworkshop.html"
     model = Workshop
@@ -59,6 +56,7 @@ class WorkshopTakeView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(WorkshopTakeView, self).get_context_data(**kwargs)
         return context
+
 
 def takeit(request, pk):
     if Workshop.objects.filter(id=pk).count() == 0:
@@ -95,6 +93,7 @@ class WorkshopDeleteView(DeleteView):
     def get_success_url(self):
         return reverse('workshops:overview')
 
+
 class WorkshopCreateView(CreateView):
     template_name = "workshops/createworkshop.html"
     model = Workshop
@@ -112,7 +111,6 @@ class WorkshopCreateView(CreateView):
     def form_valid(self, form):
         form.instance.base = Ofahrt.current()
         return super(WorkshopCreateView, self).form_valid(form)
-
 
 
 class WorkshopAssignView(UpdateView):
@@ -141,7 +139,6 @@ class WorkshopPlanView(TemplateView):
         return context
 
 
-
 def saveworkshopassignment(request):
     results = {'success': False}
     if request.method == u'GET':
@@ -165,12 +162,15 @@ def saveworkshopassignment(request):
         results = {'success': True}
     return HttpResponse(results)
 
+
 def infoexport(request):
     queryset = Workshop.objects.all().filter(accepted=True).filter(proved=True)
     (pdf, pdflatex_output) = LaTeX.render(
         {"workshops": queryset,
-         "blankpages": range( 4 -((9 + queryset.count()) %4) % 4  )},
-        'workshops/ofahrtheft.tex', ['grafik/logo_ohne_rand.png', 'grafik/titel.png', 'grafik/umgebung_big.png', 'grafik/umgebung_small.png', 'inhalt/einleitung.tex', 'inhalt/rueckseite.tex', 'inhalt/titelseite.tex', 'paket/ofahrtheft.sty'],
+         "blankpages": range(4 - ((9 + queryset.count()) % 4) % 4)},
+        'workshops/ofahrtheft.tex',
+        ['grafik/logo_ohne_rand.png', 'grafik/titel.png', 'grafik/umgebung_big.png', 'grafik/umgebung_small.png',
+         'inhalt/einleitung.tex', 'inhalt/rueckseite.tex', 'inhalt/titelseite.tex', 'paket/ofahrtheft.sty'],
         'workshops')
 
     if pdf is None:
@@ -181,3 +181,20 @@ def infoexport(request):
     response.write(pdf)
 
     return response
+
+
+class WorkshopProposeView(CreateView):
+    template_name = "workshops/proposeworkshop.html"
+    model = Workshop
+    fields = ["name", "description", "requirements", "otherstuff"]
+
+    def get_context_data(self, **kwargs):
+        context = super(WorkshopProposeView, self).get_context_data(**kwargs)
+        return context
+
+    def get_success_url(self):
+        return reverse('workshops:show', args=(self.object.id,))
+
+    def form_valid(self, form):
+        form.instance.base = Ofahrt.current()
+        return super(WorkshopProposeView, self).form_valid(form)

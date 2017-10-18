@@ -1,38 +1,43 @@
-
 {% extends "ofahrtbase/base.html" %}
 {% block title %}Anmeldung{% endblock %}
 {% block content %}
-  {% load bootstrap3 %}
-  <div id="signupform">
-    {% if member_reg_open %}
-    <p>
-      Mit diesem Formular kannst du dich als Teilnehmer*in für die Erstsemesterfahrt anmelden.
-    </p>
-    {% if not queue %}
-    <div class="alert alert-warning" role="alert">
-    <b>Hinweis:</b> Aktuell sind bereits zu viele Anmeldungen eingegangen. Sofern du dich im folgenden anmeldest wirst du in die Warteschlange eingereiht. <br />
-    Angemeldete Teilnehmer*innen befinden sich bis zum Geldeingang auf der <a href="{% url "members:list" %}#cond">vorläufigen Anmeldeliste</a>. Nach etwa einer Woche ohne Geldeingang werden die Anmeldungen wieder gelöscht und mit Anmeldungen aus der Warteschlange aufgefüllt. Wir informieren dich in diesem Fall per Email.
-  </div>
-    {% endif %}
-    <form action="" method="post" class="form">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    {% buttons %}
-      <button type="submit" class="btn btn-primary">
-        {% bootstrap_icon "ok" %} Submit
-      </button>
-    {% endbuttons %}
-    </form>
-    {% else %}
-    {% if members_fin > 0 %}
-      <div class="alert alert-warning" role="alert">
-        <b>Hinweis:</b> Die Anmeldung für Erstsemester*innen ist leider bereits geschlossen.
-      </div>
-    {% else %}
-    <div class="alert alert-warning" role="alert">
-      <b>Hinweis:</b> Die Anmeldung für Erstsemester*innen ist bisher noch geschlossen und wird erst auf der Abschlussveranstaltung der Ophase am Freitag live eröffnet werden.
+    {% load bootstrap3 %}
+    <div id="signupform">
+    <h2>Teilnehmer*innenanmeldung</h2>
+        {% if member_reg_open %}
+            <p>
+                Mit diesem Formular kannst du dich als Teilnehmer*in für die Erstsemesterfahrt anmelden.
+            </p>
+            {% if not queue %}
+                <div class="alert alert-warning" role="alert">
+                    <b>Hinweis:</b> Aktuell sind bereits zu viele Anmeldungen eingegangen. Sofern du dich im Folgenden
+                    anmeldest, wirst du in die Warteschlange eingereiht.<br/>
+                    Angemeldete Teilnehmer*innen befinden sich bis zum Geldeingang auf der <a
+                        href="{% url "members:list" %}#cond">vorläufigen Anmeldeliste</a>. Nach etwa einer Woche ohne
+                    Geldeingang werden Anmeldungen wieder gelöscht und mit Anmeldungen aus der Warteschlange
+                    aufgefüllt. Wir informieren dich in diesem Fall per E-Mail.
+                </div>
+            {% endif %}
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% buttons %}
+                    <button type="submit" class="btn btn-primary">
+                        {% bootstrap_icon "ok" %} Anmelden
+                    </button>
+                {% endbuttons %}
+            </form>
+        {% else %}
+            {% if members_fin > 0 %}
+                <div class="alert alert-warning" role="alert">
+                    <b>Hinweis:</b> Die Anmeldung für Erstsemester*innen ist leider bereits geschlossen.
+                </div>
+            {% else %}
+                <div class="alert alert-warning" role="alert">
+                    <b>Hinweis:</b> Die Anmeldung für Erstsemester*innen ist noch geschlossen und wird erst auf
+                    der Abschlussveranstaltung der Ophase am Freitag live eröffnet werden.
+                </div>
+            {% endif %}
+        {% endif %}
     </div>
-    {% endif%}
-    {% endif %}
-  </div>
 {% endblock %}

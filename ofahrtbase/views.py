@@ -11,21 +11,22 @@ class WelcomeView(TemplateView):
         context['ofahrt'] = Ofahrt.current()
         return context
 
+
 class ScheduleView(TemplateView):
     template_name = "ofahrtbase/timetable.html"
 
-
     def get_context_data(self, **kwargs):
-        #Helpers
+        # Helpers
         def datetime2moment(input):
-            return str(input.year) + "-" + str(input.month) + "-" + str(input.day) + "T" + str(input.hour) + ":" + str(input.minute) + ":" + str(input.second)
+            return str(input.year) + "-" + str(input.month) + "-" + str(input.day) + "T" + str(input.hour) + ":" + str(
+                input.minute) + ":" + str(input.second)
+
         def date2moment(input):
             return str(input.year) + "-" + str(input.month) + "-" + str(input.day)
 
         context = super(ScheduleView, self).get_context_data(**kwargs)
 
-
         context["first"] = date2moment(Ofahrt.current().begin_date)
-        context["events"] = Slot.objects.all();
+        context["events"] = Slot.objects.all()
 
         return context

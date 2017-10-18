@@ -2,7 +2,6 @@ from django.contrib import admin
 from .models import Member, FoodHandicaps
 from . import admin_actions, admin_filters
 
-# Register your models here.
 
 admin.site.register(FoodHandicaps)
 
@@ -17,7 +16,7 @@ class MemberAdmin(admin.ModelAdmin):
         ('Ofahrt', {
             'fields': ('base',)
         }),
-        ('Formale Daten', {
+        ('Persönliche Daten', {
             'fields': ('first_name', 'last_name', 'gender', 'birth_date', 'email'),
         }),
         ('Verpflegung', {
@@ -27,19 +26,19 @@ class MemberAdmin(admin.ModelAdmin):
             'fields': ('is_really_ersti', 'queue', 'queue_deadline', 'money_received'),
         }),
         ('Sonstiges', {
-            'fields': ('room', 'kdv_barcode', 'free_text'),
+            'fields': ('room', 'roommate_preference', 'kdv_barcode', 'free_text'),
         }),
     )
 
     def queueinfo(self, obj):
         if obj.money_received:
-            return "festangemeldet"
+            return "verbindlich angemeldet"
         elif obj.queue:
             if obj.queue_deadline:
                 time = obj.queue_deadline.strftime("%d.%m.%Y - %H:%M")
             else:
                 time = "unbekannt"
-            return "vorläufig (Geldeingang bis %s Uhr)" % time
+            return "vorläufig angemeldet (Geldeingang bis %s Uhr)" % time
         else:
-            return "Warteschlange"
+            return "in Warteschlange"
     queueinfo.short_description = "Liste"

@@ -2,91 +2,131 @@
 <html lang="de">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ofahrt - {% block title %}Startseite{% endblock %}</title>{% load staticfiles %}
-  <script type="text/javascript" src="{% static "ofahrtbase/jquery.min.js" %}"></script>
-  <script type="text/javascript" src="{% static "ofahrtbase/script.js" %}"></script>
-  <link href="{% static "ofahrtbase/style.css" %}" rel="stylesheet">
-  {% block morehead %}{% endblock %}
-  {% load tasktags %}
-  {% load bootstrap3 %}{% bootstrap_css %}
-  {% bootstrap_javascript %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ofahrt - {% block title %}Startseite{% endblock %}</title>{% load staticfiles %}
+    <script type="text/javascript" src="{% static "ofahrtbase/jquery.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "ofahrtbase/script.js" %}"></script>
+    <link href="{% static "ofahrtbase/style.css" %}" rel="stylesheet">
+    {% block morehead %}{% endblock %}
+    {% load tasktags %}
+    {% load bootstrap3 %}{% bootstrap_css %}
+    {% bootstrap_javascript %}
 </head>
 
 <body>{% with pagename=request.resolver_match.url_name %}
-  <div id="bigcontent"><nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Navigation ein/ausblenden</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="{% url 'ofahrtbase:index' %}"><span class="glyphicon glyphicon-road" aria-hidden="true"></span>&nbsp;&nbsp;Ofahrt</a>
-      </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li class="{% if pagename == "index" %}active{% endif %}"><a href="{% url 'ofahrtbase:index' %}">Übersicht <span class="sr-only">(current)</span></a></li>
-          <li class="{% if pagename == "schedule" %}active{% endif %}"><a href="{% url 'ofahrtbase:schedule' %}">Programm</a></li>
-          <li  class="dropdown {% if pagename == "signup" or pagename == "members" %}active{% endif %}">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Anmeldung <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li class="{% if pagename == "signup" %}active{% endif %}"><a href="{% url 'members:signup' %}">Zur Anmeldung</a></li>
-              <li class="{% if pagename == "members" %}active{% endif %}"><a href="{% url 'members:list' %}">Teilnehmer*innenliste</a></li>
-            </ul>
-          </li>
-          <li class="{% if pagename == "faq" %}active{% endif %}"><a href="{% url 'faq:overview' %}">FAQ</a></li>
-          <li class="{% if pagename == "contact" %}active{% endif %}"><a href="{% url 'staff:contact' %}">Kontakt</a></li>
-          {% if user.is_active %}
-          {% if perms.workshops.can_use or perms.tasks.can_use or user.is_staff %}
-          <li  class="dropdown">{% user_tasks_counter user as user_tasks_counter %}
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Verwaltung{% if perms.tasks.can_use and user_tasks_counter > 0 %} <span class="badge">{{user_tasks_counter}}</span>{% endif %} <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              {% if perms.tasks.can_use %}<li><a href="{% url 'tasks:overview' %}">Aufgabenverwaltung {% if perms.tasks.can_use and user_tasks_counter > 0 %} <span class="badge">{{user_tasks_counter}}</span>{% endif %}</a></li>{% endif %}
-              {% if perms.ofahrtbase.change_ofahrt %}<li><a href="{% url 'workshops:infoexport' %}">Infoheft exportieren</a></li>{% endif %}
-              {% if perms.wiki.can_use %}<li><a href="{% url 'wiki:mainpage' %}">Wiki</a></li>{% endif %}
-              {% if perms.workshops.can_use %}<li><a href="{% url 'workshops:overview' %}">Workshops</a></li>{% endif %}
-              {% if perms.workshops.assignworkshop %}<li><a href="{% url 'workshops:planer' %}">Workshopplaner</a></li>{% endif %}
-              {% if perms.members.change_member %}<li><a href="{% url 'members:roomassignment'%}">Zimmerzuteilung</a></li>{% endif %}
-              {% if user.is_staff %}
-            <li role="separator" class="divider"></li>
-            <li><a href="{% url 'admin:index' %}"><b><i>Adminbereich</i></b></a></li>{% endif %}
-            </ul>
-          </li>
-          {% endif %}
-          {% endif %}
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-        {% if user.is_authenticated %}
-          <li><p class="navbar-text">Eingeloggt als
-            {% if user.first_name and user.last_name %}
-              {{ user.first_name }} {{ user.last_name }}
-            {% else %}
-              {{ user.username }}
-            {% endif %}
-            {% if user.groups.all.count != 0 %}({{ user.groups.all|join:", " }}){% endif %}</p></li>
-          <li><a href="{% url "staff:changepassword" %}" id="pwbutton"><button type="button" class="btn btn-default navbar-btn">Passwort ändern</button></a></li>
-          <li><a href="{% url "staff:logout" %}" id="loginbutton"><button type="button" class="btn btn-default navbar-btn">Ausloggen</button></a></li>
-        {% else %}
-          <li><a href="{% url "staff:login" %}" id="loginbutton"><button type="button" class="btn btn-default navbar-btn">Login (Staff)</button></a></li>
-        {% endif %}
-      </ul>
-      </div>
-    </div>
-  </nav>{% endwith %}
+    <div id="bigcontent">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Navigation ein/ausblenden</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'ofahrtbase:index' %}"><span class="glyphicon glyphicon-road"
+                                                                                  aria-hidden="true"></span>&nbsp;&nbsp;Ofahrt</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="{% if pagename == "index" %}active{% endif %}"><a href="{% url 'ofahrtbase:index' %}">Übersicht
+                        <span class="sr-only">(current)</span></a></li>
+                    <li class="{% if pagename == "schedule" %}active{% endif %}"><a
+                            href="{% url 'ofahrtbase:schedule' %}">Programm</a></li>
+                    <li class="dropdown {% if pagename == "signup" or pagename == "members" %}active{% endif %}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Anmeldung <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="{% if pagename == "signup" %}active{% endif %}"><a
+                                    href="{% url 'members:signup' %}">Teilnehmer*in</a></li>
+                            <li class="{% if pagename == "create" %}active{% endif %}"><a
+                                    href="{% url 'workshops:create' %}">Workshop</a></li>
+                            <li class="{% if pagename == "signupworkshop" %}active{% endif %}"><a
+                                    href="{% url 'staff:signupworkshop' %}">Workshopleiter*in</a></li>
+                            <li class="{% if pagename == "signuporga" %}active{% endif %}"><a
+                                    href="{% url 'staff:signuporga' %}">Orga</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="{% if pagename == "list" %}active{% endif %}"><a href="{% url 'members:list' %}">Teilnehmer*innenliste</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="{% if pagename == "faq" %}active{% endif %}"><a href="{% url 'faq:overview' %}">FAQ</a>
+                    </li>
+                    <li class="{% if pagename == "contact" %}active{% endif %}"><a href="{% url 'staff:contact' %}">Kontakt</a>
+                    </li>
+                    {% if user.is_active %}
+                        {% if perms.workshops.can_use or perms.tasks.can_use or user.is_staff %}
+                            <li class="dropdown">{% user_tasks_counter user as user_tasks_counter %}
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Verwaltung
+                                    {% if perms.tasks.can_use and user_tasks_counter > 0 %}
+                                        <span class="badge">{{ user_tasks_counter }}</span>{% endif %} <span
+                                            class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    {% if perms.tasks.can_use %}
+                                        <li><a href="{% url 'tasks:overview' %}">Aufgabenverwaltung
+                                            {% if perms.tasks.can_use and user_tasks_counter > 0 %}
+                                                <span class="badge">{{ user_tasks_counter }}</span>{% endif %}</a>
+                                        </li>{% endif %}
+                                    {% if perms.ofahrtbase.change_ofahrt %}
+                                        <li><a href="{% url 'workshops:infoexport' %}">Infoheft exportieren</a>
+                                        </li>{% endif %}
+                                    {% if perms.wiki.can_use %}
+                                        <li><a href="{% url 'wiki:mainpage' %}">Wiki</a></li>{% endif %}
+                                    {% if perms.workshops.can_use %}
+                                        <li><a href="{% url 'workshops:overview' %}">Workshops</a></li>{% endif %}
+                                    {% if perms.workshops.assignworkshop %}
+                                        <li><a href="{% url 'workshops:planer' %}">Workshopplaner</a></li>{% endif %}
+                                    {% if perms.members.change_member %}
+                                        <li><a href="{% url 'members:roomassignment' %}">Zimmerzuteilung</a>
+                                        </li>{% endif %}
+                                    {% if user.is_staff %}
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="{% url 'admin:index' %}"><b><i>Adminbereich</i></b></a>
+                                        </li>{% endif %}
+                                </ul>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                        <li><p class="navbar-text">Eingeloggt als
+                            {% if user.first_name and user.last_name %}
+                                {{ user.first_name }} {{ user.last_name }}
+                            {% else %}
+                                {{ user.username }}
+                            {% endif %}
+                            {% if user.groups.all.count != 0 %}({{ user.groups.all|join:", " }}){% endif %}</p></li>
+                        <li><a href="{% url "staff:changepassword" %}" id="pwbutton">
+                            <button type="button" class="btn btn-default navbar-btn">Passwort ändern</button>
+                        </a></li>
+                        <li><a href="{% url "staff:logout" %}" id="loginbutton">
+                            <button type="button" class="btn btn-default navbar-btn">Ausloggen</button>
+                        </a></li>
+                    {% else %}
+                        <li><a href="{% url "staff:login" %}" id="loginbutton">
+                            <button type="button" class="btn btn-default navbar-btn">Login (Staff)</button>
+                        </a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>{% endwith %}
 
-  <div id="content">
+<div id="content">
     {% block content %}{% endblock %}
-  </div>
-  <footer id="footer">
-    <div style="display: inline-block; position: absolute; top:30%; "><a href="https://github.com/d120/pyofahrt">Diese Software ist auf GitHub zu finden.</a></div>
+</div>
+<footer id="footer">
+    <div style="display: inline-block; position: absolute; top:30%; "><a href="https://github.com/d120/pyofahrt">Diese
+        Software ist auf GitHub zu finden.</a></div>
     <a href="http://d120.de">
-      <img id="logo" src="{% static "ofahrtbase/images/logo_ohne_rand.png"%}" />
+        <img id="logo" src="{% static "ofahrtbase/images/logo_ohne_rand.png" %}"/>
     </a>
     <div style="clear:both;"></div>
-  </footer>
+</footer>
 </div>
 </body>
 

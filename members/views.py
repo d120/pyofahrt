@@ -2,7 +2,7 @@ from django.views.generic import CreateView, TemplateView
 from django.db.models import Q
 from members.models import Member
 from ofahrtbase.models import Ofahrt, Room
-from staff.models import StaffRoomAssignement
+from staff.models import StaffRoomAssignment
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.http import HttpResponse
@@ -19,7 +19,7 @@ import datetime
 
 
 def saveroomassignment(request):
-    results = {'success':False}
+    results = {'success': False}
     if request.method == u'GET':
         GET = request.GET
         userid = int(GET['user'])
@@ -37,9 +37,9 @@ def saveroomassignment(request):
         elif type == "staff":
             user = User.objects.get(pk=userid)
             try:
-                room = StaffRoomAssignement.objects.get(user=user)
-            except StaffRoomAssignement.DoesNotExist:
-                room = StaffRoomAssignement(user=user)
+                room = StaffRoomAssignment.objects.get(user=user)
+            except StaffRoomAssignment.DoesNotExist:
+                room = StaffRoomAssignment(user=user)
 
             if roomid == -1:
                 room.room = None
@@ -47,11 +47,11 @@ def saveroomassignment(request):
                 room.room = Room.objects.get(pk=roomid)
             room.save()
 
-        results = {'success':True}
+        results = {'success': True}
     return HttpResponse(results)
 
-class SignUpView(CreateView):
 
+class SignUpView(CreateView):
     template_name = "members/signup.html"
     success_url = reverse_lazy('members:success')
     form_class = forms.SignupForm
@@ -67,26 +67,25 @@ class SignUpView(CreateView):
         members_fin = Member.objects.filter(money_received=True).count()
         members_queue = Member.objects.filter(money_received=False).filter(queue=True).count()
 
-
         email = EmailMessage()
 
-
-        #Einstufung // Fall voll gibt es nicht
+        # Einstufung // Fall voll gibt es nicht
         if (members_fin + members_queue) < (max_members + queue_size):
-            #Gesamtanmeldung noch nicht ausgelastet, Platz in der Queue
-            #Neuanmeldungen fließen direkt auf die vorläufige Anmeldeliste
+            # Gesamtanmeldung noch nicht ausgelastet, Platz in der Queue
+            # Neuanmeldungen fließen direkt in die vorläufige Anmeldeliste
             member.queue = True
             member.queue_deadline = datetime.datetime.now() + datetime.timedelta(7)
 
             email.subject = settings.MAIL_MEMBERSIGNUP_QUEUE_SUBJECT % (member.base.begin_date.year)
-            email.body = settings.MAIL_MEMBERSIGNUP_QUEUE_TEXT % (member.first_name, member.base.begin_date.year, settings.BANK_ACCOUNT)
+            email.body = settings.MAIL_MEMBERSIGNUP_QUEUE_TEXT % (
+            member.first_name, member.base.begin_date.year, settings.BANK_ACCOUNT)
 
         else:
-            #vorläufige Anmeldeliste ist voll. Anmeldungen kommen in die Warteschlange
+            # vorläufige Anmeldeliste ist voll, Anmeldungen kommen in die Warteschlange
             member.queue = False
             email.subject = settings.MAIL_MEMBERSIGNUP_SUBJECT % (member.base.begin_date.year)
-            email.body = settings.MAIL_MEMBERSIGNUP_TEXT % (member.first_name, member.base.begin_date.year, settings.BANK_ACCOUNT)
-
+            email.body = settings.MAIL_MEMBERSIGNUP_TEXT % (
+            member.first_name, member.base.begin_date.year, settings.BANK_ACCOUNT)
 
         email.to = [member.email]
         email.send()
@@ -114,7 +113,6 @@ class SuccessView(TemplateView):
     template_name = "members/success.html"
 
 
-
 class RoomassignmentView(TemplateView):
     template_name = "members/roomassignment.html"
 
@@ -123,9 +121,9 @@ class RoomassignmentView(TemplateView):
         out = []
         for user in User.objects.all():
             try:
-                obj = StaffRoomAssignement.objects.get(user=user)
-            except StaffRoomAssignement.DoesNotExist:
-                obj = StaffRoomAssignement(user=user, room=None)
+                obj = StaffRoomAssignment.objects.get(user=user)
+            except StaffRoomAssignment.DoesNotExist:
+                obj = StaffRoomAssignment(user=user, room=None)
                 obj.save()
 
             if obj.room == None:
@@ -135,19 +133,21 @@ class RoomassignmentView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(RoomassignmentView, self).get_context_data(**kwargs)
-        context["members"] = Member.objects.all().filter(Q(room=None) | Q(room__usecase_sleep=False)).filter(money_received=True)
+        context["members"] = Member.objects.all().filter(Q(room=None) | Q(room__usecase_sleep=False)).filter(
+            money_received=True)
         context["users"] = self.get_users_with_no_room()
         context["usercount"] = len(context["users"])
         context["rooms"] = Room.objects.all().filter(usecase_sleep=True)
         return context
 
+
 def person_as_pdf(request):
     members = Member.objects.filter(money_received=True).order_by('last_name')
     staff = User.objects.order_by('last_name')
     context = Context({
-            'members': members,
-            'staff': staff
-        })
+        'members': members,
+        'staff': staff
+    })
     template = get_template('members/RaumzuteilungB.tex')
     rendered_tpl = template.render(context).encode('utf-8')
     with tempfile.TemporaryDirectory() as tempdir:
@@ -176,8 +176,8 @@ def room_as_pdf(request):
             rooms.append(room)
 
     context = Context({
-            'rooms': rooms,
-        })
+        'rooms': rooms,
+    })
     template = get_template('members/RaumzuteilungA.tex')
     rendered_tpl = template.render(context).encode('utf-8')
     with tempfile.TemporaryDirectory() as tempdir:
@@ -198,7 +198,6 @@ def room_as_pdf(request):
     return r
 
 
-
 class MemberlistView(TemplateView):
     template_name = "members/memberlist.html"
 
@@ -209,9 +208,9 @@ class MemberlistView(TemplateView):
         max_members = ofahrt.max_members
 
         context = super(MemberlistView, self).get_context_data(**kwargs)
-        context["members_cond"] = Member.objects.filter(money_received = False).filter(queue=True)
-        context["members_queue"] = Member.objects.filter(money_received = False).filter(queue=False)
-        context["members_fin"] = Member.objects.filter(money_received = True)
+        context["members_cond"] = Member.objects.filter(money_received=False).filter(queue=True)
+        context["members_queue"] = Member.objects.filter(money_received=False).filter(queue=False)
+        context["members_fin"] = Member.objects.filter(money_received=True)
         context["width"] = math.ceil((context["members_fin"].count() / max_members) * 100)
         context["max_members"] = max_members
 

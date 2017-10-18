@@ -1,79 +1,93 @@
 {% extends "ofahrtbase/base.html" %}
 {% block title %}Teilnehmer*innenliste{% endblock %}
 {% block content %}
-  {% load bootstrap3 %}
-<p>
-  Hier findest du die Teilnehmer*innenübersicht der kommenden Ofahrt. Nur Teilnehmer*innen in der oberen Liste haben ihre Plätze bereits sicher. Bei den Teilnehmer*innen in der vorläufigen Liste ist der Teilnahmebetrag bei uns noch nicht eingegangen. Solltest du dich noch nicht angemeldet haben, kannst du dies <a href="{% url "members:signup" %}">hier</a> nachholen.
-</p>
-<ul style="list-style-type: square;">
-  <li><a href="#fin">feste Teilnehmer*innenliste</a></li>
-  <li><a href="#cond">vorläufige Teilnehmer*innenliste</a></li>
-  <li><a href="#queue">Warteschlange</a></li>
-</ul>
+    {% load bootstrap3 %}
+    <p>
+        Hier findest du die Teilnehmer*innenübersicht der kommenden Ofahrt. Nur Teilnehmer*innen in der oberen Liste
+        haben ihre Plätze bereits sicher. Bei den Teilnehmer*innen in der vorläufigen Liste ist der Teilnahmebetrag bei
+        uns noch nicht eingegangen. Solltest du dich noch nicht angemeldet haben, kannst du dies <a
+            href="{% url "members:signup" %}">hier</a> nachholen.
+    </p>
+    <ul style="list-style-type: square;">
+        <li><a href="#fin">feste Teilnehmer*innenliste</a></li>
+        <li><a href="#cond">vorläufige Teilnehmer*innenliste</a></li>
+        <li><a href="#queue">Warteschlange</a></li>
+    </ul>
 
 
-<a name="fin"></a><h2 class="h2">feste Teilnehmer*innenliste ({{ members_fin.count }} / {{ max_members }})</h2>
-<span id="utilizationlabel">Derzeitige Auslastung:</span><div class="progress">
-  <div class="progress-bar" role="progressbar" aria-valuenow="{{ members_fin.count }}" aria-valuemin="0" aria-valuemax="{{ max_members }}" style="width: {{width}}%;">
-    {{ width }}%
-  </div>
-</div>
-<p>Solltest du deinen Namen auf dieser Liste finden, so hast du deinen Teilnahmeplatz bereits sicher. Weitere Informationen wirst du per Email erhalten.</p>
-<table class="table table-striped">
-  <tr>
-    <th>Name</th>
-    <th>Anmeldedatum</th>
-  </tr>
-{% if members_fin.count == 0 %}
-  <tr>
-    <td colspan="3" style="text-align:center;" table-striped><i>Derzeit gibt es keine Teilnehmer*innen auf dieser Liste.</i></td>
-  </tr>
-{% endif %}
-{% for member in members_fin %}
-  <tr>
-    <td>{{ member.first_name }} {{ member.last_name }}</td>
-    <td>{{ member.created_at }}</td>
-  </tr>
-{% endfor %}
-</table>
-<br /><br /><br />
-<a name="cond"></a><h2 class="h2">vorläufige Teilnehmer*innenliste ({{ members_cond.count }})</h2>
-<p>Wenn dein Name auf dieser Liste steht, haben wir zwar deine Anmeldung erhalten, jedoch bisher noch keinen Zahlungseingang des Teilnahmebetrags verzeichnen können. Solltest du nach deiner Anmeldung keine Email von uns erhalten haben, so kontaktiere uns bitte unter ofahrt-leitung[at]d120.de oder über das <a href="{% url "staff:contact" %}">Kontaktformular</a>.</p>
-<table class="table table-striped">
-{% if members_cond.count == 0 %}
-  <tr>
-    <td colspan="3" style="text-align:center;" table-striped><i>Derzeit gibt es keine Teilnehmer*innen auf dieser Liste.</i></td>
-  </tr>
-{% endif %}
-  <tr>
-    <th>Name</th>
-    <th>Anmeldedatum</th>
-  </tr>
-{% for member in members_cond %}
-  <tr>
-    <td>{{ member.first_name }} {{ member.last_name }}</td>
-    <td>{{ member.created_at }}</td>
-  </tr>
-{% endfor %}
-</table>
-<br /><br /><br />
-<a name="cond"></a><h2 class="h2">Warteschlange ({{ members_queue.count }})</h2>
-<p>Wenn dein Name auf dieser Liste steht bist du in der Nachrücker*innenwarteschlange und wirst per Email informiert sobald ein Platz frei wird. Die Anmeldungen aus der vorläufigen Teilnehmer*innenliste werden nach etwa einer Woche gelöscht, sofern der Teilnahmebeitrag bei uns nicht eingegangen ist.</p>
-<table class="table table-striped">
-{% if members_queue.count == 0 %}
-  <tr>
-    <td colspan="3" style="text-align:center;" table-striped><i>Derzeit gibt es keine Teilnehmer*innen auf dieser Liste.</i></td>
-  </tr>
-{% endif %}
-  <tr>
-    <th>Name</th>
-    <th>Anmeldedatum</th>
-  </tr>
-{% for member in members_queue %}
-  <tr>
-    <td>{{ member.first_name }} {{ member.last_name }}</td>
-    <td>{{ member.created_at }}</td>
-  </tr>
-{% endfor %}
-</table>
+    <a name="fin"></a><h2 class="h2">Feste Teilnehmer*innenliste ({{ members_fin.count }} / {{ max_members }})</h2>
+    <span id="utilizationlabel">Derzeitige Auslastung:</span>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="{{ members_fin.count }}" aria-valuemin="0"
+             aria-valuemax="{{ max_members }}" style="width: {{ width }}%;">
+            {{ width }}%
+        </div>
+    </div>
+    <p>Solltest du deinen Namen auf dieser Liste finden, so hast du deinen Teilnahmeplatz bereits sicher. Weitere
+        Informationen wirst du per Email erhalten.</p>
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Anmeldedatum</th>
+        </tr>
+        {% if members_fin.count == 0 %}
+            <tr>
+                <td colspan="3" style="text-align:center;" table-striped><i>Derzeit gibt es keine Teilnehmer*innen auf
+                    dieser Liste.</i></td>
+            </tr>
+        {% endif %}
+        {% for member in members_fin %}
+            <tr>
+                <td>{{ member.first_name }} {{ member.last_name }}</td>
+                <td>{{ member.created_at }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br/><br/><br/>
+    <a name="cond"></a><h2 class="h2">Vorläufige Teilnehmer*innenliste ({{ members_cond.count }})</h2>
+    <p>Wenn dein Name auf dieser Liste steht, haben wir zwar deine Anmeldung erhalten, jedoch bisher noch keinen
+        Zahlungseingang des Teilnahmebetrags verzeichnen können. Solltest du nach deiner Anmeldung keine E-Mail von uns
+        erhalten haben, so kontaktiere uns bitte unter ofahrt-leitung[at]d120.de oder über das <a
+                href="{% url "staff:contact" %}">Kontaktformular</a>.</p>
+    <table class="table table-striped">
+        {% if members_cond.count == 0 %}
+            <tr>
+                <td colspan="3" style="text-align:center;" table-striped><i>Derzeit gibt es keine Teilnehmer*innen auf
+                    dieser Liste.</i></td>
+            </tr>
+        {% endif %}
+        <tr>
+            <th>Name</th>
+            <th>Anmeldedatum</th>
+        </tr>
+        {% for member in members_cond %}
+            <tr>
+                <td>{{ member.first_name }} {{ member.last_name }}</td>
+                <td>{{ member.created_at }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br/><br/><br/>
+    <a name="queue"></a><h2 class="h2">Warteschlange ({{ members_queue.count }})</h2>
+    <p>Wenn dein Name auf dieser Liste steht, bist du in der Nachrücker*innenwarteschlange und wirst per E-Mail informiert,
+        sobald ein Platz frei wird. Die Anmeldungen aus der vorläufigen Teilnehmer*innenliste werden nach etwa einer
+        Woche gelöscht, sofern der Teilnahmebeitrag bei uns nicht eingegangen ist.</p>
+    <table class="table table-striped">
+        {% if members_queue.count == 0 %}
+            <tr>
+                <td colspan="3" style="text-align:center;" table-striped><i>Derzeit gibt es keine Teilnehmer*innen auf
+                    dieser Liste.</i></td>
+            </tr>
+        {% endif %}
+        <tr>
+            <th>Name</th>
+            <th>Anmeldedatum</th>
+        </tr>
+        {% for member in members_queue %}
+            <tr>
+                <td>{{ member.first_name }} {{ member.last_name }}</td>
+                <td>{{ member.created_at }}</td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}

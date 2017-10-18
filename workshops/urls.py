@@ -16,5 +16,6 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/duplicate$', permission_required("workshops.assignworkshop")(views.WorkshopDuplicateView.as_view()), name='duplicate'),
     url(r'^(?P<pk>[0-9]+)/take$', permission_required("workshops.can_use")(views.WorkshopTakeView.as_view()), name='take'),
     url(r'^(?P<pk>[0-9]+)/takeit$', permission_required("workshops.can_use")(views.takeit), name='takeit'),
-    url(r'^create$', permission_required("workshops.can_use")(views.WorkshopCreateView.as_view()), name='create')
+    url(r'^create$', permission_required("workshops.can_use")(views.WorkshopCreateView.as_view()), name='create'),
+    url(r'^propose$', permission_required("workshops.can_use")(views.WorkshopProposeView.as_view()), name='propose')
 ]

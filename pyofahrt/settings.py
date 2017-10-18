@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = '8hb0nmhm&hwlq6)*(@95092dw-$lp$v*yp+9yib459h82*penf'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -78,7 +76,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pyofahrt.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
@@ -88,7 +85,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -108,7 +104,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
@@ -121,7 +116,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
@@ -164,11 +158,11 @@ Kontodaten:
 MAIL_MEMBER_MOVETOQUEUE_SUBJECT = MAIL_PREFIX + "Deine Anmeldung zur Ofahrt"
 MAIL_MEMBER_MOVETOQUEUE_TEXT = """Hallo %s,
 
-du wurdest soeben aus der Warteschlange auf die vorläufige Anmeldeliste gesetzt. Um auf die feste Anmeldeliste übernommen zu werden überweise bitte innerhalb von 7 Tagen den Teilnahmebeitrag von 20,00€ auf die unten angegebenen Kontodaten. Wähle als Verwendungszweck bitte "Erstsemesterfahrt Informatik - VORNAME NACHNAME" damit wir die Überweisung deiner Anmeldung zuordnen können. Solltest du keinen Zugriff auf ein Bankkonto oder eine andere Möglichkeit der Überweisung haben, kontaktiere uns bitte unter ofahrt-leitung@d120.de. In diesem Fall finden wir eine Regelung für eine Barzahlung im Fachschaftsraum.
+du wurdest soeben aus der Warteschlange auf die vorläufige Anmeldeliste gesetzt. Um auf die feste Anmeldeliste übernommen zu werden überweise bitte innerhalb von sieben Tagen den Teilnahmebeitrag von 20,00€ auf die unten angegebenen Kontodaten. Wähle als Verwendungszweck bitte "Erstsemesterfahrt Informatik - VORNAME NACHNAME" damit wir die Überweisung deiner Anmeldung zuordnen können. Solltest du keinen Zugriff auf ein Bankkonto oder eine andere Möglichkeit der Überweisung haben, kontaktiere uns bitte unter ofahrt-leitung@d120.de. In diesem Fall finden wir eine Regelung für eine Barzahlung im Fachschaftsraum.
 
-Sobald wir den Teilnahmebetrag erhalten haben setzen wir dich schnellstmöglich auf die feste Teilnahmeliste. Alle weiteren Infos erhälst du dann per Email.
+Sobald wir den Teilnahmebeitrag erhalten haben, setzen wir dich schnellstmöglich auf die feste Teilnahmeliste. Alle weiteren Infos erhälst du dann per E-Mail.
 
-Liebe Grüße,
+Liebe Grüße
 die Ofahrt-Leitung
 
 -------------------------------
@@ -190,8 +184,28 @@ die Ofahrt-Leitung
 Kontodaten:
 %s"""
 
-BANK_ACCOUNT = "folgt separat" #wird in secret_settings überschrieben
 
+MAIL_MEMBERSIGNUP_REMINDER_SUBJECT = MAIL_PREFIX + "Erinnerung Teilnahmegebühr, Ofahrt Wintersemester %d"
+MAIL_MEMBERSIGNUP_REMINDER_TEXT = """Hallo %s,
+
+danke noch einmal für deine Anmeldung! Seit X Tagen stehst du bereits auf der vorläufigen Anmeldeliste, so weit, so gut. Wir konnten allerdings noch keinen Geldeingang verbuchen. Bitte überweise den Teilnahmebeitrag in Höhe von 50€ auf das unten angegebene Konto, um an der Ofahrt fest teilnehmen zu können.
+
+Wenn du das Geld bereits überwiesen hast, dann scheint die Bank einfach etwas langsam zu sein.
+
+Falls du deine Anmeldung stornieren möchtest, schreibe uns eine Mail, damit wir dich von der Liste entfernen können und Platz für andere Anmeldungen frei wird.
+
+Sollte jedoch bis in Y Tagen bei uns der Beitrag nicht eingegangen sein, wird deine Anmeldung automatisch aus dem System entfernt.
+
+Liebe Grüße,
+die Ofahrt-Leitung
+
+-------------------------------
+
+Kontodaten:
+%s"""
+
+
+BANK_ACCOUNT = "folgt separat"  # wird in secret_settings überschrieben
 
 MAIL_WORKSHOPSIGNUP_SUBJECT = MAIL_PREFIX + "Willkommen als Workshopanbieter bei der Ofahrt!"
 MAIL_WORKSHOPSIGNUP_TEXT = """Hallo %(name)s,
@@ -207,7 +221,6 @@ Im Adminmenü kannst du dein Passwort jederzeit ändern. Du solltest desweiteren
 Mit freundlichen Grüßen,
 (okay, das ist eine automatische Mail)"""
 
-
 MAIL_ORGASIGNUP_SUBJECT = MAIL_PREFIX + "Willkommen im Orgateam der Ofahrt!"
 MAIL_ORGASIGNUP_TEXT = """Hallo %(name)s,
 
@@ -222,14 +235,12 @@ Im Adminmenü kannst du dein Passwort jederzeit ändern. Du solltest des Weitere
 Mit freundlichen Grüßen,
 (okay, das ist eine automatische Mail)"""
 
-
 MAIL_CONTACTFORM_SUBJECT = MAIL_PREFIX + "Ofahrt Kontaktformular"
 MAIL_CONTACTFORM_TEXT = """Ofahrt Kontaktformular (Anfrage von %(sender)s)
 
 
 %(text)s
 """
-
 
 MAIL_SUPERUSER_SUCCESS_SUBJECT = MAIL_PREFIX + "SuperUser neu angelegt"
 MAIL_SUPERUSER_SUCCESS_TEXT = """
@@ -238,20 +249,12 @@ Der Superuseraccount "leitung" wurde in pyofahrt neu angelegt.
 Die Zugangsdaten findest du unter mnt/media/ofahrt/pw.txt
 """
 
-
-
-
-
 MAIL_SUPERUSER_ERROR_SUBJECT = MAIL_PREFIX + "SuperUser konnte nicht neu angelegt werden"
 MAIL_SUPERUSER_ERROR_TEXT = """
 Es wurde beantragt den Superuseraccount \"leitung\" in pyofahrt neu anzulegen. Da der Account allerdings nicht gelöscht wurde, wurde das Passwort zurückgesetzt.
 
 Die Zugangsdaten findest du unter mnt/media/ofahrt/pw.txt
 """
-
-
-
-
 
 MAIL_NEW_ORGA_SUBJECT = MAIL_PREFIX + "pyofahrt: Neuer Orga-Eintrag"
 MAIL_NEW_ORGA_TEXT = """
@@ -261,8 +264,6 @@ Vorname: %(firstname)s
 Nachname: %(lastname)s
 """
 
-
-
 MAIL_NEW_WORKSHOP_SUBJECT = MAIL_PREFIX + "pyofahrt: Neuer Orga-Eintrag"
 MAIL_NEW_WORKSHOP_TEXT = """
 Eine neue Workshop-Bewerbung ist eingegangen. Bitte zeitnah bearbeiten.
@@ -270,8 +271,6 @@ Eine neue Workshop-Bewerbung ist eingegangen. Bitte zeitnah bearbeiten.
 Vorname: %(firstname)s
 Nachname: %(lastname)s
 """
-
-
 
 MAIL_TICKETEDIT_SUBJECT = MAIL_PREFIX + "Ticket #%(id)d bearbeitet"
 MAIL_TICKETEDIT_TEXT = """
@@ -283,11 +282,6 @@ Du kannst das Ticket unter folgendem Link einsehen:
 
 Diese Mail wurde automatisch generiert und ist daher auch ohne Unterschrift gültig.
 """
-
-
-
-
-
 
 MAIL_TICKETASSIGN_SUBJECT = MAIL_PREFIX + "Ticket #%(id)d neu zugewiesen"
 MAIL_TICKETASSIGN_TEXT = """
@@ -301,8 +295,6 @@ Du kannst das Ticket unter folgendem Link einsehen:
 
 Diese Mail wurde automatisch generiert und ist daher auch ohne Unterschrift gültig.
 """
-
-
 
 MAIL_TICKETPUSH_SUBJECT = MAIL_PREFIX + "PUSH: Ticket #%(id)d"
 MAIL_TICKETPUSH_TEXT = """
@@ -318,8 +310,6 @@ Du kannst das Ticket unter folgendem Link einsehen:
 Diese Mail wurde automatisch generiert und ist daher auch ohne Unterschrift gültig.
 """
 
-
-
 MAIL_TICKETNEWCOMMENT_SUBJECT = MAIL_PREFIX + "Neuer Kommentar im Ticket #%(id)d"
 MAIL_TICKETNEWCOMMENT_TEXT = """
 Hallo,
@@ -330,8 +320,6 @@ Du kannst das Ticket unter folgendem Link einsehen:
 
 Diese Mail wurde automatisch generiert und ist daher auch ohne Unterschrift gültig.
 """
-
-
 
 MAIL_TICKETNEW_SUBJECT = MAIL_PREFIX + "Neues Ticket in der Kategorie %(cat)s"
 MAIL_TICKETNEW_TEXT = """

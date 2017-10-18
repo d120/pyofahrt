@@ -10,12 +10,6 @@ import datetime
 from django.http import Http404, HttpResponseRedirect
 import bbcode
 
-# Create your views here.
-
-
-
-
-
 
 def mainview(request):
     return HttpResponseRedirect(reverse("wiki:show", kwargs={"pk": Article(title="WikiStart")}))
@@ -35,7 +29,6 @@ class PageView(DetailView):
         context["tab"] = "view"
         return context
 
-
     def get(self, request, *args, **kwargs):
 
         parser = bbcode.Parser()
@@ -48,7 +41,6 @@ class PageView(DetailView):
             return redirect(reverse_lazy("wiki:create", kwargs={"title": kwargs["pk"]}))
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
-
 
 
 class PageVersionView(DetailView):
@@ -89,12 +81,11 @@ class PageCreateView(CreateView):
     fields = ["text"]
     template_name = "wiki/create.html"
 
-
     def form_valid(self, form):
         try:
             article = Article.objects.get(title=self.kwargs["title"])
         except Article.DoesNotExist:
-            article = Article(title = self.kwargs["title"])
+            article = Article(title=self.kwargs["title"])
             article.save()
 
         form.instance.article = article
@@ -106,18 +97,16 @@ class PageCreateView(CreateView):
         context["tab"] = "edit"
         context["titel"] = self.kwargs["title"]
         try:
-            context["object"] = Article(title = self.kwargs["title"])
+            context["object"] = Article(title=self.kwargs["title"])
         except Article.DoesNotExist:
             pass
         return context
-
 
 
 class PageEditView(CreateView):
     model = ArticleVersion
     fields = ["text"]
     template_name = "wiki/edit.html"
-
 
     def form_valid(self, form):
         try:
@@ -129,13 +118,12 @@ class PageEditView(CreateView):
         form.instance.timestamp = datetime.datetime.now()
         return super(PageEditView, self).form_valid(form)
 
-
     def get_initial(self):
         try:
             article = Article.objects.get(title=self.kwargs["title"])
         except Article.DoesNotExist:
             return
-        return { 'text' : article.articleversion_set.order_by('-timestamp')[:1].get().text}
+        return {'text': article.articleversion_set.order_by('-timestamp')[:1].get().text}
 
     def get_context_data(self, **kwargs):
         context = super(PageEditView, self).get_context_data(**kwargs)

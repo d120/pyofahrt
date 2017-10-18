@@ -1,0 +1,23 @@
+{% extends "workshops/workshopbase.html" %} {% load staticfiles %} {% block title %}Workshop vorschlagen{% endblock %}
+{% block workshopcontent %} {% load bootstrap3 %}
+
+    <h3 style="margin-bottom:25px;">Workshop vorschlagen</h3>
+    <ol class="breadcrumb">
+        <li><a href="{% url "workshops:overview" %}">Workshopverwaltung</a></li>
+        <li class="active">Workshop vorschlagen</li>
+    </ol>
+    <p>
+        Auf dieser Seite kannst du einen Workshop als Idee konzeptuell vorschlagen.
+    </p>
+    <form action="" method="post" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-success">
+                {% bootstrap_icon "star" %} Vorschlagen
+            </button>
+        {% endbuttons %}
+    </form>
+
+
+{% endblock %}
