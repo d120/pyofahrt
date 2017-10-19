@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 
 admin.site.site_header = 'Ofahrt Verwaltung'
 
@@ -26,5 +27,5 @@ urlpatterns = [
     url(r'^tasks/', include('tasks.urls', namespace='tasks', app_name='tasks')),
     url(r'^workshops/', include('workshops.urls', namespace='workshops', app_name='workshops')),
     url(r'^wiki/', include('wiki.urls', namespace='wiki', app_name='wiki')),
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls)
 ]
