@@ -44,10 +44,10 @@ div.workshop {
 
 div#unassigned {
     background-color: lightgrey;
-    padding: 10px;
+    padding: 10px 10px 5px 10px;
     margin-top: 5px;
 }
 
 #unassigned .workshop {
-    margin-left: 5px;
+    margin: 0 0 5px 5px;
 }
