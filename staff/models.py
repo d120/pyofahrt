@@ -16,7 +16,7 @@ class Candidate(models.Model):
     email = models.EmailField("E-Mail-Adresse")
     phone = models.CharField("Handynummer", max_length=30)
 
-    roommate_preference = models.CharField("Gewünschte Zimmernachbarn", max_length=255, null=True)
+    roommate_preference = models.CharField("Gewünschte Zimmernachbarn", max_length=255, blank=True)
 
     def __str__(self):
         return self.first_name + " " + self.last_name
