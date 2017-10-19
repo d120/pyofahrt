@@ -36,8 +36,7 @@ STATIC_URL = '/ofahrt/static/'
 LOGIN_REDIRECT_URL = '/ofahrt/'
 
 ADMINS = (
-    ('FSS', 'fss@fachschaft.informatik.tu-darmstadt.de'),
-    ('Ofahrt-Leitung', 'ofahrt-leitung@fachschaft.informatik.tu-darmstadt.de'),
+    ('Ofahrt-Dev', 'ofahrt-dev@fachschaft.informatik.tu-darmstadt.de'),
 )
 
 SESSION_COOKIE_SECURE = True

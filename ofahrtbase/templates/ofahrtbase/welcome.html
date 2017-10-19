@@ -1,4 +1,5 @@
 {% extends "ofahrtbase/base.html" %}
+{% load staticfiles %}
 {% block title %}Startseite{% endblock %}
 {% block content %}
     <div id="innercontent">
@@ -7,10 +8,10 @@
                 {% if ofahrt.orga_reg_open %} Orgas {% endif %}
                 {% if ofahrt.orga_reg_open and ofahrt.workshop_reg_open %} und {% endif %}
                 {% if ofahrt.workshop_reg_open %} Menschen die einen Workshop anbieten möchten{% endif %}. Weitere
-                Informationen findest du <a href="{% url "staff:signup" %}">hier</a>.
+                Informationen findest du <a class="alert-link" href="{% url "staff:signup" %}">hier</a>.
             </div>
         {% endif %}
-        <img id="welcomeimage" src="../../static/ofahrtbase/images/weggeWesen.jpg">
+        <img id="welcomeimage" src="{% static "ofahrtbase/images/weggeWesen.jpg" %}">
         <h2>Willkommen auf der Startseite der Ofahrt!</h2>
         <p>Die Ofahrt ist die Erstsemester*innenfahrt der Fachschaft Informatik an der TU Darmstadt. Ziel der Ofahrt ist
             es, Kontakte zwischen den neuen Studierenden zu knüpfen, die Gelegenheit zu geben sich in verschiedenen
