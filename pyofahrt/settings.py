@@ -158,7 +158,7 @@ Kontodaten:
 MAIL_MEMBER_MOVETOQUEUE_SUBJECT = MAIL_PREFIX + "Deine Anmeldung zur Ofahrt"
 MAIL_MEMBER_MOVETOQUEUE_TEXT = """Hallo %s,
 
-du wurdest soeben aus der Warteschlange auf die vorläufige Anmeldeliste gesetzt. Um auf die feste Anmeldeliste übernommen zu werden überweise bitte innerhalb von sieben Tagen den Teilnahmebeitrag von 20,00€ auf die unten angegebenen Kontodaten. Wähle als Verwendungszweck bitte "Erstsemesterfahrt Informatik - VORNAME NACHNAME" damit wir die Überweisung deiner Anmeldung zuordnen können. Solltest du keinen Zugriff auf ein Bankkonto oder eine andere Möglichkeit der Überweisung haben, kontaktiere uns bitte unter ofahrt-leitung@d120.de. In diesem Fall finden wir eine Regelung für eine Barzahlung im Fachschaftsraum.
+du wurdest soeben aus der Warteschlange auf die vorläufige Anmeldeliste gesetzt. Um auf die feste Anmeldeliste übernommen zu werden überweise bitte innerhalb von sieben Tagen den Teilnahmebeitrag von 40,00€ an die unten angegebenen Kontodaten. Wähle als Verwendungszweck bitte "Erstsemesterfahrt Informatik - VORNAME NACHNAME" damit wir die Überweisung deiner Anmeldung zuordnen können. Solltest du keinen Zugriff auf ein Bankkonto oder eine andere Möglichkeit der Überweisung haben, kontaktiere uns bitte unter ofahrt-leitung@d120.de. In diesem Fall finden wir eine Regelung für eine Barzahlung im Fachschaftsraum.
 
 Sobald wir den Teilnahmebeitrag erhalten haben, setzen wir dich schnellstmöglich auf die feste Teilnahmeliste. Alle weiteren Infos erhälst du dann per E-Mail.
 
@@ -188,13 +188,15 @@ Kontodaten:
 MAIL_MEMBERSIGNUP_REMINDER_SUBJECT = MAIL_PREFIX + "Erinnerung Teilnahmegebühr, Ofahrt Wintersemester %d"
 MAIL_MEMBERSIGNUP_REMINDER_TEXT = """Hallo %s,
 
-danke noch einmal für deine Anmeldung! Seit X Tagen stehst du bereits auf der vorläufigen Anmeldeliste, so weit, so gut. Wir konnten allerdings noch keinen Geldeingang verbuchen. Bitte überweise den Teilnahmebeitrag in Höhe von 50€ auf das unten angegebene Konto, um an der Ofahrt fest teilnehmen zu können.
+danke noch einmal für deine Anmeldung! Seit 4 Tagen stehst du bereits auf der vorläufigen Anmeldeliste, so weit, so gut. Wir konnten allerdings noch keinen Geldeingang verbuchen.
+
+Bis zum Eingang des Teilnahmebetrags von 40€ stehst du lediglich auf der vorläufigen Teilnehmer*innenliste. Bitte überweise den Teilnahmebetrag schnellstmöglich an die unten genannten Kontodaten. Wähle als Verwendungszweck bitte "Informatik Erstsemesterfahrt - VORNAME NACHNAME" damit wir die Überweisung deiner Anmeldung zuordnen können. Solltest du keinen Zugriff auf ein Bankkonto oder eine andere Möglichkeit der Überweisung haben, kontaktiere uns bitte unter ofahrt-leitung@d120.de. In diesem Fall finden wir eine Regelung für eine Barzahlung im Fachschaftsraum.
 
 Wenn du das Geld bereits überwiesen hast, dann scheint die Bank einfach etwas langsam zu sein.
 
 Falls du deine Anmeldung stornieren möchtest, schreibe uns eine Mail, damit wir dich von der Liste entfernen können und Platz für andere Anmeldungen frei wird.
 
-Sollte jedoch bis in Y Tagen bei uns der Beitrag nicht eingegangen sein, wird deine Anmeldung automatisch aus dem System entfernt.
+Sollte jedoch bis in 3 Tagen bei uns der Beitrag nicht eingegangen sein, wird deine Anmeldung automatisch aus dem System entfernt.
 
 Liebe Grüße,
 die Ofahrt-Leitung

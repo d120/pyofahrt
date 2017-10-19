@@ -9,7 +9,11 @@ import pyofahrt.settings_secrets as secrets
 
 SECRET_KEY = secrets.SECRET_KEY
 
-BANK_ACCOUNT = secrets.BANK_ACCOUNT
+#BANK_ACCOUNT = secrets.BANK_ACCOUNT
+BANK_ACCOUNT = """Empfänger: Vorstand des D120 e.V.
+IBAN: DE91 5089 0000 0064 0851 07
+BIC: GENODEF1VBD
+"""
 
 DEBUG = False
 
