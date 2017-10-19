@@ -26,7 +26,7 @@ class MemberAdmin(admin.ModelAdmin):
             'fields': ('is_really_ersti', 'queue', 'queue_deadline', 'money_received'),
         }),
         ('Sonstiges', {
-            'fields': ('room', 'roommate_preference', 'kdv_barcode', 'free_text'),
+            'fields': ('room', 'kdv_barcode', 'free_text'),
         }),
     )
 

@@ -9,7 +9,7 @@ class SignupForm(forms.ModelForm):
     class Meta:
         model = Member
         fields = ['first_name', 'last_name', 'gender', 'email', 'birth_date', 'food_preference', 'food_handicaps',
-                  'roommate_preference', 'free_text']
+                  'free_text']
 
     def clean_birth_date(self):
         begin_date = Ofahrt.current().begin_date
