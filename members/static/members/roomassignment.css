@@ -1,71 +1,62 @@
-#unassignedmembers
-{
-  width: 250px;
-  padding:10px;
-  min-height: 400px;
-  background-color: #d9edf7;
-  border-color: #bce8f1;
-  border: 1px solid transparent;
-  border-radius: 4px;
+#unassignedmembers {
+    width: 250px;
+    padding: 10px;
+    min-height: 400px;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }
 
-#rooms
-{
-  float:right;
-  width: 80%;
+#rooms {
+    float: right;
+    width: 80%;
 }
 
-#rooms > .room
-{
-  background-color: #BFCCB8;
-  width: 200px;
-  margin: 10px;
-  margin-top: 0;
-  margin-bottom: 20px;
-  display: inline-block;
-  padding: 5px;
-  vertical-align: top;
+#rooms > .room {
+    background-color: #BFCCB8;
+    width: 200px;
+    margin: 10px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    display: inline-block;
+    padding: 5px;
+    vertical-align: top;
 }
 
 .fullroom {
-  color: #a94442 !important;
-  background-color: #f2dede !important;
-  border-color: 1px solid transparent #ebccd1 !important;
-  border-radius: 4px;
+    color: #a94442 !important;
+    background-color: #f2dede !important;
+    border-color: 1px solid transparent #ebccd1 !important;
+    border-radius: 4px;
 }
 
-
-#rooms > .room > .roomtitle
-{
-font-weight: bold;
-margin-bottom: 4px;
+#rooms > .room > .roomtitle {
+    font-weight: bold;
+    margin-bottom: 4px;
 }
 
-
-.member
-{
-  background-color: #EFEFEF;
-  padding: 4px;
-  border: 1px #7F7F7F dashed;
-  color: black !important;
-  margin-bottom: 5px;
+.member {
+    background-color: #EFEFEF;
+    padding: 4px;
+    border: 1px #7F7F7F dashed;
+    color: black !important;
+    margin-bottom: 5px;
 }
 
-.sortablearea
-{
-  min-height: 290px;
+.sortablearea {
+    min-height: 290px;
 }
 
-#unassignedmembers > .sortablearea
-{
-  min-height: 390px;
+#unassignedmembers > .sortablearea {
+    min-height: 390px;
 }
 
 #messages {
-  height: 70px;
-  width: 100%;
-  position: absolute;
-  bottom: 50px;
-  margin-left: 10px;
-  margin-right: 10px;
+    height: 70px;
+    width: 100%;
+    position: absolute;
+    bottom: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
