@@ -40,7 +40,7 @@ class Member(models.Model):
     first_name = models.CharField("Vorname", max_length=30)
     last_name = models.CharField("Nachname", max_length=30)
     gender = models.CharField("Geschlecht", choices=GENDER_CHOICES,
-                              help_text="Diese Angabe wird nur für die Zuteilung der Schlafräume minderjähriger Teilnehmer*innen verwendet.",
+                              help_text="Diese Angabe wird nur für die Zuteilung der Schlafräume verwendet.",
                               max_length=25, default="n")
 
     email = models.EmailField("E-Mail-Adresse", unique=True, max_length=180)
