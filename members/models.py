@@ -50,7 +50,6 @@ class Member(models.Model):
     food_handicaps = models.ManyToManyField(FoodHandicaps,
                                             help_text="Um Einträge abzuwählen, die STRG-Taste gedrückt halten und klicken.",
                                             verbose_name="Sonstige Lebensmittelunverträglichkeiten", blank=True)
-    roommate_preference = models.CharField("Gewünschte Zimmernachbarn", max_length=255, null=True)
 
     is_really_ersti = models.BooleanField("Geprüft ob Ersti?", default=False)
     queue = models.BooleanField("Warten auf Geldeingang")
