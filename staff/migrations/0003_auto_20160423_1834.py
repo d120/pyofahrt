@@ -18,13 +18,28 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='OrgaCandidate',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(max_length=30, verbose_name='Vorname')),
-                ('last_name', models.CharField(max_length=30, verbose_name='Nachname')),
-                ('email', models.EmailField(max_length=254, verbose_name='Email-Adresse')),
-                ('phone', models.CharField(max_length=30, verbose_name='Handynummer')),
-                ('base', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ofahrtbase.Ofahrt', verbose_name='Zugehörige Ofahrt')),
-                ('orga_for', models.ManyToManyField(help_text='Hier kannst du eine oder mehrere Orgatätigkeiten auswählen, für die du dich interessierst.', to='auth.Group', verbose_name='Orgajob')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
+                ('first_name', models.CharField(
+                    max_length=30, verbose_name='Vorname')),
+                ('last_name', models.CharField(
+                    max_length=30, verbose_name='Nachname')),
+                ('email', models.EmailField(
+                    max_length=254, verbose_name='Email-Adresse')),
+                ('phone', models.CharField(
+                    max_length=30, verbose_name='Handynummer')),
+                ('base', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='ofahrtbase.Ofahrt',
+                    verbose_name='Zugehörige Ofahrt')),
+                ('orga_for', models.ManyToManyField(
+                    help_text=
+                    'Hier kannst du eine oder mehrere Orgatätigkeiten auswählen, für die du dich interessierst.',
+                    to='auth.Group',
+                    verbose_name='Orgajob')),
             ],
             options={
                 'abstract': False,
@@ -33,13 +48,28 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='WorkshopCandidate',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(max_length=30, verbose_name='Vorname')),
-                ('last_name', models.CharField(max_length=30, verbose_name='Nachname')),
-                ('email', models.EmailField(max_length=254, verbose_name='Email-Adresse')),
-                ('phone', models.CharField(max_length=30, verbose_name='Handynummer')),
-                ('workshop_ideas', models.TextField(blank=True, help_text='Mehrere Ideen bitte in verschiedenen Zeilen unterbringen', verbose_name='Ideen für Workshops')),
-                ('base', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ofahrtbase.Ofahrt', verbose_name='Zugehörige Ofahrt')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
+                ('first_name', models.CharField(
+                    max_length=30, verbose_name='Vorname')),
+                ('last_name', models.CharField(
+                    max_length=30, verbose_name='Nachname')),
+                ('email', models.EmailField(
+                    max_length=254, verbose_name='Email-Adresse')),
+                ('phone', models.CharField(
+                    max_length=30, verbose_name='Handynummer')),
+                ('workshop_ideas', models.TextField(
+                    blank=True,
+                    help_text=
+                    'Mehrere Ideen bitte in verschiedenen Zeilen unterbringen',
+                    verbose_name='Ideen für Workshops')),
+                ('base', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='ofahrtbase.Ofahrt',
+                    verbose_name='Zugehörige Ofahrt')),
             ],
             options={
                 'abstract': False,
@@ -53,7 +83,5 @@ class Migration(migrations.Migration):
             model_name='candidate',
             name='orga_for',
         ),
-        migrations.DeleteModel(
-            name='Candidate',
-        ),
+        migrations.DeleteModel(name='Candidate', ),
     ]

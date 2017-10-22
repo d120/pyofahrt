@@ -12,7 +12,10 @@ import bbcode
 
 
 def mainview(request):
-    return HttpResponseRedirect(reverse("wiki:show", kwargs={"pk": Article(title="WikiStart")}))
+    return HttpResponseRedirect(
+        reverse("wiki:show", kwargs={
+            "pk": Article(title="WikiStart")
+        }))
 
 
 class PageView(DetailView):
@@ -32,13 +35,17 @@ class PageView(DetailView):
     def get(self, request, *args, **kwargs):
 
         parser = bbcode.Parser()
-        parser.add_simple_formatter('link', '<a href="%(value)s">%(value)s</a>')
+        parser.add_simple_formatter('link',
+                                    '<a href="%(value)s">%(value)s</a>')
 
         try:
             self.object = self.get_object()
             self.object.text = parser.format(self.object.text)
         except Http404:
-            return redirect(reverse_lazy("wiki:create", kwargs={"title": kwargs["pk"]}))
+            return redirect(
+                reverse_lazy("wiki:create", kwargs={
+                    "title": kwargs["pk"]
+                }))
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
 
@@ -52,7 +59,8 @@ class PageVersionView(DetailView):
         try:
             out.text = out.articleversion_set.get(id=self.kwargs["id"]).text
         except ArticleVersion.DoesNotExist:
-            out.text = out.articleversion_set.order_by('-timestamp')[:1].get().text
+            out.text = out.articleversion_set.order_by(
+                '-timestamp')[:1].get().text
         return out
 
     def get_context_data(self, **kwargs):
@@ -123,7 +131,10 @@ class PageEditView(CreateView):
             article = Article.objects.get(title=self.kwargs["title"])
         except Article.DoesNotExist:
             return
-        return {'text': article.articleversion_set.order_by('-timestamp')[:1].get().text}
+        return {
+            'text':
+            article.articleversion_set.order_by('-timestamp')[:1].get().text
+        }
 
     def get_context_data(self, **kwargs):
         context = super(PageEditView, self).get_context_data(**kwargs)

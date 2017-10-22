@@ -15,6 +15,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='ofahrt',
             name='self_participation',
-            field=models.IntegerField(default=2000, help_text='Eingenanteil der Teilnehmer*innen in Cent', verbose_name='Teilnahmebetrag'),
+            field=models.IntegerField(
+                default=2000,
+                help_text='Eingenanteil der Teilnehmer*innen in Cent',
+                verbose_name='Teilnahmebetrag'),
         ),
     ]

@@ -19,7 +19,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='workshopcandidate',
             name='workshop_ideas',
-            field=models.TextField(default='', help_text='Bei mehreren Ideen, bitte eine Zeile pro Idee verwenden.', verbose_name='Workshopideen'),
+            field=models.TextField(
+                default='',
+                help_text=
+                'Bei mehreren Ideen, bitte eine Zeile pro Idee verwenden.',
+                verbose_name='Workshopideen'),
             preserve_default=False,
         ),
     ]

@@ -16,6 +16,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='stafftagbox',
             name='group',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='auth.Group'),
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE, to='auth.Group'),
         ),
     ]

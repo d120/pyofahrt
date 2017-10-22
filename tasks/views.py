@@ -16,18 +16,19 @@ from pyofahrt import settings
 
 # Create your views here.
 
+
 class OverviewView(TemplateView):
     template_name = "tasks/overview.html"
 
     def get_context_data(self, **kwargs):
         context = super(OverviewView, self).get_context_data(**kwargs)
-        context["cats"] = TaskCategory.objects.all().filter(access_for__in=self.request.user.groups.all()).distinct()
+        context["cats"] = TaskCategory.objects.all().filter(
+            access_for__in=self.request.user.groups.all()).distinct()
         return context
 
 
-
 class TicketEditView(UpdateView):
-    model=Task
+    model = Task
     fields = ["name", "category", "priority", "description"]
     template_name = "tasks/editticket.html"
 
@@ -40,28 +41,43 @@ class TicketEditView(UpdateView):
         entry.save()
 
         mail = EmailMessage()
-        mail.subject = settings.MAIL_TICKETEDIT_SUBJECT % {'id' : self.object.id}
-        mail.body = settings.MAIL_TICKETEDIT_TEXT % {'id' : self.object.id, 'subject' : self.object.name, 'cat' : self.object.category.name, 'name' : self.request.user.get_full_name(), 'link' : self.request.build_absolute_uri(reverse('tasks:showticket', args=(self.object.id,)))}
-        temp = User.objects.all().filter(groups__in=self.object.category.responsible_for.all())
+        mail.subject = settings.MAIL_TICKETEDIT_SUBJECT % {
+            'id': self.object.id
+        }
+        mail.body = settings.MAIL_TICKETEDIT_TEXT % {
+            'id':
+            self.object.id,
+            'subject':
+            self.object.name,
+            'cat':
+            self.object.category.name,
+            'name':
+            self.request.user.get_full_name(),
+            'link':
+            self.request.build_absolute_uri(
+                reverse('tasks:showticket', args=(self.object.id, )))
+        }
+        temp = User.objects.all().filter(
+            groups__in=self.object.category.responsible_for.all())
         bcc = []
         for user in temp:
             bcc.append(user.email)
         mail.bcc = bcc
         mail.send()
 
-        return reverse('tasks:showticket', args=(self.object.id,))
+        return reverse('tasks:showticket', args=(self.object.id, ))
 
     def get_context_data(self, **kwargs):
         context = super(TicketEditView, self).get_context_data(**kwargs)
-        context["form"].fields["category"].queryset = TaskCategory.objects.all().filter(access_for__in=self.request.user.groups.all()).distinct()
+        context["form"].fields["category"].queryset = TaskCategory.objects.all(
+        ).filter(access_for__in=self.request.user.groups.all()).distinct()
         return context
 
 
 class TicketAssignView(UpdateView):
-    model=Task
+    model = Task
     fields = ["editors"]
     template_name = "tasks/assign.html"
-
 
     def get_success_url(self):
         entry = TaskHistoryEntry()
@@ -91,15 +107,33 @@ class TicketAssignView(UpdateView):
                 subentry.text = "<b>Status geändert:</b> zugewiesen"
                 subentry.save()
 
-        entry.text = "<b>Ticketzuweisung geändert:</b> Bearbeiter gesetzt auf " + ", ".join(editorlist)
+        entry.text = "<b>Ticketzuweisung geändert:</b> Bearbeiter gesetzt auf " + ", ".join(
+            editorlist)
         entry.save()
         entry.ticket.updated_at = datetime.now()
         entry.ticket.save()
 
         mail = EmailMessage()
-        mail.subject = settings.MAIL_TICKETASSIGN_SUBJECT % {'id' : self.object.id}
-        mail.body = settings.MAIL_TICKETASSIGN_TEXT % {'id' : self.object.id, 'subject' : self.object.name, 'cat' : self.object.category.name, 'name' : self.request.user.get_full_name(), 'link' : self.request.build_absolute_uri(reverse('tasks:showticket', args=(self.object.id,))), 'editors' : ", ".join(editorlist)}
-        temp = User.objects.all().filter(groups__in=self.object.category.responsible_for.all())
+        mail.subject = settings.MAIL_TICKETASSIGN_SUBJECT % {
+            'id': self.object.id
+        }
+        mail.body = settings.MAIL_TICKETASSIGN_TEXT % {
+            'id':
+            self.object.id,
+            'subject':
+            self.object.name,
+            'cat':
+            self.object.category.name,
+            'name':
+            self.request.user.get_full_name(),
+            'link':
+            self.request.build_absolute_uri(
+                reverse('tasks:showticket', args=(self.object.id, ))),
+            'editors':
+            ", ".join(editorlist)
+        }
+        temp = User.objects.all().filter(
+            groups__in=self.object.category.responsible_for.all())
         temp = temp | self.object.editors.all()
         bcc = []
         for user in temp:
@@ -107,14 +141,15 @@ class TicketAssignView(UpdateView):
         mail.bcc = bcc
         mail.send()
 
-        return reverse('tasks:showticket', args=(self.object.id,))
+        return reverse('tasks:showticket', args=(self.object.id, ))
 
     def get_context_data(self, **kwargs):
         context = super(TicketAssignView, self).get_context_data(**kwargs)
-        avaiable_groups = TaskCategory.objects.all().get(id=self.object.category.id).access_for.all()
-        context["form"].fields["editors"].queryset = User.objects.all().filter(groups__in=avaiable_groups)
+        avaiable_groups = TaskCategory.objects.all().get(
+            id=self.object.category.id).access_for.all()
+        context["form"].fields["editors"].queryset = User.objects.all().filter(
+            groups__in=avaiable_groups)
         return context
-
 
 
 def push(request, ticket):
@@ -134,9 +169,24 @@ def push(request, ticket):
             entry.text = "<b>Push!</b>"
 
             mail = EmailMessage()
-            mail.subject = settings.MAIL_TICKETPUSH_SUBJECT % {'id' : int(ticket)}
-            mail.body = settings.MAIL_TICKETPUSH_TEXT % {'id' : int(ticket), 'subject' : element.name, 'cat' : element.category.name, 'name' : request.user.get_full_name(), 'link' : request.build_absolute_uri(reverse('tasks:showticket', args=(element.id,)))}
-            temp = User.objects.all().filter(groups__in=element.category.responsible_for.all())
+            mail.subject = settings.MAIL_TICKETPUSH_SUBJECT % {
+                'id': int(ticket)
+            }
+            mail.body = settings.MAIL_TICKETPUSH_TEXT % {
+                'id':
+                int(ticket),
+                'subject':
+                element.name,
+                'cat':
+                element.category.name,
+                'name':
+                request.user.get_full_name(),
+                'link':
+                request.build_absolute_uri(
+                    reverse('tasks:showticket', args=(element.id, )))
+            }
+            temp = User.objects.all().filter(
+                groups__in=element.category.responsible_for.all())
             temp = temp | element.editors.all()
             bcc = []
             for user in temp:
@@ -165,6 +215,7 @@ def close(request, ticket):
             entry.save()
     return HttpResponseRedirect(reverse("tasks:showticket", args=[ticket]))
 
+
 def finish(request, ticket):
     if Task.objects.filter(id=ticket).count() == 0:
         raise Http404("Ticket existiert nicht")
@@ -182,6 +233,7 @@ def finish(request, ticket):
             entry.text = "<b>Status geändert:</b> erledigt"
             entry.save()
     return HttpResponseRedirect(reverse("tasks:showticket", args=[ticket]))
+
 
 def reopen(request, ticket):
     if Task.objects.filter(id=ticket).count() == 0:
@@ -216,32 +268,47 @@ class TicketView(DetailView):
         context = super(TicketView, self).get_context_data(**kwargs)
         return context
 
+
 class CommentView(CreateView):
     template_name = "tasks/comment.html"
     model = TaskComment
     fields = ["text"]
-
 
     def get_success_url(self):
         entry = TaskHistoryEntry()
         entry.ticket = self.object.ticket
         entry.user = self.object.user
         entry.timestamp = self.object.timestamp
-        entry.text = "<b>Kommentar hinzugefügt:</b> Kommentar #" + str(self.object.id)
+        entry.text = "<b>Kommentar hinzugefügt:</b> Kommentar #" + str(
+            self.object.id)
         entry.save()
 
-
         mail = EmailMessage()
-        mail.subject = settings.MAIL_TICKETNEWCOMMENT_SUBJECT % {'id' : self.object.id}
-        mail.body = settings.MAIL_TICKETNEWCOMMENT_TEXT % {'id' : self.object.ticket.id, 'subject' : self.object.ticket.name, 'cat' : self.object.ticket.category.name, 'name' : self.request.user, 'link' : self.request.build_absolute_uri(reverse('tasks:showticket', args=(self.object.ticket.id,)))}
-        temp = User.objects.all().filter(groups__in=self.object.ticket.category.responsible_for.all())
+        mail.subject = settings.MAIL_TICKETNEWCOMMENT_SUBJECT % {
+            'id': self.object.id
+        }
+        mail.body = settings.MAIL_TICKETNEWCOMMENT_TEXT % {
+            'id':
+            self.object.ticket.id,
+            'subject':
+            self.object.ticket.name,
+            'cat':
+            self.object.ticket.category.name,
+            'name':
+            self.request.user,
+            'link':
+            self.request.build_absolute_uri(
+                reverse('tasks:showticket', args=(self.object.ticket.id, )))
+        }
+        temp = User.objects.all().filter(
+            groups__in=self.object.ticket.category.responsible_for.all())
         bcc = []
         for user in temp:
             bcc.append(user.email)
         mail.bcc = bcc
         mail.send()
 
-        return reverse('tasks:showticket', args=(self.object.ticket.id,))
+        return reverse('tasks:showticket', args=(self.object.ticket.id, ))
 
     def get_context_data(self, **kwargs):
         context = super(CommentView, self).get_context_data(**kwargs)
@@ -265,7 +332,6 @@ class TicketCreateView(CreateView):
     model = Task
     fields = ["name", "category", "priority", "description"]
 
-
     def get_success_url(self):
         entry = TaskHistoryEntry()
         entry.ticket = self.object
@@ -274,18 +340,32 @@ class TicketCreateView(CreateView):
         entry.text = "<b>Ticket angelegt</b>"
         entry.save()
 
-
         mail = EmailMessage()
-        mail.subject = settings.MAIL_TICKETNEW_SUBJECT % {'cat' : self.object.category.name}
-        mail.body = settings.MAIL_TICKETNEW_TEXT % {'id' : self.object.id, 'subject' : self.object.name, 'cat' : self.object.category.name, 'name' : self.request.user.get_full_name(), 'link' : self.request.build_absolute_uri(reverse('tasks:showticket', args=(self.object.id,)))}
-        temp = User.objects.all().filter(groups__in=self.object.category.responsible_for.all())
+        mail.subject = settings.MAIL_TICKETNEW_SUBJECT % {
+            'cat': self.object.category.name
+        }
+        mail.body = settings.MAIL_TICKETNEW_TEXT % {
+            'id':
+            self.object.id,
+            'subject':
+            self.object.name,
+            'cat':
+            self.object.category.name,
+            'name':
+            self.request.user.get_full_name(),
+            'link':
+            self.request.build_absolute_uri(
+                reverse('tasks:showticket', args=(self.object.id, )))
+        }
+        temp = User.objects.all().filter(
+            groups__in=self.object.category.responsible_for.all())
         bcc = []
         for user in temp:
             bcc.append(user.email)
         mail.bcc = bcc
         mail.send()
 
-        return reverse('tasks:showticket', args=(self.object.id,))
+        return reverse('tasks:showticket', args=(self.object.id, ))
 
     def form_valid(self, form):
         form.instance.base = Ofahrt.current()
@@ -293,11 +373,10 @@ class TicketCreateView(CreateView):
 
     def get_initial(self):
         cat = get_object_or_404(TaskCategory, pk=self.kwargs.get('category'))
-        return {
-            'category':cat
-        }
+        return {'category': cat}
 
     def get_context_data(self, **kwargs):
         context = super(TicketCreateView, self).get_context_data(**kwargs)
-        context["form"].fields["category"].queryset = TaskCategory.objects.all().filter(access_for__in=self.request.user.groups.all()).distinct()
+        context["form"].fields["category"].queryset = TaskCategory.objects.all(
+        ).filter(access_for__in=self.request.user.groups.all()).distinct()
         return context

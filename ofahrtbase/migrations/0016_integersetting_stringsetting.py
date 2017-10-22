@@ -15,9 +15,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='IntegerSetting',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('key', models.CharField(max_length=50, unique=True, verbose_name='Schlüssel')),
-                ('readable', models.CharField(max_length=50, unique=True, verbose_name='Eigenschaft')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
+                ('key', models.CharField(
+                    max_length=50, unique=True, verbose_name='Schlüssel')),
+                ('readable', models.CharField(
+                    max_length=50, unique=True, verbose_name='Eigenschaft')),
                 ('value', models.IntegerField(verbose_name='Wert')),
             ],
             options={
@@ -28,9 +34,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='StringSetting',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('key', models.CharField(max_length=50, unique=True, verbose_name='Schlüssel')),
-                ('readable', models.CharField(max_length=50, unique=True, verbose_name='Eigenschaft')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
+                ('key', models.CharField(
+                    max_length=50, unique=True, verbose_name='Schlüssel')),
+                ('readable', models.CharField(
+                    max_length=50, unique=True, verbose_name='Eigenschaft')),
                 ('value', models.TextField(verbose_name='Wert')),
             ],
             options={

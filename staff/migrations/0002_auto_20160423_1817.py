@@ -15,21 +15,35 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='candidate',
             name='orga_for',
-            field=models.ManyToManyField(blank=True, help_text='Hier kannst du eine oder mehrere Orgatätigkeiten auswählen, für die du dich interessierst.', to='auth.Group', verbose_name='Orgajob'),
+            field=models.ManyToManyField(
+                blank=True,
+                help_text=
+                'Hier kannst du eine oder mehrere Orgatätigkeiten auswählen, für die du dich interessierst.',
+                to='auth.Group',
+                verbose_name='Orgajob'),
         ),
         migrations.AlterField(
             model_name='candidate',
             name='want_to_be_orga',
-            field=models.BooleanField(help_text='Wähle diese Option aus um dich als Orga zu melden.', verbose_name='Orga'),
+            field=models.BooleanField(
+                help_text='Wähle diese Option aus um dich als Orga zu melden.',
+                verbose_name='Orga'),
         ),
         migrations.AlterField(
             model_name='candidate',
             name='want_to_be_wl',
-            field=models.BooleanField(help_text='Wähle diese Option aus, wenn du einen oder mehrere Workshos anbieten möchtest.', verbose_name='Workshopanbieter'),
+            field=models.BooleanField(
+                help_text=
+                'Wähle diese Option aus, wenn du einen oder mehrere Workshos anbieten möchtest.',
+                verbose_name='Workshopanbieter'),
         ),
         migrations.AlterField(
             model_name='candidate',
             name='workshop_ideas',
-            field=models.TextField(blank=True, help_text='Mehrere Ideen bitte in verschiedenen Zeilen unterbringen', verbose_name='Ideen für Workshops'),
+            field=models.TextField(
+                blank=True,
+                help_text=
+                'Mehrere Ideen bitte in verschiedenen Zeilen unterbringen',
+                verbose_name='Ideen für Workshops'),
         ),
     ]

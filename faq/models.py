@@ -1,10 +1,12 @@
 from django.db import models
 import bbcode
 
+
 class FaqCategory(models.Model):
     class Meta:
         verbose_name = "Kategorie"
         verbose_name_plural = "Kategorien"
+
     name = models.CharField("Name", max_length=255)
 
     def __str__(self):

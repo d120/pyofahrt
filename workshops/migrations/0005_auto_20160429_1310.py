@@ -15,16 +15,28 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='slot',
             name='priority',
-            field=models.CharField(choices=[('opt', 'optional'), ('zentral', 'zentral'), ('dezentral', 'dezentral'), ('wichtig', 'wichtig')], default='zentral', max_length=30, verbose_name='Priorität'),
+            field=models.CharField(
+                choices=[('opt', 'optional'), ('zentral', 'zentral'),
+                         ('dezentral', 'dezentral'), ('wichtig', 'wichtig')],
+                default='zentral',
+                max_length=30,
+                verbose_name='Priorität'),
         ),
         migrations.AddField(
             model_name='slot',
             name='slottype',
-            field=models.CharField(choices=[('workshop', 'Workshop'), ('event', 'Zentrale Veranstaltung'), ('food', 'Essen'), ('sonstiges', 'Sonstiges')], default='sonstiges', max_length=30, verbose_name='Art des Slots'),
+            field=models.CharField(
+                choices=[('workshop', 'Workshop'), ('event',
+                                                    'Zentrale Veranstaltung'),
+                         ('food', 'Essen'), ('sonstiges', 'Sonstiges')],
+                default='sonstiges',
+                max_length=30,
+                verbose_name='Art des Slots'),
         ),
         migrations.AlterField(
             model_name='slot',
             name='name',
-            field=models.CharField(max_length=30, unique=True, verbose_name='Bezeichnung'),
+            field=models.CharField(
+                max_length=30, unique=True, verbose_name='Bezeichnung'),
         ),
     ]

@@ -1,15 +1,13 @@
 from django.contrib import admin
 
+
 class MemberQueueFilter(admin.SimpleListFilter):
     title = "Anmeldeliste"
     parameter_name = "queuelist"
 
     def lookups(self, request, modeladmin):
-        return (
-            ('queue', 'Warteschlange'),
-            ('cond', 'vorläufig angemeldet'),
-            ('fin', 'festangemeldet')
-        )
+        return (('queue', 'Warteschlange'), ('cond', 'vorläufig angemeldet'),
+                ('fin', 'festangemeldet'))
 
     def queryset(self, request, queryset):
         if self.value() == "fin":

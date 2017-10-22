@@ -65,7 +65,8 @@ class SignUpView(CreateView):
         max_members = ofahrt.max_members
         queue_size = ofahrt.queue_tolerance
         members_fin = Member.objects.filter(money_received=True).count()
-        members_queue = Member.objects.filter(money_received=False).filter(queue=True).count()
+        members_queue = Member.objects.filter(money_received=False).filter(
+            queue=True).count()
 
         email = EmailMessage()
 
@@ -74,18 +75,23 @@ class SignUpView(CreateView):
             # Gesamtanmeldung noch nicht ausgelastet, Platz in der Queue
             # Neuanmeldungen fließen direkt in die vorläufige Anmeldeliste
             member.queue = True
-            member.queue_deadline = datetime.datetime.now() + datetime.timedelta(7)
+            member.queue_deadline = datetime.datetime.now(
+            ) + datetime.timedelta(7)
 
-            email.subject = settings.MAIL_MEMBERSIGNUP_QUEUE_SUBJECT % (member.base.begin_date.year)
+            email.subject = settings.MAIL_MEMBERSIGNUP_QUEUE_SUBJECT % (
+                member.base.begin_date.year)
             email.body = settings.MAIL_MEMBERSIGNUP_QUEUE_TEXT % (
-            member.first_name, member.base.begin_date.year, settings.BANK_ACCOUNT)
+                member.first_name, member.base.begin_date.year,
+                settings.BANK_ACCOUNT)
 
         else:
             # vorläufige Anmeldeliste ist voll, Anmeldungen kommen in die Warteschlange
             member.queue = False
-            email.subject = settings.MAIL_MEMBERSIGNUP_SUBJECT % (member.base.begin_date.year)
+            email.subject = settings.MAIL_MEMBERSIGNUP_SUBJECT % (
+                member.base.begin_date.year)
             email.body = settings.MAIL_MEMBERSIGNUP_TEXT % (
-            member.first_name, member.base.begin_date.year, settings.BANK_ACCOUNT)
+                member.first_name, member.base.begin_date.year,
+                settings.BANK_ACCOUNT)
 
         email.to = [member.email]
         email.send()
@@ -99,12 +105,14 @@ class SignUpView(CreateView):
         max_members = ofahrt.max_members
         queue_size = ofahrt.queue_tolerance
         members_fin = Member.objects.filter(money_received=True).count()
-        members_queue = Member.objects.filter(money_received=False).filter(queue=True).count()
+        members_queue = Member.objects.filter(money_received=False).filter(
+            queue=True).count()
 
         context = super(SignUpView, self).get_context_data(**kwargs)
         context["member_reg_open"] = ofahrt.member_reg_open
         context["members_fin"] = members_fin
-        context["queue"] = (members_fin + members_queue) < (max_members + queue_size)
+        context["queue"] = (members_fin + members_queue) < (
+            max_members + queue_size)
 
         return context
 
@@ -133,8 +141,9 @@ class RoomassignmentView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(RoomassignmentView, self).get_context_data(**kwargs)
-        context["members"] = Member.objects.all().filter(Q(room=None) | Q(room__usecase_sleep=False)).filter(
-            money_received=True)
+        context["members"] = Member.objects.all().filter(
+            Q(room=None) | Q(room__usecase_sleep=False)).filter(
+                money_received=True)
         context["users"] = self.get_users_with_no_room()
         context["usercount"] = len(context["users"])
         context["rooms"] = Room.objects.all().filter(usecase_sleep=True)
@@ -144,10 +153,7 @@ class RoomassignmentView(TemplateView):
 def person_as_pdf(request):
     members = Member.objects.filter(money_received=True).order_by('last_name')
     staff = User.objects.order_by('last_name')
-    context = Context({
-        'members': members,
-        'staff': staff
-    })
+    context = Context({'members': members, 'staff': staff})
     template = get_template('members/RaumzuteilungB.tex')
     rendered_tpl = template.render(context).encode('utf-8')
     with tempfile.TemporaryDirectory() as tempdir:
@@ -208,19 +214,25 @@ class MemberlistView(TemplateView):
         max_members = ofahrt.max_members
 
         context = super(MemberlistView, self).get_context_data(**kwargs)
-        context["members_cond"] = Member.objects.filter(money_received=False).filter(queue=True)
-        context["members_queue"] = Member.objects.filter(money_received=False).filter(queue=False)
+        context["members_cond"] = Member.objects.filter(
+            money_received=False).filter(queue=True)
+        context["members_queue"] = Member.objects.filter(
+            money_received=False).filter(queue=False)
         context["members_fin"] = Member.objects.filter(money_received=True)
-        context["width"] = math.ceil((context["members_fin"].count() / max_members) * 100)
+        context["width"] = math.ceil(
+            (context["members_fin"].count() / max_members) * 100)
         context["max_members"] = max_members
 
         for index, member in enumerate(context["members_cond"]):
-            context["members_cond"][index].last_name = member.last_name[:1] + "."
+            context["members_cond"][
+                index].last_name = member.last_name[:1] + "."
 
         for index, member in enumerate(context["members_fin"]):
-            context["members_fin"][index].last_name = member.last_name[:1] + "."
+            context["members_fin"][
+                index].last_name = member.last_name[:1] + "."
 
         for index, member in enumerate(context["members_queue"]):
-            context["members_queue"][index].last_name = member.last_name[:1] + "."
+            context["members_queue"][
+                index].last_name = member.last_name[:1] + "."
 
         return context

@@ -17,7 +17,8 @@ class OverviewView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(OverviewView, self).get_context_data(**kwargs)
         context["workshops"] = Workshop.objects.all().exclude(host=None)
-        context["myworkshops"] = Workshop.objects.all().filter(host=self.request.user)
+        context["myworkshops"] = Workshop.objects.all().filter(
+            host=self.request.user)
         context["newworkshops"] = Workshop.objects.all().filter(host=None)
         return context
 
@@ -79,7 +80,7 @@ class WorkshopEditView(UpdateView):
         return context
 
     def get_success_url(self):
-        return reverse('workshops:show', args=(self.object.id,))
+        return reverse('workshops:show', args=(self.object.id, ))
 
 
 class WorkshopDeleteView(DeleteView):
@@ -97,7 +98,10 @@ class WorkshopDeleteView(DeleteView):
 class WorkshopCreateView(CreateView):
     template_name = "workshops/createworkshop.html"
     model = Workshop
-    fields = ["name", "description", "requirements", "conditions", "maxmembers", "otherstuff"]
+    fields = [
+        "name", "description", "requirements", "conditions", "maxmembers",
+        "otherstuff"
+    ]
 
     def get_context_data(self, **kwargs):
         context = super(WorkshopCreateView, self).get_context_data(**kwargs)
@@ -106,7 +110,7 @@ class WorkshopCreateView(CreateView):
     def get_success_url(self):
         self.object.host = [self.request.user]
         self.object.save()
-        return reverse('workshops:show', args=(self.object.id,))
+        return reverse('workshops:show', args=(self.object.id, ))
 
     def form_valid(self, form):
         form.instance.base = Ofahrt.current()
@@ -119,12 +123,14 @@ class WorkshopAssignView(UpdateView):
     fields = ["host", "room"]
 
     def get_success_url(self):
-        return reverse('workshops:show', args=(self.object.id,))
+        return reverse('workshops:show', args=(self.object.id, ))
 
     def get_context_data(self, **kwargs):
         context = super(WorkshopAssignView, self).get_context_data(**kwargs)
-        context["form"].fields["host"].queryset = User.objects.all().exclude(groups=None)
-        context["form"].fields["room"].queryset = Room.objects.all().filter(usecase_workshop=True)
+        context["form"].fields["host"].queryset = User.objects.all().exclude(
+            groups=None)
+        context["form"].fields["room"].queryset = Room.objects.all().filter(
+            usecase_workshop=True)
         return context
 
 
@@ -133,8 +139,10 @@ class WorkshopPlanView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(WorkshopPlanView, self).get_context_data(**kwargs)
-        context["rooms"] = Room.objects.all().filter(usecase_workshop=True).order_by("number")
-        context["slots"] = Slot.objects.all().filter(slottype="workshop").order_by("begin")
+        context["rooms"] = Room.objects.all().filter(
+            usecase_workshop=True).order_by("number")
+        context["slots"] = Slot.objects.all().filter(
+            slottype="workshop").order_by("begin")
         context["workshops"] = Workshop.objects.all()
         return context
 
@@ -166,12 +174,15 @@ def saveworkshopassignment(request):
 def infoexport(request):
     queryset = Workshop.objects.all().filter(accepted=True).filter(proved=True)
     (pdf, pdflatex_output) = LaTeX.render(
-        {"workshops": queryset,
-         "blankpages": range(4 - ((9 + queryset.count()) % 4) % 4)},
-        'workshops/ofahrtheft.tex',
-        ['grafik/logo_ohne_rand.png', 'grafik/titel.png', 'grafik/umgebung_big.png', 'grafik/umgebung_small.png',
-         'inhalt/einleitung.tex', 'inhalt/rueckseite.tex', 'inhalt/titelseite.tex', 'paket/ofahrtheft.sty'],
-        'workshops')
+        {
+            "workshops": queryset,
+            "blankpages": range(4 - ((9 + queryset.count()) % 4) % 4)
+        }, 'workshops/ofahrtheft.tex', [
+            'grafik/logo_ohne_rand.png', 'grafik/titel.png',
+            'grafik/umgebung_big.png', 'grafik/umgebung_small.png',
+            'inhalt/einleitung.tex', 'inhalt/rueckseite.tex',
+            'inhalt/titelseite.tex', 'paket/ofahrtheft.sty'
+        ], 'workshops')
 
     if pdf is None:
         return HttpResponse(pdflatex_output[0].decode("utf-8"))
@@ -193,7 +204,7 @@ class WorkshopProposeView(CreateView):
         return context
 
     def get_success_url(self):
-        return reverse('workshops:show', args=(self.object.id,))
+        return reverse('workshops:show', args=(self.object.id, ))
 
     def form_valid(self, form):
         form.instance.base = Ofahrt.current()

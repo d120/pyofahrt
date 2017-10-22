@@ -14,6 +14,10 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='article',
-            options={'permissions': (('can_use', 'Wikikomponente nutzen'),), 'verbose_name': 'Artikel', 'verbose_name_plural': 'Artikel'},
+            options={
+                'permissions': (('can_use', 'Wikikomponente nutzen'), ),
+                'verbose_name': 'Artikel',
+                'verbose_name_plural': 'Artikel'
+            },
         ),
     ]

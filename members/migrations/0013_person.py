@@ -19,7 +19,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Person',
             fields=[
-                ('user_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
+                ('user_ptr', models.OneToOneField(
+                    auto_created=True,
+                    on_delete=django.db.models.deletion.CASCADE,
+                    parent_link=True,
+                    primary_key=True,
+                    serialize=False,
+                    to=settings.AUTH_USER_MODEL)),
                 ('bla', models.BooleanField(verbose_name='Test')),
             ],
             options={
@@ -27,7 +33,7 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'users',
                 'verbose_name': 'user',
             },
-            bases=('auth.user',),
+            bases=('auth.user', ),
             managers=[
                 ('objects', django.contrib.auth.models.UserManager()),
             ],

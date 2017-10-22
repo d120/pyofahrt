@@ -16,6 +16,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='taskcategory',
             name='responsible_for',
-            field=models.ManyToManyField(related_name='responsible', to='auth.Group', verbose_name='Hauptzuständige Gruppe'),
+            field=models.ManyToManyField(
+                related_name='responsible',
+                to='auth.Group',
+                verbose_name='Hauptzuständige Gruppe'),
         ),
     ]

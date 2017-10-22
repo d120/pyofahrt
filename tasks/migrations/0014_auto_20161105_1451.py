@@ -15,11 +15,16 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='taskcategory',
             name='access_for',
-            field=models.ManyToManyField(blank=True, to='auth.Group', verbose_name='Zugang für'),
+            field=models.ManyToManyField(
+                blank=True, to='auth.Group', verbose_name='Zugang für'),
         ),
         migrations.AlterField(
             model_name='taskcategory',
             name='responsible_for',
-            field=models.ManyToManyField(blank=True, related_name='responsible', to='auth.Group', verbose_name='Hauptzuständige Gruppe'),
+            field=models.ManyToManyField(
+                blank=True,
+                related_name='responsible',
+                to='auth.Group',
+                verbose_name='Hauptzuständige Gruppe'),
         ),
     ]

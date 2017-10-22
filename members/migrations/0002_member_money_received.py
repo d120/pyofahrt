@@ -15,6 +15,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='member',
             name='money_received',
-            field=models.BooleanField(default=False, verbose_name='Geld eingegangen?'),
+            field=models.BooleanField(
+                default=False, verbose_name='Geld eingegangen?'),
         ),
     ]

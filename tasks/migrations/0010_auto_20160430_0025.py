@@ -16,26 +16,47 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='task',
             name='category',
-            field=models.ForeignKey(help_text='Über die Kategorie wird geregelt, welche Benutzer Zugriff auf dieses Ticket haben', on_delete=django.db.models.deletion.CASCADE, to='tasks.TaskCategory', verbose_name='Kategorie'),
+            field=models.ForeignKey(
+                help_text=
+                'Über die Kategorie wird geregelt, welche Benutzer Zugriff auf dieses Ticket haben',
+                on_delete=django.db.models.deletion.CASCADE,
+                to='tasks.TaskCategory',
+                verbose_name='Kategorie'),
         ),
         migrations.AlterField(
             model_name='task',
             name='description',
-            field=models.TextField(blank=True, help_text='Ausführlichere Beschreibung der Aufgabe (optional)', verbose_name='Beschreibung'),
+            field=models.TextField(
+                blank=True,
+                help_text='Ausführlichere Beschreibung der Aufgabe (optional)',
+                verbose_name='Beschreibung'),
         ),
         migrations.AlterField(
             model_name='task',
             name='name',
-            field=models.CharField(help_text='Zusammenfassung der Aufgabe', max_length=255, verbose_name='Aufgabe'),
+            field=models.CharField(
+                help_text='Zusammenfassung der Aufgabe',
+                max_length=255,
+                verbose_name='Aufgabe'),
         ),
         migrations.AlterField(
             model_name='task',
             name='priority',
-            field=models.CharField(choices=[('optional', 'optional'), ('unwichtig', 'unwichtig'), ('normal', 'normal'), ('wichtig', 'wichtig'), ('dringend', 'dringend')], default='normal', help_text='Die Priorität gibt an wie dringend das Ticket ist.', max_length=30, verbose_name='Priorität'),
+            field=models.CharField(
+                choices=[('optional', 'optional'), ('unwichtig', 'unwichtig'),
+                         ('normal', 'normal'), ('wichtig', 'wichtig'),
+                         ('dringend', 'dringend')],
+                default='normal',
+                help_text='Die Priorität gibt an wie dringend das Ticket ist.',
+                max_length=30,
+                verbose_name='Priorität'),
         ),
         migrations.AlterField(
             model_name='taskcomment',
             name='text',
-            field=models.TextField(help_text='Gib hier den Text an, den dein Kommentar enthalten soll.', verbose_name='Kommentartext'),
+            field=models.TextField(
+                help_text=
+                'Gib hier den Text an, den dein Kommentar enthalten soll.',
+                verbose_name='Kommentartext'),
         ),
     ]

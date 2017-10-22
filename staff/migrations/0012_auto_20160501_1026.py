@@ -15,6 +15,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='workshopcandidate',
             name='workshop_ideas',
-            field=models.TextField(help_text='Bei mehreren Ideen, bitte eine Zeile pro Idee verwenden. Die Ideen sollen nur grob umrissen werden. Ein ausführlicherer Text wird erst an späterer Stelle benötigt.', verbose_name='Workshopidee(n)'),
+            field=models.TextField(
+                help_text=
+                'Bei mehreren Ideen, bitte eine Zeile pro Idee verwenden. Die Ideen sollen nur grob umrissen werden. Ein ausführlicherer Text wird erst an späterer Stelle benötigt.',
+                verbose_name='Workshopidee(n)'),
         ),
     ]

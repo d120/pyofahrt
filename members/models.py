@@ -2,7 +2,6 @@ from django.db import models
 from datetime import datetime, timedelta, date
 from ofahrtbase.models import Ofahrt, Room
 
-
 # Create your models here.
 
 
@@ -25,47 +24,60 @@ class Member(models.Model):
 
     base = models.ForeignKey(Ofahrt, verbose_name="Zugehörige Ofahrt")
 
-    GENDER_CHOICES = (
-        ("m", "männlich"),
-        ("w", "weiblich"),
-        ("n", "keines der genannten")
-    )
+    GENDER_CHOICES = (("m", "männlich"), ("w", "weiblich"),
+                      ("n", "keines der genannten"))
 
-    FOOD_PREFERENCE_CHOICES = (
-        ("normal", "keine"),
-        ("vegetarisch", "vegetarisch"),
-        ("vegan", "vegan")
-    )
+    FOOD_PREFERENCE_CHOICES = (("normal", "keine"), ("vegetarisch",
+                                                     "vegetarisch"), ("vegan",
+                                                                      "vegan"))
 
     first_name = models.CharField("Vorname", max_length=30)
     last_name = models.CharField("Nachname", max_length=30)
-    gender = models.CharField("Geschlecht", choices=GENDER_CHOICES,
-                              help_text="Diese Angabe wird nur für die Zuteilung der Schlafräume verwendet.",
-                              max_length=25, default="n")
+    gender = models.CharField(
+        "Geschlecht",
+        choices=GENDER_CHOICES,
+        help_text=
+        "Diese Angabe wird nur für die Zuteilung der Schlafräume verwendet.",
+        max_length=25,
+        default="n")
 
     email = models.EmailField("E-Mail-Adresse", unique=True, max_length=180)
     birth_date = models.DateField("Geburtsdatum")
 
-    food_preference = models.CharField("Ernährungsgewohnheiten", choices=FOOD_PREFERENCE_CHOICES, max_length=30, default="normal")
-    food_handicaps = models.ManyToManyField(FoodHandicaps,
-                                            help_text="Um Einträge abzuwählen, die STRG-Taste gedrückt halten und klicken.",
-                                            verbose_name="Sonstige Lebensmittelunverträglichkeiten", blank=True)
+    food_preference = models.CharField(
+        "Ernährungsgewohnheiten",
+        choices=FOOD_PREFERENCE_CHOICES,
+        max_length=30,
+        default="normal")
+    food_handicaps = models.ManyToManyField(
+        FoodHandicaps,
+        help_text=
+        "Um Einträge abzuwählen, die STRG-Taste gedrückt halten und klicken.",
+        verbose_name="Sonstige Lebensmittelunverträglichkeiten",
+        blank=True)
 
     is_really_ersti = models.BooleanField("Geprüft ob Ersti?", default=False)
     queue = models.BooleanField("Warten auf Geldeingang")
-    queue_deadline = models.DateTimeField("Deadline für Geldeingang", null=True)
+    queue_deadline = models.DateTimeField(
+        "Deadline für Geldeingang", null=True)
     money_received = models.BooleanField("Festangemeldet?", default=False)
 
-    kdv_barcode = models.IntegerField("KDV-Barcode", null=True, blank=True, unique=True)
+    kdv_barcode = models.IntegerField(
+        "KDV-Barcode", null=True, blank=True, unique=True)
 
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Eingetragen am")
-    updated_at = models.DateTimeField(auto_now=True, verbose_name="Verändert am")
+    created_at = models.DateTimeField(
+        auto_now_add=True, verbose_name="Eingetragen am")
+    updated_at = models.DateTimeField(
+        auto_now=True, verbose_name="Verändert am")
 
     free_text = models.TextField("Sonstige Anmerkungen", blank=True)
-    room = models.ForeignKey(Room, verbose_name="Zugeteilter Raum", null=True, blank=True)
+    room = models.ForeignKey(
+        Room, verbose_name="Zugeteilter Raum", null=True, blank=True)
 
     def is_full_aged(self):
-        return date.today() >= date(self.birth_date.year + 18, int(self.birth_date.month), int(self.birth_date.day))
+        return date.today() >= date(self.birth_date.year + 18,
+                                    int(self.birth_date.month),
+                                    int(self.birth_date.day))
 
     is_full_aged.boolean = True
     is_full_aged.short_description = "Derzeit volljährig?"

@@ -14,6 +14,17 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='workshop',
-            options={'permissions': (('can_use', 'Die Workshopkomponente nutzen'), ('editeveryworkshop', 'Jeden Workshop bearbeiten'), ('proveworkshop', 'Einen Workshop als geprüft markieren'), ('acceptworkshop', 'Einen Workshop als akzeptiert markieren'), ('assignworkshop', 'Workshopzuweisung ändern')), 'verbose_name': 'Workshop', 'verbose_name_plural': 'Workshops'},
+            options={
+                'permissions':
+                (('can_use', 'Die Workshopkomponente nutzen'),
+                 ('editeveryworkshop', 'Jeden Workshop bearbeiten'),
+                 ('proveworkshop', 'Einen Workshop als geprüft markieren'),
+                 ('acceptworkshop', 'Einen Workshop als akzeptiert markieren'),
+                 ('assignworkshop', 'Workshopzuweisung ändern')),
+                'verbose_name':
+                'Workshop',
+                'verbose_name_plural':
+                'Workshops'
+            },
         ),
     ]

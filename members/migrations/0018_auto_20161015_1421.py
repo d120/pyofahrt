@@ -14,12 +14,18 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='foodhandicaps',
-            options={'verbose_name': 'Lebensmittelunverträglichkeit', 'verbose_name_plural': 'Lebensmittelunverträglichkeiten'},
+            options={
+                'verbose_name': 'Lebensmittelunverträglichkeit',
+                'verbose_name_plural': 'Lebensmittelunverträglichkeiten'
+            },
         ),
         migrations.AddField(
             model_name='foodhandicaps',
             name='text',
-            field=models.CharField(default='', max_length=50, verbose_name='Lebensmittelunverträglichkeit'),
+            field=models.CharField(
+                default='',
+                max_length=50,
+                verbose_name='Lebensmittelunverträglichkeit'),
             preserve_default=False,
         ),
     ]

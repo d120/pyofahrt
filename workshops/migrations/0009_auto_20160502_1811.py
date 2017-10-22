@@ -16,6 +16,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='workshop',
             name='host',
-            field=models.ManyToManyField(blank=True, to=settings.AUTH_USER_MODEL, verbose_name='Workshopanbieter'),
+            field=models.ManyToManyField(
+                blank=True,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name='Workshopanbieter'),
         ),
     ]

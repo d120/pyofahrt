@@ -15,6 +15,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='member',
             name='is_really_ersti',
-            field=models.BooleanField(default=False, verbose_name='Geprüft ob Ersti?'),
+            field=models.BooleanField(
+                default=False, verbose_name='Geprüft ob Ersti?'),
         ),
     ]

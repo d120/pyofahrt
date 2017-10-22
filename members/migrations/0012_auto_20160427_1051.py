@@ -17,13 +17,21 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='member',
             name='created_at',
-            field=models.DateTimeField(auto_now_add=True, default=datetime.datetime(2016, 4, 27, 8, 51, 6, 78965, tzinfo=utc), verbose_name='Eingetragen am'),
+            field=models.DateTimeField(
+                auto_now_add=True,
+                default=datetime.datetime(
+                    2016, 4, 27, 8, 51, 6, 78965, tzinfo=utc),
+                verbose_name='Eingetragen am'),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='member',
             name='updated_at',
-            field=models.DateTimeField(auto_now=True, default=datetime.datetime(2016, 4, 27, 8, 51, 18, 520378, tzinfo=utc), verbose_name='Verändert am'),
+            field=models.DateTimeField(
+                auto_now=True,
+                default=datetime.datetime(
+                    2016, 4, 27, 8, 51, 18, 520378, tzinfo=utc),
+                verbose_name='Verändert am'),
             preserve_default=False,
         ),
     ]

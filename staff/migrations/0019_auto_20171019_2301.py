@@ -15,13 +15,21 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='orgacandidate',
             name='roommate_preference',
-            field=models.CharField(blank=True, default='', max_length=255, verbose_name='Gewünschte Zimmernachbarn'),
+            field=models.CharField(
+                blank=True,
+                default='',
+                max_length=255,
+                verbose_name='Gewünschte Zimmernachbarn'),
             preserve_default=False,
         ),
         migrations.AlterField(
             model_name='workshopcandidate',
             name='roommate_preference',
-            field=models.CharField(blank=True, default='', max_length=255, verbose_name='Gewünschte Zimmernachbarn'),
+            field=models.CharField(
+                blank=True,
+                default='',
+                max_length=255,
+                verbose_name='Gewünschte Zimmernachbarn'),
             preserve_default=False,
         ),
     ]

@@ -16,7 +16,8 @@ class Candidate(models.Model):
     email = models.EmailField("E-Mail-Adresse")
     phone = models.CharField("Handynummer", max_length=30)
 
-    roommate_preference = models.CharField("Gewünschte Zimmernachbarn", max_length=255, blank=True)
+    roommate_preference = models.CharField(
+        "Gewünschte Zimmernachbarn", max_length=255, blank=True)
 
     def __str__(self):
         return self.first_name + " " + self.last_name
@@ -24,12 +25,14 @@ class Candidate(models.Model):
 
 class StaffBarcode(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    kdv_barcode = models.IntegerField("KDV-Barcode", null=True, blank=True, unique=True)
+    kdv_barcode = models.IntegerField(
+        "KDV-Barcode", null=True, blank=True, unique=True)
 
 
 class StaffRoomAssignment(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    room = models.ForeignKey(Room, verbose_name="Zugeteilter Raum", null=True, blank=True)
+    room = models.ForeignKey(
+        Room, verbose_name="Zugeteilter Raum", null=True, blank=True)
 
 
 class StaffTagBox(models.Model):
@@ -51,9 +54,13 @@ class OrgaCandidate(Candidate):
         verbose_name = "Orgabewerber"
         verbose_name_plural = "Orgabewerber"
 
-    orga_for = models.ManyToManyField(Group, limit_choices_to=~Q(permissions__codename="group_full"),
-                                      verbose_name="Orgajob",
-                                      help_text="Hier kannst du eine oder mehrere Orgatätigkeiten auswählen, für die du dich interessierst.")
+    orga_for = models.ManyToManyField(
+        Group,
+        limit_choices_to=~Q(permissions__codename="group_full"),
+        verbose_name="Orgajob",
+        help_text=
+        "Hier kannst du eine oder mehrere Orgatätigkeiten auswählen, für die du dich interessierst."
+    )
 
 
 class WorkshopCandidate(Candidate):
@@ -61,12 +68,13 @@ class WorkshopCandidate(Candidate):
         verbose_name = "Workshopbewerber"
         verbose_name_plural = "Workshopbewerber"
 
-        permissions = (
-            ("group_full", "Gruppe ist voll"),
-        )
+        permissions = (("group_full", "Gruppe ist voll"), )
 
-    workshop_ideas = models.TextField("Workshopidee(n)",
-                                      help_text='Bei mehreren Ideen, bitte eine Zeile pro Idee verwenden. Die Ideen sollen nur grob umrissen werden. Ein ausführlicherer Text wird erst an späterer Stelle benötigt.')
+    workshop_ideas = models.TextField(
+        "Workshopidee(n)",
+        help_text=
+        'Bei mehreren Ideen, bitte eine Zeile pro Idee verwenden. Die Ideen sollen nur grob umrissen werden. Ein ausführlicherer Text wird erst an späterer Stelle benötigt.'
+    )
 
 
 def get_nametag_boxes(self):
@@ -77,7 +85,8 @@ def get_nametag_boxes(self):
             box = StaffTagBox.objects.get(group=group)
             out.append("\\Tagbox{ " + box.letter + " }{ " + box.text + " }")
         except StaffTagBox.DoesNotExist:
-            out.append("\\Tagbox{ " + group.name[0] + " }{ " + group.name + " }")
+            out.append("\\Tagbox{ " + group.name[0] + " }{ " + group.name +
+                       " }")
 
     while len(out) < 4:
         out.append("~")

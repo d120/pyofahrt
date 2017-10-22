@@ -14,17 +14,25 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='location',
-            options={'verbose_name': 'Gelände', 'verbose_name_plural': 'Gelände'},
+            options={
+                'verbose_name': 'Gelände',
+                'verbose_name_plural': 'Gelände'
+            },
         ),
         migrations.AddField(
             model_name='setting',
             name='readable',
-            field=models.CharField(default='Bla', max_length=30, unique=True, verbose_name='Eigenschaft'),
+            field=models.CharField(
+                default='Bla',
+                max_length=30,
+                unique=True,
+                verbose_name='Eigenschaft'),
             preserve_default=False,
         ),
         migrations.AlterField(
             model_name='setting',
             name='key',
-            field=models.CharField(max_length=30, unique=True, verbose_name='Schlüssel'),
+            field=models.CharField(
+                max_length=30, unique=True, verbose_name='Schlüssel'),
         ),
     ]

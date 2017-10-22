@@ -91,16 +91,20 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 
@@ -184,7 +188,6 @@ die Ofahrt-Leitung
 Kontodaten:
 %s"""
 
-
 MAIL_MEMBERSIGNUP_REMINDER_SUBJECT = MAIL_PREFIX + "Erinnerung Teilnahmegebühr, Ofahrt Wintersemester %d"
 MAIL_MEMBERSIGNUP_REMINDER_TEXT = """Hallo %s,
 
@@ -205,7 +208,6 @@ die Ofahrt-Leitung
 
 Kontodaten:
 %s"""
-
 
 BANK_ACCOUNT = "folgt separat"  # wird in secret_settings überschrieben
 

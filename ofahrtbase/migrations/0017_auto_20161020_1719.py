@@ -15,26 +15,46 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='ofahrt',
             name='max_members',
-            field=models.IntegerField(default=70, help_text='Dieser Wert bestimmt die maximale Größe der Festanmeldeliste.', verbose_name='Maximale Teilnehmerzahl'),
+            field=models.IntegerField(
+                default=70,
+                help_text=
+                'Dieser Wert bestimmt die maximale Größe der Festanmeldeliste.',
+                verbose_name='Maximale Teilnehmerzahl'),
         ),
         migrations.AddField(
             model_name='ofahrt',
             name='member_reg_open',
-            field=models.BooleanField(default=False, help_text='Ist dieser Wert aktiviert können sich Teilnehmer*innen registrieren.', verbose_name='Teilnehmeregistrierung'),
+            field=models.BooleanField(
+                default=False,
+                help_text=
+                'Ist dieser Wert aktiviert können sich Teilnehmer*innen registrieren.',
+                verbose_name='Teilnehmeregistrierung'),
         ),
         migrations.AddField(
             model_name='ofahrt',
             name='orga_reg_open',
-            field=models.BooleanField(default=False, help_text='Ist dieser Wert aktiviert können sich Studierende als Ofahrtorga bewerben.', verbose_name='Orgaregistrierung'),
+            field=models.BooleanField(
+                default=False,
+                help_text=
+                'Ist dieser Wert aktiviert können sich Studierende als Ofahrtorga bewerben.',
+                verbose_name='Orgaregistrierung'),
         ),
         migrations.AddField(
             model_name='ofahrt',
             name='queue_tolerance',
-            field=models.IntegerField(default=20, help_text='Dieser Wert legt fest ab wann Neuanmeldungen von Teilnehmer*innen in die Warteschlange müssen. (Warteschlange falls: aktuelle Festanmeldungen + aktuell vorläufige Anmeldungen > maximale Festanmeldungen + dieser Wert)', verbose_name='Warteschlangentolleranz'),
+            field=models.IntegerField(
+                default=20,
+                help_text=
+                'Dieser Wert legt fest ab wann Neuanmeldungen von Teilnehmer*innen in die Warteschlange müssen. (Warteschlange falls: aktuelle Festanmeldungen + aktuell vorläufige Anmeldungen > maximale Festanmeldungen + dieser Wert)',
+                verbose_name='Warteschlangentolleranz'),
         ),
         migrations.AddField(
             model_name='ofahrt',
             name='workshop_reg_open',
-            field=models.BooleanField(default=False, help_text='Ist dieser Wert aktiviert werden derzeit Workshops gesucht.', verbose_name='Workshopregistrierung'),
+            field=models.BooleanField(
+                default=False,
+                help_text=
+                'Ist dieser Wert aktiviert werden derzeit Workshops gesucht.',
+                verbose_name='Workshopregistrierung'),
         ),
     ]

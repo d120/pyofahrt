@@ -17,16 +17,25 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='taskcomment',
             name='ticket',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='tasks.Task', verbose_name='Zugehöriges Ticket'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='tasks.Task',
+                verbose_name='Zugehöriges Ticket'),
         ),
         migrations.AlterField(
             model_name='taskcomment',
             name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Autor'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name='Autor'),
         ),
         migrations.AlterField(
             model_name='taskhistoryentry',
             name='ticket',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='tasks.Task', verbose_name='Zugehöriges Ticket'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='tasks.Task',
+                verbose_name='Zugehöriges Ticket'),
         ),
     ]

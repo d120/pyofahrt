@@ -15,6 +15,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='task',
             name='status',
-            field=models.CharField(choices=[('neu', 'neu'), ('zugewiesen', 'zugewiesen'), ('erledigt', 'erledigt'), ('abgebrochen', 'abgebrochen')], default='neu', max_length=30, verbose_name='Status'),
+            field=models.CharField(
+                choices=[('neu', 'neu'), ('zugewiesen', 'zugewiesen'),
+                         ('erledigt', 'erledigt'), ('abgebrochen',
+                                                    'abgebrochen')],
+                default='neu',
+                max_length=30,
+                verbose_name='Status'),
         ),
     ]

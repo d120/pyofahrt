@@ -15,11 +15,18 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='workshop',
             name='accepted',
-            field=models.BooleanField(default=False, help_text='Workshopidee ist in Ordnung', verbose_name='Akzeptiert'),
+            field=models.BooleanField(
+                default=False,
+                help_text='Workshopidee ist in Ordnung',
+                verbose_name='Akzeptiert'),
         ),
         migrations.AddField(
             model_name='workshop',
             name='proved',
-            field=models.BooleanField(default=False, help_text='Der aktuelle Workshopstand ist durch den Workshoporga geprüft.', verbose_name='Geprüft'),
+            field=models.BooleanField(
+                default=False,
+                help_text=
+                'Der aktuelle Workshopstand ist durch den Workshoporga geprüft.',
+                verbose_name='Geprüft'),
         ),
     ]

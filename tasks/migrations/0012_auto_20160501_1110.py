@@ -14,6 +14,10 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='task',
-            options={'permissions': (('can_use', 'Aufgabenverwaltung nutzen'),), 'verbose_name': 'Ticket', 'verbose_name_plural': 'Tickets'},
+            options={
+                'permissions': (('can_use', 'Aufgabenverwaltung nutzen'), ),
+                'verbose_name': 'Ticket',
+                'verbose_name_plural': 'Tickets'
+            },
         ),
     ]

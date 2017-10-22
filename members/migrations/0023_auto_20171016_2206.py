@@ -15,27 +15,48 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='member',
             name='roommate_preference',
-            field=models.CharField(default='keine', max_length=255, verbose_name='Gewünschte Zimmernachbarn'),
+            field=models.CharField(
+                default='keine',
+                max_length=255,
+                verbose_name='Gewünschte Zimmernachbarn'),
             preserve_default=False,
         ),
         migrations.AlterField(
             model_name='member',
             name='email',
-            field=models.EmailField(max_length=180, unique=True, verbose_name='E-Mail-Adresse'),
+            field=models.EmailField(
+                max_length=180, unique=True, verbose_name='E-Mail-Adresse'),
         ),
         migrations.AlterField(
             model_name='member',
             name='food_handicaps',
-            field=models.ManyToManyField(blank=True, help_text='Um Einträge abzuwählen, die STRG-Taste gedrückt halten und klicken.', to='members.FoodHandicaps', verbose_name='Sonstige Lebensmittelunverträglichkeiten'),
+            field=models.ManyToManyField(
+                blank=True,
+                help_text=
+                'Um Einträge abzuwählen, die STRG-Taste gedrückt halten und klicken.',
+                to='members.FoodHandicaps',
+                verbose_name='Sonstige Lebensmittelunverträglichkeiten'),
         ),
         migrations.AlterField(
             model_name='member',
             name='food_preference',
-            field=models.CharField(choices=[('normal', 'nein'), ('vegetarisch', 'vegetarisch'), ('vegan', 'vegan')], default='normal', max_length=30, verbose_name='Ernährungsgewohnheiten'),
+            field=models.CharField(
+                choices=[('normal', 'nein'), ('vegetarisch', 'vegetarisch'),
+                         ('vegan', 'vegan')],
+                default='normal',
+                max_length=30,
+                verbose_name='Ernährungsgewohnheiten'),
         ),
         migrations.AlterField(
             model_name='member',
             name='gender',
-            field=models.CharField(choices=[('m', 'männlich'), ('w', 'weiblich'), ('n', 'keines der genannten')], default='n', help_text='Diese Angabe wird nur für die Zuteilung der Schlafräume minderjähriger Teilnehmer*innen verwendet.', max_length=25, verbose_name='Geschlecht'),
+            field=models.CharField(
+                choices=[('m', 'männlich'), ('w', 'weiblich'),
+                         ('n', 'keines der genannten')],
+                default='n',
+                help_text=
+                'Diese Angabe wird nur für die Zuteilung der Schlafräume minderjähriger Teilnehmer*innen verwendet.',
+                max_length=25,
+                verbose_name='Geschlecht'),
         ),
     ]

@@ -16,6 +16,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='member',
             name='base',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ofahrtbase.Ofahrt'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='ofahrtbase.Ofahrt'),
         ),
     ]

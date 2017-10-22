@@ -17,8 +17,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Slot',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=30, verbose_name='Bezeichnung')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
+                ('name', models.CharField(
+                    max_length=30, verbose_name='Bezeichnung')),
                 ('begin', models.DateTimeField(verbose_name='Start')),
                 ('end', models.DateTimeField(verbose_name='Ende')),
             ],
@@ -29,11 +34,15 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterModelOptions(
             name='workshop',
-            options={'verbose_name': 'Workshop', 'verbose_name_plural': 'Workshops'},
+            options={
+                'verbose_name': 'Workshop',
+                'verbose_name_plural': 'Workshops'
+            },
         ),
         migrations.AddField(
             model_name='workshop',
             name='host',
-            field=models.ManyToManyField(to=settings.AUTH_USER_MODEL, verbose_name='Workshopanbieter'),
+            field=models.ManyToManyField(
+                to=settings.AUTH_USER_MODEL, verbose_name='Workshopanbieter'),
         ),
     ]

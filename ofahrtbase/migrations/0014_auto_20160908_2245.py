@@ -15,16 +15,21 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='room',
             name='capacity',
-            field=models.IntegerField(default=0, help_text='Wie viele Teilnehmer passen in diesen Raum?', verbose_name='Kapazität'),
+            field=models.IntegerField(
+                default=0,
+                help_text='Wie viele Teilnehmer passen in diesen Raum?',
+                verbose_name='Kapazität'),
         ),
         migrations.AlterField(
             model_name='setting',
             name='key',
-            field=models.CharField(max_length=50, unique=True, verbose_name='Schlüssel'),
+            field=models.CharField(
+                max_length=50, unique=True, verbose_name='Schlüssel'),
         ),
         migrations.AlterField(
             model_name='setting',
             name='readable',
-            field=models.CharField(max_length=50, unique=True, verbose_name='Eigenschaft'),
+            field=models.CharField(
+                max_length=50, unique=True, verbose_name='Eigenschaft'),
         ),
     ]

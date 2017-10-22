@@ -15,11 +15,19 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='member',
             name='food_preference',
-            field=models.CharField(choices=[('normal', 'keine'), ('vegetarisch', 'vegetarisch'), ('vegan', 'vegan')], default='normal', max_length=30, verbose_name='Ernährungsgewohnheiten'),
+            field=models.CharField(
+                choices=[('normal', 'keine'), ('vegetarisch', 'vegetarisch'),
+                         ('vegan', 'vegan')],
+                default='normal',
+                max_length=30,
+                verbose_name='Ernährungsgewohnheiten'),
         ),
         migrations.AlterField(
             model_name='member',
             name='roommate_preference',
-            field=models.CharField(max_length=255, null=True, verbose_name='Gewünschte Zimmernachbarn'),
+            field=models.CharField(
+                max_length=255,
+                null=True,
+                verbose_name='Gewünschte Zimmernachbarn'),
         ),
     ]

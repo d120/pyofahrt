@@ -15,6 +15,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='member',
             name='gender',
-            field=models.CharField(choices=[('m', 'männlich'), ('w', 'weiblich'), ('n', 'keines der genannten')], default='n', help_text='Diese Angabe wird nur für die Zuteilung der Schlafräume verwendet.', max_length=25, verbose_name='Geschlecht'),
+            field=models.CharField(
+                choices=[('m', 'männlich'), ('w', 'weiblich'),
+                         ('n', 'keines der genannten')],
+                default='n',
+                help_text=
+                'Diese Angabe wird nur für die Zuteilung der Schlafräume verwendet.',
+                max_length=25,
+                verbose_name='Geschlecht'),
         ),
     ]

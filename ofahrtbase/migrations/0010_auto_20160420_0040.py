@@ -14,6 +14,9 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='ofahrt',
-            options={'verbose_name': 'Ofahrtobjekt', 'verbose_name_plural': 'Ofahrtobjekte'},
+            options={
+                'verbose_name': 'Ofahrtobjekt',
+                'verbose_name_plural': 'Ofahrtobjekte'
+            },
         ),
     ]

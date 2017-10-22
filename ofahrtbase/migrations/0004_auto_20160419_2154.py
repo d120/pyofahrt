@@ -16,35 +16,59 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Building',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
                 ('name', models.CharField(max_length=30)),
             ],
         ),
         migrations.CreateModel(
             name='Location',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
                 ('name', models.CharField(max_length=30)),
             ],
         ),
         migrations.CreateModel(
             name='Room',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
                 ('name', models.CharField(max_length=30)),
-                ('usecase_sleep', models.BooleanField(default=False, verbose_name='Nutzbar als Schlafraum')),
-                ('usecase_workshop', models.BooleanField(default=False, verbose_name='Nutzbar für Workshops')),
-                ('usecase_outside', models.BooleanField(default=False, verbose_name='Nutzbar als Freifläche')),
-                ('usecase_store', models.BooleanField(default=False, verbose_name='Nutzbar als Lager')),
-                ('usecase_meal', models.BooleanField(default=False, verbose_name='Nutzbar als Essensraum')),
-                ('building', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ofahrtbase.Building')),
+                ('usecase_sleep', models.BooleanField(
+                    default=False, verbose_name='Nutzbar als Schlafraum')),
+                ('usecase_workshop', models.BooleanField(
+                    default=False, verbose_name='Nutzbar für Workshops')),
+                ('usecase_outside', models.BooleanField(
+                    default=False, verbose_name='Nutzbar als Freifläche')),
+                ('usecase_store', models.BooleanField(
+                    default=False, verbose_name='Nutzbar als Lager')),
+                ('usecase_meal', models.BooleanField(
+                    default=False, verbose_name='Nutzbar als Essensraum')),
+                ('building', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='ofahrtbase.Building')),
             ],
         ),
         migrations.CreateModel(
             name='Setting',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('key', models.CharField(max_length=30, unique=True, verbose_name='Eigenschaft')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
+                ('key', models.CharField(
+                    max_length=30, unique=True, verbose_name='Eigenschaft')),
                 ('value', models.BooleanField(verbose_name='Wert')),
             ],
         ),
@@ -55,19 +79,21 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='ofahrt',
             name='active',
-            field=models.BooleanField(default=True, unique=True, verbose_name='Aktiv?'),
+            field=models.BooleanField(
+                default=True, unique=True, verbose_name='Aktiv?'),
         ),
         migrations.AlterField(
             model_name='ofahrt',
             name='year',
-            field=models.IntegerField(default=2016, unique=True, verbose_name='Jahr'),
+            field=models.IntegerField(
+                default=2016, unique=True, verbose_name='Jahr'),
         ),
-        migrations.DeleteModel(
-            name='Settings',
-        ),
+        migrations.DeleteModel(name='Settings', ),
         migrations.AddField(
             model_name='building',
             name='location',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ofahrtbase.Location'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='ofahrtbase.Location'),
         ),
     ]

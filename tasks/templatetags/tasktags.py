@@ -8,6 +8,8 @@ register = template.Library()
 def user_tasks(user):
     return Task.objects.all().filter(status="zugewiesen").filter(editors=user)
 
+
 @register.assignment_tag(takes_context=True)
 def user_tasks_counter(context, user):
-    return Task.objects.all().filter(status="zugewiesen").filter(editors=user).count()
+    return Task.objects.all().filter(status="zugewiesen").filter(
+        editors=user).count()

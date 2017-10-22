@@ -15,11 +15,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='workshop',
             name='maxmembers',
-            field=models.IntegerField(blank=True, default=0, verbose_name='Maximale Teilnehmer'),
+            field=models.IntegerField(
+                blank=True, default=0, verbose_name='Maximale Teilnehmer'),
         ),
         migrations.AddField(
             model_name='workshop',
             name='otherstuff',
-            field=models.TextField(blank=True, verbose_name='Maximale Teilnehmer'),
+            field=models.TextField(
+                blank=True, verbose_name='Maximale Teilnehmer'),
         ),
     ]

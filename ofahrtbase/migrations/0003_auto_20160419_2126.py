@@ -16,7 +16,10 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='settings',
             name='base',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='ofahrtbase.Ofahrt'),
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                to='ofahrtbase.Ofahrt'),
             preserve_default=False,
         ),
         migrations.AlterField(

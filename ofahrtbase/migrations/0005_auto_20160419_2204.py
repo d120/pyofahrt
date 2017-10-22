@@ -16,6 +16,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='building',
             name='location',
-            field=models.ForeignKey(default=5, on_delete=django.db.models.deletion.CASCADE, to='ofahrtbase.Location'),
+            field=models.ForeignKey(
+                default=5,
+                on_delete=django.db.models.deletion.CASCADE,
+                to='ofahrtbase.Location'),
         ),
     ]

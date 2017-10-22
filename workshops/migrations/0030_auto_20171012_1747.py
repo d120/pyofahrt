@@ -16,11 +16,15 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='slot',
             name='begin',
-            field=models.DateTimeField(default=workshops.models.Slot.defaultdate, verbose_name='Start'),
+            field=models.DateTimeField(
+                default=workshops.models.Slot.defaultdate,
+                verbose_name='Start'),
         ),
         migrations.AlterField(
             model_name='slot',
             name='end',
-            field=models.DateTimeField(default=workshops.models.Slot.defaultdate, verbose_name='Ende'),
+            field=models.DateTimeField(
+                default=workshops.models.Slot.defaultdate,
+                verbose_name='Ende'),
         ),
     ]

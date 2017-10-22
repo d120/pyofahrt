@@ -14,10 +14,16 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='orgacandidate',
-            options={'verbose_name': 'Orgabewerber', 'verbose_name_plural': 'Orgabewerber'},
+            options={
+                'verbose_name': 'Orgabewerber',
+                'verbose_name_plural': 'Orgabewerber'
+            },
         ),
         migrations.AlterModelOptions(
             name='workshopcandidate',
-            options={'verbose_name': 'Workshopbewerber', 'verbose_name_plural': 'Workshopbewerber'},
+            options={
+                'verbose_name': 'Workshopbewerber',
+                'verbose_name_plural': 'Workshopbewerber'
+            },
         ),
     ]

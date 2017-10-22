@@ -14,6 +14,10 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='workshopcandidate',
-            options={'permissions': ('group_full', 'Gruppe ist voll'), 'verbose_name': 'Workshopbewerber', 'verbose_name_plural': 'Workshopbewerber'},
+            options={
+                'permissions': ('group_full', 'Gruppe ist voll'),
+                'verbose_name': 'Workshopbewerber',
+                'verbose_name_plural': 'Workshopbewerber'
+            },
         ),
     ]

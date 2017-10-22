@@ -15,6 +15,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='workshop',
             name='conditions',
-            field=models.TextField(blank=True, verbose_name='Teilnahmebedingunden'),
+            field=models.TextField(
+                blank=True, verbose_name='Teilnahmebedingunden'),
         ),
     ]

@@ -15,17 +15,21 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='member',
             name='queue',
-            field=models.BooleanField(default=True, verbose_name='Warten auf Geldeingang'),
+            field=models.BooleanField(
+                default=True, verbose_name='Warten auf Geldeingang'),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='member',
             name='queue_deadline',
-            field=models.DateTimeField(null=True, verbose_name='Deadline für Geldeingang'),
+            field=models.DateTimeField(
+                null=True, verbose_name='Deadline für Geldeingang'),
         ),
         migrations.AlterField(
             model_name='member',
             name='money_received',
-            field=models.BooleanField(default=False, verbose_name='Geld eingegangen? (Festangemeldet)'),
+            field=models.BooleanField(
+                default=False,
+                verbose_name='Geld eingegangen? (Festangemeldet)'),
         ),
     ]

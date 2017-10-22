@@ -14,10 +14,14 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='faqcategory',
-            options={'verbose_name': 'Kategorie', 'verbose_name_plural': 'Kategorien'},
+            options={
+                'verbose_name': 'Kategorie',
+                'verbose_name_plural': 'Kategorien'
+            },
         ),
         migrations.AlterModelOptions(
             name='question',
-            options={'verbose_name': 'Frage', 'verbose_name_plural': 'Fragen'},
+            options={'verbose_name': 'Frage',
+                     'verbose_name_plural': 'Fragen'},
         ),
     ]

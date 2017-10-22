@@ -16,6 +16,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='workshopcandidate',
             name='workshop_ideas',
-            field=models.ManyToManyField(to='workshops.Workshop', verbose_name='Workshopideen'),
+            field=models.ManyToManyField(
+                to='workshops.Workshop', verbose_name='Workshopideen'),
         ),
     ]

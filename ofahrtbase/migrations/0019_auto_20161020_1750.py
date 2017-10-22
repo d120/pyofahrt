@@ -12,13 +12,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.DeleteModel(
-            name='IntegerSetting',
-        ),
-        migrations.DeleteModel(
-            name='Setting',
-        ),
-        migrations.DeleteModel(
-            name='StringSetting',
-        ),
+        migrations.DeleteModel(name='IntegerSetting', ),
+        migrations.DeleteModel(name='Setting', ),
+        migrations.DeleteModel(name='StringSetting', ),
     ]

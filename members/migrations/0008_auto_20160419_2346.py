@@ -17,10 +17,21 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='RoomAssignment',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('base', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ofahrtbase.Ofahrt', verbose_name='Zugehörige Ofahrt')),
-                ('members', models.ManyToManyField(to='members.Member', verbose_name='Zugewiesene Personen')),
-                ('room', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ofahrtbase.Room', verbose_name='Zugehöriger Raum')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
+                ('base', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='ofahrtbase.Ofahrt',
+                    verbose_name='Zugehörige Ofahrt')),
+                ('members', models.ManyToManyField(
+                    to='members.Member', verbose_name='Zugewiesene Personen')),
+                ('room', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='ofahrtbase.Room',
+                    verbose_name='Zugehöriger Raum')),
             ],
             options={
                 'verbose_name': 'Raumzuteilung',

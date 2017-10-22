@@ -19,16 +19,32 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Candidate',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(max_length=30, verbose_name='Vorname')),
-                ('last_name', models.CharField(max_length=30, verbose_name='Nachname')),
-                ('email', models.EmailField(max_length=254, verbose_name='Email-Adresse')),
-                ('phone', models.CharField(max_length=30, verbose_name='Handynummer')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
+                ('first_name', models.CharField(
+                    max_length=30, verbose_name='Vorname')),
+                ('last_name', models.CharField(
+                    max_length=30, verbose_name='Nachname')),
+                ('email', models.EmailField(
+                    max_length=254, verbose_name='Email-Adresse')),
+                ('phone', models.CharField(
+                    max_length=30, verbose_name='Handynummer')),
                 ('want_to_be_orga', models.BooleanField(verbose_name='Orga')),
-                ('want_to_be_wl', models.BooleanField(verbose_name='Workshopanbieter')),
-                ('workshop_ideas', models.TextField(help_text='Mehrere Ideen bitte in verschiedenen Zeilen unterbringen', verbose_name='Ideen für Workshops')),
-                ('base', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ofahrtbase.Ofahrt', verbose_name='Zugehörige Ofahrt')),
-                ('orga_for', models.ManyToManyField(related_name='Orgajob', to='auth.Group')),
+                ('want_to_be_wl',
+                 models.BooleanField(verbose_name='Workshopanbieter')),
+                ('workshop_ideas', models.TextField(
+                    help_text=
+                    'Mehrere Ideen bitte in verschiedenen Zeilen unterbringen',
+                    verbose_name='Ideen für Workshops')),
+                ('base', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='ofahrtbase.Ofahrt',
+                    verbose_name='Zugehörige Ofahrt')),
+                ('orga_for', models.ManyToManyField(
+                    related_name='Orgajob', to='auth.Group')),
             ],
         ),
     ]

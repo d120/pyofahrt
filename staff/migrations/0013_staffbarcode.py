@@ -18,9 +18,19 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='StaffBarcode',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('kdv_barcode', models.IntegerField(blank=True, null=True, unique=True, verbose_name='KDV-Barcode')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
+                ('kdv_barcode', models.IntegerField(
+                    blank=True,
+                    null=True,
+                    unique=True,
+                    verbose_name='KDV-Barcode')),
+                ('user', models.OneToOneField(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

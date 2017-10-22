@@ -15,6 +15,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='workshop',
             name='maxmembers',
-            field=models.IntegerField(blank=True, default=0, verbose_name='Maximale Teilnehmerzahl'),
+            field=models.IntegerField(
+                blank=True, default=0, verbose_name='Maximale Teilnehmerzahl'),
         ),
     ]

@@ -14,22 +14,35 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='building',
-            options={'verbose_name': 'Gebäude', 'verbose_name_plural': 'Gebäude'},
+            options={
+                'verbose_name': 'Gebäude',
+                'verbose_name_plural': 'Gebäude'
+            },
         ),
         migrations.AlterModelOptions(
             name='location',
-            options={'verbose_name': 'Tagungsort', 'verbose_name_plural': 'Tagungsorte'},
+            options={
+                'verbose_name': 'Tagungsort',
+                'verbose_name_plural': 'Tagungsorte'
+            },
         ),
         migrations.AlterModelOptions(
             name='ofahrt',
-            options={'verbose_name': 'Ofahrt', 'verbose_name_plural': 'Ofahrten'},
+            options={
+                'verbose_name': 'Ofahrt',
+                'verbose_name_plural': 'Ofahrten'
+            },
         ),
         migrations.AlterModelOptions(
             name='room',
-            options={'verbose_name': 'Raum', 'verbose_name_plural': 'Räume'},
+            options={'verbose_name': 'Raum',
+                     'verbose_name_plural': 'Räume'},
         ),
         migrations.AlterModelOptions(
             name='setting',
-            options={'verbose_name': 'Einstellung', 'verbose_name_plural': 'Einstellungen'},
+            options={
+                'verbose_name': 'Einstellung',
+                'verbose_name_plural': 'Einstellungen'
+            },
         ),
     ]

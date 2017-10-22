@@ -15,21 +15,27 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='room',
             name='capacity',
-            field=models.IntegerField(default=0, help_text='Wieviele Teilnehmer*innen passen in diesen Raum?', verbose_name='Kapazität'),
+            field=models.IntegerField(
+                default=0,
+                help_text='Wieviele Teilnehmer*innen passen in diesen Raum?',
+                verbose_name='Kapazität'),
         ),
         migrations.AlterField(
             model_name='room',
             name='usecase_meal',
-            field=models.BooleanField(default=False, verbose_name='Speisesaal'),
+            field=models.BooleanField(
+                default=False, verbose_name='Speisesaal'),
         ),
         migrations.AlterField(
             model_name='room',
             name='usecase_sleep',
-            field=models.BooleanField(default=False, verbose_name='Schlafzimmer'),
+            field=models.BooleanField(
+                default=False, verbose_name='Schlafzimmer'),
         ),
         migrations.AlterField(
             model_name='room',
             name='usecase_workshop',
-            field=models.BooleanField(default=False, verbose_name='Aktivitätenraum'),
+            field=models.BooleanField(
+                default=False, verbose_name='Aktivitätenraum'),
         ),
     ]

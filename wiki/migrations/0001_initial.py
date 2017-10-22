@@ -10,14 +10,17 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
             name='Article',
             fields=[
-                ('title', models.CharField(max_length=180, primary_key=True, serialize=False, verbose_name='Titel')),
+                ('title', models.CharField(
+                    max_length=180,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='Titel')),
             ],
             options={
                 'verbose_name': 'Artikel',
@@ -27,10 +30,18 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ArticleVersion',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
                 ('text', models.TextField(verbose_name='Text')),
-                ('timestamp', models.DateTimeField(verbose_name='Zeitstempel')),
-                ('article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='wiki.Article', verbose_name='Zugehöriger Artikel')),
+                ('timestamp',
+                 models.DateTimeField(verbose_name='Zeitstempel')),
+                ('article', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='wiki.Article',
+                    verbose_name='Zugehöriger Artikel')),
             ],
             options={
                 'verbose_name': 'Artikelversion',

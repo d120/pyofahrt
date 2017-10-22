@@ -36,7 +36,10 @@ class ContactView(FormView):
 
         mail = EmailMessage()
         mail.subject = settings.MAIL_CONTACTFORM_SUBJECT
-        mail.body = settings.MAIL_CONTACTFORM_TEXT % {'sender': email, 'text': text}
+        mail.body = settings.MAIL_CONTACTFORM_TEXT % {
+            'sender': email,
+            'text': text
+        }
         mail.to = [settings.SERVER_EMAIL]
         mail.send()
 
@@ -88,12 +91,16 @@ class SignUpWorkshopView(CreateView):
 
         # Adressen aller Workshoporgas erfragen
         perm = Permission.objects.get(codename='editeveryworkshop')
-        orgas = User.objects.filter(Q(groups__permissions=perm) | Q(user_permissions=perm)).distinct()
+        orgas = User.objects.filter(
+            Q(groups__permissions=perm) | Q(user_permissions=perm)).distinct()
         print(list(orgas.values_list('email', flat=True)))
 
         mail = EmailMessage()
         mail.subject = settings.MAIL_NEW_WORKSHOP_SUBJECT
-        mail.body = settings.MAIL_NEW_WORKSHOP_TEXT % {'firstname': member.first_name, 'lastname': member.last_name}
+        mail.body = settings.MAIL_NEW_WORKSHOP_TEXT % {
+            'firstname': member.first_name,
+            'lastname': member.last_name
+        }
         mail.to = list(orgas.values_list('email', flat=True))
         mail.send()
 
@@ -113,7 +120,10 @@ class SignUpOrgaView(CreateView):
     template_name = "staff/signup_orga.html"
     success_url = reverse_lazy('staff:success')
 
-    fields = ['first_name', 'last_name', 'email', 'phone', 'roommate_preference', 'orga_for']
+    fields = [
+        'first_name', 'last_name', 'email', 'phone', 'roommate_preference',
+        'orga_for'
+    ]
 
     def form_valid(self, form):
         member = form.save(commit=False)
@@ -121,7 +131,10 @@ class SignUpOrgaView(CreateView):
 
         mail = EmailMessage()
         mail.subject = settings.MAIL_NEW_ORGA_SUBJECT
-        mail.body = settings.MAIL_NEW_ORGA_TEXT % {'firstname': member.first_name, 'lastname': member.last_name}
+        mail.body = settings.MAIL_NEW_ORGA_TEXT % {
+            'firstname': member.first_name,
+            'lastname': member.last_name
+        }
         mail.to = [settings.SERVER_EMAIL]
         mail.send()
 
@@ -131,5 +144,6 @@ class SignUpOrgaView(CreateView):
         ofahrt = Ofahrt.current()
         context = super(SignUpOrgaView, self).get_context_data(**kwargs)
         context["orga_reg_open"] = ofahrt.orga_reg_open and not (
-        Group.objects.exclude(permissions__codename="group_full").count() == 0)
+            Group.objects.exclude(
+                permissions__codename="group_full").count() == 0)
         return context

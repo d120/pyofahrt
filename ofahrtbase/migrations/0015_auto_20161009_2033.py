@@ -15,17 +15,20 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='room',
             name='usecase_meal',
-            field=models.BooleanField(default=False, verbose_name='Essensraum'),
+            field=models.BooleanField(
+                default=False, verbose_name='Essensraum'),
         ),
         migrations.AlterField(
             model_name='room',
             name='usecase_outside',
-            field=models.BooleanField(default=False, verbose_name='Freifläche'),
+            field=models.BooleanField(
+                default=False, verbose_name='Freifläche'),
         ),
         migrations.AlterField(
             model_name='room',
             name='usecase_sleep',
-            field=models.BooleanField(default=False, verbose_name='Schlafraum'),
+            field=models.BooleanField(
+                default=False, verbose_name='Schlafraum'),
         ),
         migrations.AlterField(
             model_name='room',

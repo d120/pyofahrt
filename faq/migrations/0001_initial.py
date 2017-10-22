@@ -10,24 +10,35 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
             name='FaqCategory',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255, verbose_name='Name')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
+                ('name', models.CharField(max_length=255,
+                                          verbose_name='Name')),
             ],
         ),
         migrations.CreateModel(
             name='Question',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.CharField(max_length=255, verbose_name='Frage')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
+                ('text', models.CharField(
+                    max_length=255, verbose_name='Frage')),
                 ('answer', models.TextField(verbose_name='Antwort')),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='faq.FaqCategory')),
+                ('category', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='faq.FaqCategory')),
             ],
         ),
     ]

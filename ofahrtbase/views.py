@@ -18,11 +18,13 @@ class ScheduleView(TemplateView):
     def get_context_data(self, **kwargs):
         # Helpers
         def datetime2moment(input):
-            return str(input.year) + "-" + str(input.month) + "-" + str(input.day) + "T" + str(input.hour) + ":" + str(
-                input.minute) + ":" + str(input.second)
+            return str(input.year) + "-" + str(input.month) + "-" + str(
+                input.day) + "T" + str(input.hour) + ":" + str(
+                    input.minute) + ":" + str(input.second)
 
         def date2moment(input):
-            return str(input.year) + "-" + str(input.month) + "-" + str(input.day)
+            return str(input.year) + "-" + str(input.month) + "-" + str(
+                input.day)
 
         context = super(ScheduleView, self).get_context_data(**kwargs)
 

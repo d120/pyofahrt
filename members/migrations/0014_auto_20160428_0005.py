@@ -17,7 +17,5 @@ class Migration(migrations.Migration):
             model_name='person',
             name='user_ptr',
         ),
-        migrations.DeleteModel(
-            name='Person',
-        ),
+        migrations.DeleteModel(name='Person', ),
     ]

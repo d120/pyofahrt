@@ -15,6 +15,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='member',
             name='kdv_barcode',
-            field=models.IntegerField(blank=True, null=True, unique=True, verbose_name='KDV-Barcode'),
+            field=models.IntegerField(
+                blank=True, null=True, unique=True,
+                verbose_name='KDV-Barcode'),
         ),
     ]

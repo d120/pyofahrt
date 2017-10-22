@@ -23,11 +23,25 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Task',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255, verbose_name='Aufgabe')),
-                ('description', models.TextField(blank=True, verbose_name='Beschreibung')),
-                ('priority', models.CharField(choices=[('optional', 'optional'), ('unwichtig', 'unwichtig'), ('normal', 'normal'), ('wichtig', 'wichtig'), ('dringend', 'dringend')], max_length=30, verbose_name='Priorität')),
-                ('base', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ofahrtbase.Ofahrt', verbose_name='Zugehörige OFahrt')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
+                ('name', models.CharField(
+                    max_length=255, verbose_name='Aufgabe')),
+                ('description', models.TextField(
+                    blank=True, verbose_name='Beschreibung')),
+                ('priority', models.CharField(
+                    choices=[('optional', 'optional'),
+                             ('unwichtig', 'unwichtig'), ('normal', 'normal'),
+                             ('wichtig', 'wichtig'), ('dringend', 'dringend')],
+                    max_length=30,
+                    verbose_name='Priorität')),
+                ('base', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='ofahrtbase.Ofahrt',
+                    verbose_name='Zugehörige OFahrt')),
             ],
             options={
                 'verbose_name': 'Ticket',
@@ -37,10 +51,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TaskCategory',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255, verbose_name='Aufgabe')),
-                ('description', models.TextField(blank=True, verbose_name='Beschreibung')),
-                ('access_for', models.ManyToManyField(to='auth.Group', verbose_name='Zugang für')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
+                ('name', models.CharField(
+                    max_length=255, verbose_name='Aufgabe')),
+                ('description', models.TextField(
+                    blank=True, verbose_name='Beschreibung')),
+                ('access_for', models.ManyToManyField(
+                    to='auth.Group', verbose_name='Zugang für')),
             ],
             options={
                 'verbose_name': 'Kategorie',
@@ -50,11 +71,21 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TaskComment',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
                 ('text', models.TextField(verbose_name='Text')),
                 ('timestamp', models.DateTimeField(verbose_name='Zeitpunkt')),
-                ('ticket', models.ForeignKey(on_delete='Zugehöriges Ticket', to='tasks.Task', to_field='id')),
-                ('user', models.ForeignKey(on_delete='Autor', to=settings.AUTH_USER_MODEL, to_field='id')),
+                ('ticket', models.ForeignKey(
+                    on_delete='Zugehöriges Ticket',
+                    to='tasks.Task',
+                    to_field='id')),
+                ('user', models.ForeignKey(
+                    on_delete='Autor',
+                    to=settings.AUTH_USER_MODEL,
+                    to_field='id')),
             ],
             options={
                 'verbose_name': 'Kommentar',
@@ -64,10 +95,18 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TaskHistoryEntry',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.CharField(max_length=255, verbose_name='Text')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
+                ('text', models.CharField(max_length=255,
+                                          verbose_name='Text')),
                 ('timestamp', models.DateField(verbose_name='Zeitpunkt')),
-                ('ticket', models.ForeignKey(on_delete='Zugehöriges Ticket', to='tasks.Task', to_field='id')),
+                ('ticket', models.ForeignKey(
+                    on_delete='Zugehöriges Ticket',
+                    to='tasks.Task',
+                    to_field='id')),
             ],
             options={
                 'verbose_name': 'Historyeintrag',
@@ -77,11 +116,15 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='task',
             name='category',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='tasks.TaskCategory', verbose_name='Kategorie'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='tasks.TaskCategory',
+                verbose_name='Kategorie'),
         ),
         migrations.AddField(
             model_name='task',
             name='editors',
-            field=models.ManyToManyField(to=settings.AUTH_USER_MODEL, verbose_name='Bearbeiter'),
+            field=models.ManyToManyField(
+                to=settings.AUTH_USER_MODEL, verbose_name='Bearbeiter'),
         ),
     ]

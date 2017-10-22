@@ -15,6 +15,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='task',
             name='priority',
-            field=models.CharField(choices=[('optional', 'optional'), ('unwichtig', 'unwichtig'), ('normal', 'normal'), ('wichtig', 'wichtig'), ('dringend', 'dringend')], default='normal', max_length=30, verbose_name='Priorität'),
+            field=models.CharField(
+                choices=[('optional', 'optional'), ('unwichtig', 'unwichtig'),
+                         ('normal', 'normal'), ('wichtig', 'wichtig'),
+                         ('dringend', 'dringend')],
+                default='normal',
+                max_length=30,
+                verbose_name='Priorität'),
         ),
     ]

@@ -17,13 +17,19 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='ofahrt',
             name='begin_date',
-            field=models.DateField(default=datetime.datetime(2016, 4, 19, 20, 28, 1, 436903, tzinfo=utc), verbose_name='Anreisedatum'),
+            field=models.DateField(
+                default=datetime.datetime(
+                    2016, 4, 19, 20, 28, 1, 436903, tzinfo=utc),
+                verbose_name='Anreisedatum'),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='ofahrt',
             name='end_date',
-            field=models.DateField(default=datetime.datetime(2016, 4, 19, 20, 28, 13, 459723, tzinfo=utc), verbose_name='Abreisedatum'),
+            field=models.DateField(
+                default=datetime.datetime(
+                    2016, 4, 19, 20, 28, 13, 459723, tzinfo=utc),
+                verbose_name='Abreisedatum'),
             preserve_default=False,
         ),
     ]

@@ -17,10 +17,18 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='StaffTagBox',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('letter', models.CharField(max_length=3, unique=True, verbose_name='Key')),
-                ('text', models.CharField(max_length=10, unique=True, verbose_name='Text')),
-                ('group', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='auth.Group')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
+                ('letter', models.CharField(
+                    max_length=3, unique=True, verbose_name='Key')),
+                ('text', models.CharField(
+                    max_length=10, unique=True, verbose_name='Text')),
+                ('group', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='auth.Group')),
             ],
         ),
     ]

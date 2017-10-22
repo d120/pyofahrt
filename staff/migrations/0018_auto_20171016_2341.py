@@ -15,21 +15,29 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='orgacandidate',
             name='roommate_preference',
-            field=models.CharField(max_length=255, null=True, verbose_name='Gewünschte Zimmernachbarn'),
+            field=models.CharField(
+                max_length=255,
+                null=True,
+                verbose_name='Gewünschte Zimmernachbarn'),
         ),
         migrations.AddField(
             model_name='workshopcandidate',
             name='roommate_preference',
-            field=models.CharField(max_length=255, null=True, verbose_name='Gewünschte Zimmernachbarn'),
+            field=models.CharField(
+                max_length=255,
+                null=True,
+                verbose_name='Gewünschte Zimmernachbarn'),
         ),
         migrations.AlterField(
             model_name='orgacandidate',
             name='email',
-            field=models.EmailField(max_length=254, verbose_name='E-Mail-Adresse'),
+            field=models.EmailField(
+                max_length=254, verbose_name='E-Mail-Adresse'),
         ),
         migrations.AlterField(
             model_name='workshopcandidate',
             name='email',
-            field=models.EmailField(max_length=254, verbose_name='E-Mail-Adresse'),
+            field=models.EmailField(
+                max_length=254, verbose_name='E-Mail-Adresse'),
         ),
     ]

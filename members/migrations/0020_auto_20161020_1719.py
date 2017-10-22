@@ -15,11 +15,17 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='member',
             name='food_handicaps',
-            field=models.ManyToManyField(blank=True, help_text='Um Einträge abzuwählen, die STRG-Taste gedrückt halten und Klicken.', to='members.FoodHandicaps', verbose_name='Sonstige Lebensmittelunverträglichkeiten'),
+            field=models.ManyToManyField(
+                blank=True,
+                help_text=
+                'Um Einträge abzuwählen, die STRG-Taste gedrückt halten und Klicken.',
+                to='members.FoodHandicaps',
+                verbose_name='Sonstige Lebensmittelunverträglichkeiten'),
         ),
         migrations.AlterField(
             model_name='member',
             name='money_received',
-            field=models.BooleanField(default=False, verbose_name='Festangemeldet?'),
+            field=models.BooleanField(
+                default=False, verbose_name='Festangemeldet?'),
         ),
     ]

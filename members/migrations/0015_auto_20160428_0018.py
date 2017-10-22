@@ -15,22 +15,34 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FoodHandicaps',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
             ],
         ),
         migrations.AddField(
             model_name='member',
             name='food_preference',
-            field=models.CharField(choices=[('normal', 'nein'), ('vegetarisch', 'Vegetarisch'), ('vegan', 'Vegan')], default='normal', max_length=30, verbose_name='Vegetarier?'),
+            field=models.CharField(
+                choices=[('normal', 'nein'), ('vegetarisch', 'Vegetarisch'),
+                         ('vegan', 'Vegan')],
+                default='normal',
+                max_length=30,
+                verbose_name='Vegetarier?'),
         ),
         migrations.AddField(
             model_name='member',
             name='free_text',
-            field=models.TextField(blank=True, verbose_name='Sonstige Anmerkungen'),
+            field=models.TextField(
+                blank=True, verbose_name='Sonstige Anmerkungen'),
         ),
         migrations.AddField(
             model_name='member',
             name='food_handicaps',
-            field=models.ManyToManyField(to='members.FoodHandicaps', verbose_name='Sonstige Lebensmittelunverträglichkeiten'),
+            field=models.ManyToManyField(
+                to='members.FoodHandicaps',
+                verbose_name='Sonstige Lebensmittelunverträglichkeiten'),
         ),
     ]

@@ -15,17 +15,30 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='member',
-            options={'verbose_name': 'Teilnehmer', 'verbose_name_plural': 'Teilnehmer'},
+            options={
+                'verbose_name': 'Teilnehmer',
+                'verbose_name_plural': 'Teilnehmer'
+            },
         ),
         migrations.AddField(
             model_name='member',
             name='gender',
-            field=models.CharField(choices=[('m', 'männlich'), ('w', 'weiblich'), ('n', 'keines der genannten')], default='n', help_text='Diese Angabe wird nur für die Zuteilung der Schlafräume minderjähriger Teilnehmer verwendet.', max_length=1, verbose_name='Geschlecht'),
+            field=models.CharField(
+                choices=[('m', 'männlich'), ('w', 'weiblich'),
+                         ('n', 'keines der genannten')],
+                default='n',
+                help_text=
+                'Diese Angabe wird nur für die Zuteilung der Schlafräume minderjähriger Teilnehmer verwendet.',
+                max_length=1,
+                verbose_name='Geschlecht'),
             preserve_default=False,
         ),
         migrations.AlterField(
             model_name='member',
             name='base',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ofahrtbase.Ofahrt', verbose_name='Zugehörige Ofahrt'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='ofahrtbase.Ofahrt',
+                verbose_name='Zugehörige Ofahrt'),
         ),
     ]

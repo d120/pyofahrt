@@ -15,6 +15,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='member',
             name='food_handicaps',
-            field=models.ManyToManyField(blank=True, to='members.FoodHandicaps', verbose_name='Sonstige Lebensmittelunverträglichkeiten'),
+            field=models.ManyToManyField(
+                blank=True,
+                to='members.FoodHandicaps',
+                verbose_name='Sonstige Lebensmittelunverträglichkeiten'),
         ),
     ]

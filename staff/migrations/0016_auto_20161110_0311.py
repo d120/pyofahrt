@@ -19,13 +19,27 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='StaffRoomAssignement',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('room', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='ofahrtbase.Room', verbose_name='Zugeteilter Raum')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
+                ('room', models.ForeignKey(
+                    blank=True,
+                    null=True,
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='ofahrtbase.Room',
+                    verbose_name='Zugeteilter Raum')),
+                ('user', models.OneToOneField(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.AlterModelOptions(
             name='stafftagbox',
-            options={'verbose_name': 'Tagbox', 'verbose_name_plural': 'Tagboxen'},
+            options={
+                'verbose_name': 'Tagbox',
+                'verbose_name_plural': 'Tagboxen'
+            },
         ),
     ]
