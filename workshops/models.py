@@ -65,7 +65,8 @@ class Workshop(models.Model):
                         "Einen Workshop als geprüft markieren"),
                        ("acceptworkshop",
                         "Einen Workshop als akzeptiert markieren"),
-                       ("assignworkshop", "Workshopzuweisung ändern"))
+                       ("assignworkshop", "Workshopzuweisung ändern"),
+                       ("viewemails", "E-Mails der Workshopanbieter*innen einsehen"))
 
     base = models.ForeignKey(Ofahrt, verbose_name="Zugehörige Ofahrt")
 

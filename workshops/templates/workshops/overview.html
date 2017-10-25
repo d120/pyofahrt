@@ -2,6 +2,7 @@
 {% block workshopcontent %} {% load bootstrap3 %}
     {% block morehead %}
         <link href="{% static "workshops/style.css" %}" rel="stylesheet">
+        <script src='{% static "workshops/overview.js" %}'></script>
     {% endblock %}
 
 
@@ -23,7 +24,7 @@
     </p>
 
     <a href="{% url "workshops:create" %}" class="btn btn-success" role="button"><span
-            class="glyphicon glyphicon-star" aria-hidden="true"></span> Workshop anbieten</a>
+            class="glyphicon glyphicon-star"></span> Workshop anbieten</a>
     <br><br>
 
     <table class="table">
@@ -70,6 +71,7 @@
         ** Geprüft bedeutet, dass die durch den Workshopanbieter festgelegten Dinge (Beschreibung, Materialbedarf etc.)
         durch den Workshoporga geprüft und bewilligt wurden.
     </p>
+
     <a name="all"></a>
     <h2 class="h2">Alle Workshops</h2>
     <table class="table">
@@ -110,23 +112,58 @@
             </tr>
         {% endfor %}
     </table>
+
+    {% if perms.app_label.viewemails %}
+        <div class="panel panel-info autocollapse">
+            <div class="panel-heading clickable">
+                <h3 class="panel-title">
+                    Liste der Workshopanbieter*innen
+                </h3>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <th>Anbieter*in</th>
+                        <th>E-Mail-Adresse</th>
+                    </tr>
+                    {% if users.all.count == 0 %}
+                        <tr>
+                            <td style="font-style: italic; text-align: center;" colspan="6">Derzeit sind noch keine
+                                Workshopanbieter*innen im System verzeichnet.
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% for host in hosts %}
+                        <tr>
+                            <td>{{ host.first_name }} {{ host.last_name }}</td>
+                            <td>{% if host.email == "" %}
+                                <i>- keine Mail eingetragen -</i>
+                            {% else %}
+                                {{ host.email }}
+                            {% endif %}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    {% endif %}
+
     <a name="new"></a>
     <h2 class="h2">Vorschlagsliste</h2>
-    <p>Alle im Folgenden aufgeführten Workshops sind lediglich Ideen und werden bisher von
-        niemandem geplant. Wenn du daran interessiert bist, einen Workshop zu übernehmen, kannst du in der Tabelle in
-        einen Workshop eintragen.
+    <p>Alle im Folgenden aufgeführten Workshops sind lediglich Ideen und werden bisher von niemandem geplant. Wenn du
+        daran interessiert bist, einen Workshop zu übernehmen, kannst du dich in der Tabelle in einen Workshop
+        eintragen.
     </p>
 
     <a href="{% url "workshops:propose" %}" class="btn btn-success" role="button"><span
-            class="glyphicon glyphicon-star" aria-hidden="true"></span> Workshop vorschlagen</a>
+            class="glyphicon glyphicon-star"></span> Workshop vorschlagen</a>
     <br><br>
 
     <table class="table">
         <tr>
             <th>Name</th>
-            <th>Anbieter</th>
-            <th>zugeteilter Zeitslot</th>
             <th>Beschreibung</th>
+            <th></th>
         </tr>
         {% if newworkshops.all.count == 0 %}
             <tr>
@@ -138,13 +175,11 @@
         {% for workshop in newworkshops %}
             <tr>
                 <td><a href="{% url "workshops:show" workshop.id %}">{{ workshop.name }}</a></td>
-                <td>{% if workshop.host.all.count == 0 %}<i>- derzeit niemand -</i>
-                    <a href="{% url "workshops:take" workshop.id %}">(?)</a>{% endif %}
-                    {% for host in workshop.host.all %}{{ host.get_full_name }}{% if not forloop.last %},
-                    {% endif %}{% endfor %}</td>
-                <td>{{ workshop.slot|default_if_none:"<i>- noch nicht zugeteilt -</i>" }}</td>
                 <td>{{ workshop.description|slice:":50" }}{% if workshop.description|length > 50 %}
                     ...{% elif workshop.description|length == 0 %}<i>- keine Beschreibung vorhanden -</i>{% endif %}
+                </td>
+                <td><a href="{% url "workshops:take" workshop.id %}" class="btn btn-primary" role="button"><span
+                        class="glyphicon glyphicon-pencil"></span>Übernehmen</a>
                 </td>
             </tr>
         {% endfor %}

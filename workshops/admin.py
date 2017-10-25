@@ -11,8 +11,6 @@ germandays = {
     "6": "Sonntag",
 }
 
-# Register your models here.
-
 
 @admin.register(Workshop)
 class WorkshopAdmin(admin.ModelAdmin):
