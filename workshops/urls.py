@@ -46,8 +46,7 @@ urlpatterns = [
         permission_required("workshops.can_use")(views.takeit),
         name='takeit'),
     url(r'^create/$',
-        permission_required("workshops.can_use")(
-            views.WorkshopCreateView.as_view()),
+            views.WorkshopCreateView.as_view(),
         name='create'),
     url(r'^propose/$',
         permission_required("workshops.can_use")(
