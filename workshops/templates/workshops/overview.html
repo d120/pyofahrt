@@ -2,7 +2,6 @@
 {% block workshopcontent %} {% load bootstrap3 %}
     {% block morehead %}
         <link href="{% static "workshops/style.css" %}" rel="stylesheet">
-        <script src='{% static "workshops/overview.js" %}'></script>
     {% endblock %}
 
 
@@ -114,37 +113,34 @@
     </table>
 
     {% if perms.app_label.viewemails %}
-        <div class="panel panel-info autocollapse">
-            <div class="panel-heading clickable">
-                <h3 class="panel-title">
-                    Liste der Workshopanbieter*innen
-                </h3>
-            </div>
-            <div class="panel-body">
-                <table class="table">
+        <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
+           aria-controls="collapseExample">
+            Liste der Workshopanbieter*innen
+        </a>
+        <div class="collapse" id="collapseExample">
+            <table class="table">
+                <tr>
+                    <th>Anbieter*in</th>
+                    <th>E-Mail-Adresse</th>
+                </tr>
+                {% if users.all.count == 0 %}
                     <tr>
-                        <th>Anbieter*in</th>
-                        <th>E-Mail-Adresse</th>
+                        <td style="font-style: italic; text-align: center;" colspan="6">Derzeit sind noch keine
+                            Workshopanbieter*innen im System verzeichnet.
+                        </td>
                     </tr>
-                    {% if users.all.count == 0 %}
-                        <tr>
-                            <td style="font-style: italic; text-align: center;" colspan="6">Derzeit sind noch keine
-                                Workshopanbieter*innen im System verzeichnet.
-                            </td>
-                        </tr>
-                    {% endif %}
-                    {% for host in hosts %}
-                        <tr>
-                            <td>{{ host.first_name }} {{ host.last_name }}</td>
-                            <td>{% if host.email == "" %}
-                                <i>- keine Mail eingetragen -</i>
-                            {% else %}
-                                {{ host.email }}
-                            {% endif %}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
+                {% endif %}
+                {% for host in hosts %}
+                    <tr>
+                        <td>{{ host.first_name }} {{ host.last_name }}</td>
+                        <td>{% if host.email == "" %}
+                            <i>- keine Mail eingetragen -</i>
+                        {% else %}
+                            {{ host.email }}
+                        {% endif %}</td>
+                    </tr>
+                {% endfor %}
+            </table>
         </div>
     {% endif %}
 
