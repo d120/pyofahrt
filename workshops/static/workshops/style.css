@@ -15,3 +15,7 @@
 .clickable {
     cursor: pointer;
 }
+
+#workshopofferer-table {
+    margin-bottom: auto;
+}
