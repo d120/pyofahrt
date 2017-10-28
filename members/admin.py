@@ -15,9 +15,9 @@ class MemberAdmin(admin.ModelAdmin):
         admin_actions.mark_participants_contributing_paid
     ]
     list_display = ('first_name', 'last_name', 'gender', 'is_really_ersti',
-                    'is_full_aged', 'queueinfo')
+                    'is_full_aged', 'queueinfo', 'food_preference',)
     list_filter = (admin_filters.MemberQueueFilter, 'gender',
-                   'is_really_ersti', 'room')
+                   'is_really_ersti', 'room', 'food_preference',)
     fieldsets = (
         ('Ofahrt', {
             'fields': ('base', )
