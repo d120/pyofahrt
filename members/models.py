@@ -28,8 +28,7 @@ class Member(models.Model):
                       ("n", "keines der genannten"))
 
     FOOD_PREFERENCE_CHOICES = (("normal", "keine"), ("vegetarisch",
-                                                     "vegetarisch"), ("vegan",
-                                                                      "vegan"))
+                                                     "vegetarisch"),)
 
     first_name = models.CharField("Vorname", max_length=30)
     last_name = models.CharField("Nachname", max_length=30)
