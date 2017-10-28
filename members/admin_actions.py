@@ -40,7 +40,8 @@ def kdv_barcode_renew(modeladmin, request, queryset):
     for member in queryset.all():
         code = str(randint(2000000, 2999999))
         weighed_sum = int(code[0]) * 3 + int(code[1]) * 1 + int(code[2]) * 3 + \
-                      int(code[3]) * 1 + int(code[4]) * 3 + int(code[5]) * 1 + int(code[6]) * 3
+            int(code[3]) * 1 + int(code[4]) * 3 + \
+            int(code[5]) * 1 + int(code[6]) * 3
         checksum = (10 - (weighed_sum % 10)) % 10
         code = code + str(checksum)
         member.kdv_barcode = code
@@ -72,12 +73,19 @@ nametag_export.short_description = "Namensschilder generieren"
 
 
 def mark_participants_contributing_paid(modeladmin, request, queryset):
+    already_paid = queryset.filter(money_received=True).count()
     queryset.update(money_received=True)
-    modeladmin.message_user(
-        request,
-        "%d Teilnehmer*innen erfolgreich auf die feste Anmeldeliste gesetzt. Neue Festanmeldungen: %d"
-        % (queryset.count(),
-           Member.objects.filter(money_received=True).count()))
+    if already_paid != 0:
+        modeladmin.message_user(
+            request,
+            """{0} Teilnehmer*innen wurden erfolgreich auf die feste Anmeldeliste gesetzt,
+            {1} Personen waren schon auf der Liste""".format(queryset.count() - already_paid,
+                                                             already_paid))
+    else:
+        modeladmin.message_user(
+            request,
+            """{0} Teilnehmer*innen erfolgreich auf die feste Anmeldeliste gesetzt.""".format(
+                queryset.count()))
 
 
 mark_participants_contributing_paid.short_description = "Schieben: temp. Liste => fest. Liste"
