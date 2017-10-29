@@ -10,12 +10,20 @@
         <ol>
             <li><a href="#my">Meine Workshops</a></li>
             <li><a href="#all">Alle Workshops</a></li>
-	    <li><a href="#material">Materialbedarf</a></li>
+            <ol>
+                <li><a href="#material">Materialbedarf</a></li>
+                {% if perms.app_label.viewemails %}
+                    <li><a href="#emails">Workshopanbieter*innen</a></li>
+                {% endif %}
+            </ol>
             <li><a href="#new">Vorschlagsliste</a></li>
         </ol>
-    </div><p>
-    Auf dieser Seite werden die Workshops der Ofahrt verwaltet.
-</p>
+    </div>
+
+    <p>
+        Auf dieser Seite werden die Workshops der Ofahrt verwaltet.
+    </p>
+
     <a name="my"></a>
     <h2 class="h2">Meine Workshops</h2>
     <p>
@@ -113,58 +121,86 @@
         {% endfor %}
     </table>
 
-    {% if perms.app_label.viewemails %}
-        <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
-           aria-controls="collapseExample">
-            Liste der Workshopanbieter*innen
-        </a>
-        <div class="collapse" id="collapseExample">
-		<table id="workshopofferer-table" class="table">
-                <tr>
-                    <th>Anbieter*in</th>
-                    <th>E-Mail-Adresse</th>
-                </tr>
-                {% if users.all.count == 0 %}
-                    <tr>
-                        <td style="font-style: italic; text-align: center;" colspan="6">Derzeit sind noch keine
-                            Workshopanbieter*innen im System verzeichnet.
-                        </td>
-                    </tr>
-                {% endif %}
-                {% for host in hosts %}
-                    <tr>
-                        <td>{{ host.first_name }} {{ host.last_name }}</td>
-                        <td>{% if host.email == "" %}
-                            <i>- keine Mail eingetragen -</i>
-                        {% else %}
-                            {{ host.email }}
-                        {% endif %}</td>
-                    </tr>
-                {% endfor %}
-            </table>
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <a name="material"></a>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a name="collapseOne" role="button" data-toggle="collapse" data-parent="#accordion"
+                       href="#collapseOne"
+                       aria-expanded="true" aria-controls="collapseOne">
+                        Materialbedarf
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    {% if workshops.count == 0 %}
+                        <p> Es gibt keine eingetragenen Workshops</p>
+                    {% else %}
+                        <table class="table">
+                            <tr>
+                                <th>Workshop</th>
+                                <th>Anbieter*innen</th>
+                                <th>Materialbedarf</th>
+                            </tr>
+                            {% for workshop in workshops %}
+                                <tr>
+                                    <td><a href="{% url "workshops:show" workshop.id %}">{{ workshop.name }}</a>
+                                    </td>
+                                    <td>{% for host in workshop.host.all %}{{ host.get_full_name }}{% endfor %}</td>
+                                    <td>{{ workshop.requirements|default:'Keine' }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-    {% endif %}
 
-    <a name="material"></a>
-    <h2 class="h2">Materialbedarf</h2>
-    {% if workshops.count == 0 %}
-        <p> Es gibt keine eingetragenen Workshops</p>
-    {% else %}
-        <table class="table">
-	    <tr>
-		<th>Workshop</th>
-		<th>Anbieter*innen</th>
-		<th>Materialbedarf</th>
-	    </tr>
-        {% for workshop in workshops %}
-	    <tr>
-		<td><a href="{% url "workshops:show" workshop.id %}">{{ workshop.name }}</a></td>
-		<td>{% for host in workshop.host.all %}{{ host.get_full_name }}{% endfor %}</td>
-		<td>{{ workshop.requirements|default:'Keine' }}</td>
-	</tr>
-        {% endfor %}
-        </table>
+        {% if perms.app_label.viewemails %}
+            <a name="emails"></a>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <a name="collapseTwo" class="collapsed" role="button" data-toggle="collapse"
+                           data-parent="#accordion"
+                           href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Workshopanbieter*innen
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                        <table id="workshopofferer-table" class="table">
+                            <tr>
+                                <th>Anbieter*in</th>
+                                <th>E-Mail-Adresse</th>
+                            </tr>
+                            {% if users.all.count == 0 %}
+                                <tr>
+                                    <td style="font-style: italic; text-align: center;" colspan="6">Derzeit sind noch
+                                        keine
+                                        Workshopanbieter*innen im System verzeichnet.
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% for host in hosts %}
+                                <tr>
+                                    <td>{{ host.first_name }} {{ host.last_name }}</td>
+                                    <td>{% if host.email == "" %}
+                                        <i>- keine Mail eingetragen -</i>
+                                    {% else %}
+                                        {{ host.email }}
+                                    {% endif %}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
         {% endif %}
+    </div>
 
     <a name="new"></a>
     <h2 class="h2">Vorschlagsliste</h2>
