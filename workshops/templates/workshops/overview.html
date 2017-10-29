@@ -179,8 +179,7 @@
                             </tr>
                             {% if users.all.count == 0 %}
                                 <tr>
-                                    <td style="font-style: italic; text-align: center;" colspan="6">Derzeit sind noch
-                                        keine
+                                    <td style="font-style: italic; text-align: center;" colspan="6">Derzeit sind noch keine
                                         Workshopanbieter*innen im System verzeichnet.
                                     </td>
                                 </tr>
@@ -191,7 +190,7 @@
                                     <td>{% if host.email == "" %}
                                         <i>- keine Mail eingetragen -</i>
                                     {% else %}
-                                        {{ host.email }}
+                                        <a href="mailto:{{ host.email }}">{{ host.email }}</a>
                                     {% endif %}</td>
                                 </tr>
                             {% endfor %}

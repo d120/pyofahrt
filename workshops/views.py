@@ -21,7 +21,7 @@ class OverviewView(TemplateView):
         context["myworkshops"] = Workshop.objects.all().filter(
             host=self.request.user)
         context["newworkshops"] = Workshop.objects.all().filter(host=None)
-        context["hosts"] = User.objects.filter(workshop__isnull=False).distinct()
+        context["hosts"] = User.objects.filter(workshop__isnull=False).distinct().order_by("last_name", "first_name")
         return context
 
 
