@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView, FormView
 from django.views.generic import DetailView
@@ -195,7 +196,7 @@ def infoexport(request):
     return response
 
 
-class WorkshopProposeView(CreateView):
+class WorkshopProposeView(LoginRequiredMixin, CreateView):
     template_name = "workshops/proposeworkshop.html"
     model = Workshop
     fields = ["name", "description", "requirements", "otherstuff"]

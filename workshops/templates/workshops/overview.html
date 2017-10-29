@@ -10,6 +10,7 @@
         <ol>
             <li><a href="#my">Meine Workshops</a></li>
             <li><a href="#all">Alle Workshops</a></li>
+	    <li><a href="#material">Materialbedarf</a></li>
             <li><a href="#new">Vorschlagsliste</a></li>
         </ol>
     </div><p>
@@ -143,6 +144,27 @@
             </table>
         </div>
     {% endif %}
+
+    <a name="material"></a>
+    <h2 class="h2">Materialbedarf</h2>
+    {% if workshops.count == 0 %}
+        <p> Es gibt keine eingetragenen Workshops</p>
+    {% else %}
+        <table class="table">
+	    <tr>
+		<th>Workshop</th>
+		<th>Anbieter*innen</th>
+		<th>Materialbedarf</th>
+	    </tr>
+        {% for workshop in workshops %}
+	    <tr>
+		<td><a href="{% url "workshops:show" workshop.id %}">{{ workshop.name }}</a></td>
+		<td>{% for host in workshop.host.all %}{{ host.get_full_name }}{% endfor %}</td>
+		<td>{{ workshop.requirements|default:'Keine' }}</td>
+	</tr>
+        {% endfor %}
+        </table>
+        {% endif %}
 
     <a name="new"></a>
     <h2 class="h2">Vorschlagsliste</h2>

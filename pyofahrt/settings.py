@@ -147,7 +147,7 @@ MAIL_MEMBERSIGNUP_QUEUE_SUBJECT = MAIL_PREFIX + "Anmeldung zur Ofahrt im Winters
 MAIL_MEMBERSIGNUP_QUEUE_TEXT = """Hallo %s,
 
 wir haben deine Anmeldung für die Ofahrt für Bachelor-Erstsemester im WiSe %d erfolgreich gespeichert.
-Bis zum Eingang des Teilnahmebetrags von 20€ stehst du lediglich auf der vorläufigen Teilnehmer*innenliste. Bitte überweise den Teilnahmebetrag schnellstmöglich an die unten genannten Kontodaten. Wähle als Verwendungszweck bitte "Informatik Erstsemesterfahrt - VORNAME NACHNAME" damit wir die Überweisung deiner Anmeldung zuordnen können. Solltest du keinen Zugriff auf ein Bankkonto oder eine andere Möglichkeit der Überweisung haben, kontaktiere uns bitte unter ofahrt-leitung@d120.de. In diesem Fall finden wir eine Regelung für eine Barzahlung im Fachschaftsraum.
+Bis zum Eingang des Teilnahmebetrags von 40€ stehst du lediglich auf der vorläufigen Teilnehmer*innenliste. Bitte überweise den Teilnahmebetrag schnellstmöglich an die unten genannten Kontodaten. Wähle als Verwendungszweck bitte "Informatik Erstsemesterfahrt - VORNAME NACHNAME" damit wir die Überweisung deiner Anmeldung zuordnen können. Solltest du keinen Zugriff auf ein Bankkonto oder eine andere Möglichkeit der Überweisung haben, kontaktiere uns bitte unter ofahrt-leitung@d120.de. In diesem Fall finden wir eine Regelung für eine Barzahlung im Fachschaftsraum.
 
 Sobald wir den Teilnahmebetrag erhalten haben setzen wir dich schnellstmöglich auf die feste Teilnahmeliste. Alle weiteren Infos erhälst du dann per Email.
 
