@@ -10,15 +10,26 @@
     <script src='{% static "ofahrtbase/jquery-ui.min.js" %}'></script>{% endblock %}
 {% block content %}
     {% load bootstrap3 %}
+
+    <div class="legend">
+        <p><b>Legende:</b></p>
+        <div class="member staff">Orgamitglied</div>
+        <div class="member">Teilnehmer*in</div>
+    </div>
+
     <h2>Zimmerzuteilung</h2>
+
     <p>
         Hier findet die Zuteilung der Teilnehmer*innen auf die einzelnen Zimmer statt.
+    </p>
     <div class="btn-group" role="group" aria-label="...">
         <a type="button" class="btn btn-default" href="{% url "members:roomexport" %}">Export nach Raum</a>
         <a type="button" class="btn btn-default" href="{% url "members:personexport" %}">Export nach Person</a>
     </div>
-    </p>
+    <br><br>
+
     <div id="messages"></div>
+
     <div id="board">
         <div id="unassignedmembers">
             <p class="title">Noch nicht zugeteilt (<span class="counter">{{ members.count|add:usercount }}</span>):</p>
@@ -29,8 +40,7 @@
                     </div>
                 {% endfor %}
                 {% for member in users %}
-                    <div class="member" data-type="staff" data-userid="{{ member.id }}">{{ member.get_full_name }}
-                        (STAFF)
+                    <div class="member staff" data-type="staff" data-userid="{{ member.id }}">{{ member.get_full_name }}
                     </div>
                 {% endfor %}
             </div>
@@ -54,8 +64,8 @@
                                 </div>
                             {% endfor %}
                             {% for member in staff %}
-                                <div class="member" data-type="staff" data-userid="{{ member.id }}">
-                                    {{ member.get_full_name }} (STAFF)
+                                <div class="member staff" data-type="staff" data-userid="{{ member.id }}">
+                                    {{ member.get_full_name }}
                                 </div>
                             {% endfor %}
                         </div>
