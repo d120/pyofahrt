@@ -12,3 +12,10 @@
   text-align: center;
   margin-bottom: 7px;
 }
+.clickable {
+    cursor: pointer;
+}
+
+#workshopofferer-table {
+    margin-bottom: auto;
+}

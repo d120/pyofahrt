@@ -1,10 +1,10 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
-    $("#unassigned .workshop").each(function(index){
+    $("#unassigned .workshop").each(function (index) {
         //Einsortieren
 
         element = $(this);
-        if(element.attr("data-init-room") == 0 & element.attr("data-init-slot") == 0) {
+        if (element.attr("data-init-room") == 0 & element.attr("data-init-slot") == 0) {
             //Noch nicht zugeteilt
             return;
         }
@@ -13,15 +13,15 @@ $(document).ready(function() {
         }
     });
 
-    $( ".sortablearea" ).sortable({
-      connectWith: ".sortablearea",
-      receive: function( event, ui ) {
-          var room = ui.item.parent().attr("data-room");
-          var slot = ui.item.parent().attr("data-slot");
-          var workshop = ui.item.attr("data-workshop");
+    $(".sortablearea").sortable({
+        connectWith: ".sortablearea",
+        receive: function (event, ui) {
+            var room = ui.item.parent().attr("data-room");
+            var slot = ui.item.parent().attr("data-slot");
+            var workshop = ui.item.attr("data-workshop");
 
-          obj = { room: room, slot: slot , workshop: workshop}
-          $.getJSON(ajaxurl, obj);
-      }
-}).disableSelection();
+            obj = {room: room, slot: slot, workshop: workshop}
+            $.getJSON(ajaxurl, obj);
+        }
+    }).disableSelection();
 });
