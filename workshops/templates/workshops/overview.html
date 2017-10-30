@@ -11,7 +11,7 @@
             <li><a href="#my">Meine Workshops</a></li>
             <li><a href="#all">Alle Workshops</a></li>
             <ol>
-                <li><a href="#material">Materialbedarf</a></li>
+                <li><a data-toggle="collapse" data-target="#collapseOne" href="#material">Materialbedarf</a></li>
                 {% if perms.workshops.viewemails %}
 		<li><a data-toggle="collapse" data-target="#collapseTwo" href="#emails">Workshopanbieter*innen</a></li>
                 {% endif %}
