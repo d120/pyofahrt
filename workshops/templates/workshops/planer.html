@@ -1,43 +1,46 @@
-{% extends "workshops/workshopbase.html" %} {% load staticfiles %} {% block title %}Workshopplaner{% endblock %} {% block workshopcontent %} {% load bootstrap3 %}
-{% block morehead %}
-    <link href="{% static "workshops/planer.css" %}" rel="stylesheet">
-    <script src='{% static "workshops/planer.js" %}'></script>
-    <script src='{% static "ofahrtbase/jquery-ui.min.js" %}'></script>
-    <link rel='stylesheet' href='{% static "ofahrtbase/jquery-ui.min.css" %}' />
-{% endblock %}
+{% extends "workshops/workshopbase.html" %} {% load staticfiles %} {% block title %}Workshopplaner{% endblock %}
+{% block workshopcontent %} {% load bootstrap3 %}
+    {% block morehead %}
+        <link href="{% static "workshops/planer.css" %}" rel="stylesheet">
+        <script src='{% static "workshops/planer.js" %}'></script>
+        <script src='{% static "ofahrtbase/jquery-ui.min.js" %}'></script>
+        <link rel='stylesheet' href='{% static "ofahrtbase/jquery-ui.min.css" %}'/>
+    {% endblock %}
 
-<table>
-<tr>
-    <th>Raum / Slot</th>
-    <th style="font-style: italic;">Kein Slot</th>
-    {% for slot in slots %}
-        <th>{{ slot.name }} ({{ slot.begin|date:"D. H:i" }} - {{ slot.end|date:"D. H:i"}})</th>
-    {% endfor %}
+    <table>
+        <tr>
+            <th>Raum / Slot</th>
+            <th style="font-style: italic;">Kein Slot</th>
+            {% for slot in slots %}
+                <th>{{ slot.name }} ({{ slot.begin|date:"D. H:i" }} - {{ slot.end|date:"D. H:i" }})</th>
+            {% endfor %}
 
-</tr>
-<tr>
-    <th style="font-style: italic;">Kein Raum</th>
-    <td class="noslotnoroom"></td>
-    {% for slot in slots %}
-        <td class="noslotroom sortablearea" data-slot="{{ slot.pk }}" data-room="0">{% for workshop in workshops %}{% endfor %}</td>
-    {% endfor %}
-
-</tr>
-{% for room in rooms %}
-    <tr>
-        <th>{{ room.building.name }}: {{ room.name }} ({{ room.number }})</th>
-        <td class="noslotroom sortablearea" data-slot="0" data-room="{{ room.pk }}"></td>
-        {% for slot in slots %}
-            <td class="sortablearea" data-slot="{{ slot.pk }}" data-room="{{ room.pk }}"></td>
-        {% endfor %}
         </tr>
-{% endfor %}
-</table>
+        <tr>
+            <th style="font-style: italic;">Kein Raum</th>
+            <td class="noslotnoroom"></td>
+            {% for slot in slots %}
+                <td class="noslotroom sortablearea" data-slot="{{ slot.pk }}" data-room="0">
+                    {% for workshop in workshops %}{% endfor %}</td>
+            {% endfor %}
+
+        </tr>
+        {% for room in rooms %}
+            <tr>
+                <th>{{ room.building.name }}: {{ room.name }} ({{ room.number }})</th>
+                <td class="noslotroom sortablearea" data-slot="0" data-room="{{ room.pk }}"></td>
+                {% for slot in slots %}
+                    <td class="sortablearea" data-slot="{{ slot.pk }}" data-room="{{ room.pk }}"></td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
 
     <div><b>Nicht zugeteilt:</b>
         <div id="unassigned" data-slot="0" data-room="0" class="sortablearea">
             {% for workshop in workshops %}
-                <div class="workshop" data-workshop="{{ workshop.pk }}" data-init-slot="{{ workshop.get_slot_id }}" data-init-room="{{ workshop.get_room_id }}">{{ workshop.name }}</div>
+                <div class="workshop" data-workshop="{{ workshop.pk }}" data-init-slot="{{ workshop.get_slot_id }}"
+                     data-init-room="{{ workshop.get_room_id }}">{{ workshop.name }}</div>
             {% endfor %}
         </div>
     </div>
