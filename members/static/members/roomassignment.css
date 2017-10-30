@@ -68,7 +68,10 @@
 .legend {
     width: 10em;
     float: right;
-    margin-right: 1em;
+    margin: 0.5em 0 0 0;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 6px;
 }
 
 .legend div {

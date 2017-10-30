@@ -77,7 +77,7 @@ class WorkshopCandidateAdmin(admin.ModelAdmin):
                 "Vergiss nicht, die neuen Workshopanbieter in die Mailingliste ofahrt-workshops@d120.de aufzunehmen!",
                 messages.WARNING)
 
-    convert_to_account.short_description = "Bewerbung zu pyofahrt-Account konvertieren"
+    convert_to_account.short_description = "Bewerbung zu pyOfahrt-Account konvertieren"
 
 
 admin.site.register(WorkshopCandidate, WorkshopCandidateAdmin)
