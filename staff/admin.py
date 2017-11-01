@@ -214,7 +214,7 @@ class UserAdmin(UserAdmin):
     list_display = ['username', 'first_name', 'last_name', 'email']
     list_filter = ['groups']
     actions = [
-        'nametag_export', 'nametag_export_raw', 'kdv_barcode_renew',
+        'email_export', 'nametag_export', 'nametag_export_raw', 'kdv_barcode_renew',
         'kdv_barcode_export'
     ]
     inlines = (
@@ -246,9 +246,9 @@ class UserAdmin(UserAdmin):
                 bc = StaffBarcode(user=member)
             bc.kdv_barcode = code
             bc.save()
-        self.message_user(request, "KDV-Barcodes erfolgreich resetet.")
+        self.message_user(request, "KDV-Barcodes erfolgreich resettet.")
 
-    kdv_barcode_renew.short_description = "KDV-Barcodes reseten"
+    kdv_barcode_renew.short_description = "KDV-Barcodes resetten"
 
     def nametag_export(self, request, queryset):
         (pdf, pdflatex_output) = LaTeX.render({
@@ -278,6 +278,15 @@ class UserAdmin(UserAdmin):
         return HttpResponse(rendered_tpl)
 
     nametag_export_raw.short_description = "Namensschilder generieren (TeX)"
+
+    def email_export(self, request, queryset):
+        emails = queryset.exclude(email="").values_list("email", flat=True)
+        output = ""
+        for email in emails:
+            output += email + "\n"
+        return HttpResponse(output, content_type='text/plain')
+
+    email_export.short_description = "E-Mail-Adressen exportieren"
 
 
 admin.site.unregister(User)
