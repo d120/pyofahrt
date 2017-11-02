@@ -1,12 +1,21 @@
 {% extends "workshops/workshopbase.html" %} {% load staticfiles %} {% block title %}Workshopplaner{% endblock %}
-{% block workshopcontent %} {% load bootstrap3 %}
-    {% block morehead %}
-        <link href="{% static "workshops/planer.css" %}" rel="stylesheet">
-        <script src='{% static "workshops/planer.js" %}'></script>
-        <script src='{% static "ofahrtbase/jquery-ui.min.js" %}'></script>
-        <link rel='stylesheet' href='{% static "ofahrtbase/jquery-ui.min.css" %}'/>
-    {% endblock %}
 
+{% block morehead %}
+    <link href="{% static "workshops/planer.css" %}" rel="stylesheet">
+    <script src='{% static "workshops/planer.js" %}'></script>
+    <script src='{% static "ofahrtbase/jquery-ui.min.js" %}'></script>
+    <link rel='stylesheet' href='{% static "ofahrtbase/jquery-ui.min.css" %}'/>
+{% endblock %}
+
+{% block workshopcontent %}
+    {% load bootstrap3 %}
+    {% load planertags %}
+
+    <p>
+        Hier wird die Einteilung der Workshops in die verfügbaren Zeitslots und in die jeweiligen Räumen vorgenommen.
+        Rot markierte Workshops stehen in Konflikt miteinander. Ein Konflikt besteht dann, wenn ein Workshopleiter
+        zum selben Zeitslot mehrere Workshops leiten müsste.
+    </p>
     <table>
         <tr>
             <th>Raum / Slot</th>
@@ -38,10 +47,15 @@
 
     <div><b>Nicht zugeteilt:</b>
         <div id="unassigned" data-slot="0" data-room="0" class="sortablearea">
-            {% for workshop in workshops %}
-                <div class="workshop" data-workshop="{{ workshop.pk }}" data-init-slot="{{ workshop.get_slot_id }}"
-                     data-init-room="{{ workshop.get_room_id }}">{{ workshop.name }}</div>
-            {% endfor %}
+            {% for workshop in workshops %}<div class="workshop {% check_for_conflict workshop %}"
+                     data-workshop="{{ workshop.pk }}" data-init-slot="{{ workshop.get_slot_id }}"
+                     data-init-room="{{ workshop.get_room_id }}" data-toggle="tooltip" data-placement="top"
+                     data-html="true" data-trigger="hover" title="<b>Leiter*innen:</b>
+                    {% for host in workshop.host.all %}
+                    {{ host.get_full_name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}">
+                    {{ workshop.name }}
+                </div>{% endfor %}
         </div>
     </div>
 

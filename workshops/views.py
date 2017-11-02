@@ -10,6 +10,8 @@ from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from ofahrtbase.helper import LaTeX
+from django.http import JsonResponse
+from django.core import serializers
 
 
 class OverviewView(TemplateView):
@@ -145,13 +147,14 @@ class WorkshopPlanView(TemplateView):
             usecase_workshop=True).order_by("number")
         context["slots"] = Slot.objects.all().filter(
             slottype="workshop").order_by("begin")
-        context["workshops"] = Workshop.objects.all()
+        context["workshops"] = Workshop.objects.all().exclude(host=None)
         return context
 
 
 def saveworkshopassignment(request):
     results = {'success': False}
     if request.method == u'GET':
+
         GET = request.GET
 
         slotid = int(GET['slot'])
@@ -160,17 +163,58 @@ def saveworkshopassignment(request):
 
         try:
             workshop = Workshop.objects.get(pk=workshopid)
-            room = None if roomid == 0 else Room.objects.get(pk=roomid)
-            slot = None if slotid == 0 else Slot.objects.get(pk=slotid)
+            destination_room = None if roomid == 0 else Room.objects.get(pk=roomid)
+            destination_slot = None if slotid == 0 else Slot.objects.get(pk=slotid)
         except (Workshop.DoesNotExist, Room.DoesNotExist, Slot.DoesNotExist):
-            return HttpResponse(results)
+            return JsonResponse(results)
 
-        workshop.room = room
-        workshop.slot = slot
+        origin_slot = workshop.slot
+
+        workshop.room = destination_room
+        workshop.slot = destination_slot
 
         workshop.save()
         results = {'success': True}
-    return HttpResponse(results)
+
+        # identification of all conflicting workshops in origin_slot
+        # and destination_slot with hosts of moved workshop:
+        conflicts = Workshop.objects.none()
+
+        for host in workshop.host.all():
+            if origin_slot is not None:
+                workshops_in_origin_slot = host.workshop_set.filter(slot=origin_slot)
+                if workshops_in_origin_slot.count() > 1:
+                    conflicts = conflicts | workshops_in_origin_slot
+
+            if destination_slot is not None:
+                workshops_in_destination_slot = host.workshop_set.filter(slot=destination_slot)
+                if workshops_in_destination_slot.count() > 1:
+                    conflicts = conflicts | workshops_in_destination_slot
+
+        # print(conflicts)
+        # works fine until here
+
+        results.update({'conflicts': serializers.serialize('json', conflicts, fields=('id',))})     # goal here: extract the workshop's ids correctly as a for javascript readable list
+
+
+        """ Alternativ, aber ineffizienter:
+        
+        # identification of all conflicting workshops:
+        conflicting_workshops = Workshop.objects.none()
+        workshop_slots = Slot.objects.all().filter(slottype="workshop")
+
+        for host in User.objects.filter(workshop__isnull=False).distinct():
+            for slot in workshop_slots:
+                workshop_set = host.workshop_set.filter(slot=slot)
+                if workshop_set.count() > 1:
+                    conflicting_workshops = conflicting_workshops | workshop_set
+
+        if conflicting_workshops:
+            results.update({'conflict': True, 'workshops': conflicting_workshops.values_list('id', flat=True)})
+        else:
+            results.update({'conflict': False})"""
+
+    return JsonResponse(results)
 
 
 def infoexport(request):

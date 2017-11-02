@@ -5,7 +5,6 @@ table {
 
 td, th {
     border: 3px solid #eeeeee;
-    padding: 5px 7px 5px 7px;
 }
 
 td {
@@ -13,6 +12,7 @@ td {
 }
 
 th {
+    padding: 5px 7px 5px 7px !important;
     background-color: #464646;
     color: white;
 }
@@ -22,7 +22,7 @@ td.sortablearea {
 }
 
 td.noslotroom {
-    background-color: lightsalmon;
+    background-color: #b8b8b8;
 }
 
 td.noslotnoroom {
@@ -33,9 +33,14 @@ td .workshop {
     width: 100%;
 }
 
+.conflict {
+    background-color: #8b2b41 !important;
+}
+
+
 div.workshop {
-    background-color: #3a87ad;
-    padding: 5px;
+    background-color: #009d81;
+    padding: 0.4em 0.8em 0.4em 0.8em;
     text-align: center;
     display: inline-block;
     color: white;
@@ -49,5 +54,5 @@ div#unassigned {
 }
 
 #unassigned .workshop {
-    margin: 0 0 5px 5px;
+    margin: 0 0 5px 8px;
 }
