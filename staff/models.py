@@ -85,8 +85,9 @@ def get_nametag_boxes(self):
             box = StaffTagBox.objects.get(group=group)
             out.append("\\Tagbox{ " + box.letter + " }{ " + box.text + " }")
         except StaffTagBox.DoesNotExist:
-            out.append("\\Tagbox{ " + group.name[0] + " }{ " + group.name +
-                       " }")
+            # out.append("\\Tagbox{ " + group.name[0] + " }{ " + group.name +
+            #            " }")
+            pass
 
     while len(out) < 4:
         out.append("~")
