@@ -36,7 +36,7 @@ STATIC_URL = '/ofahrt/static/'
 LOGIN_REDIRECT_URL = '/ofahrt/'
 LOGIN_URL = '/ofahrt/staff/login/'
 
-ADMINS = (('Ofahrt-Dev', 'ofahrt-dev@fachschaft.informatik.tu-darmstadt.de'), )
+ADMINS = (('pyofahrt-Dev', 'pyofahrt-dev@fachschaft.informatik.tu-darmstadt.de'), )
 
 SESSION_COOKIE_SECURE = True
 
