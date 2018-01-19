@@ -8,7 +8,7 @@ from .models import Ofahrt, Building, Location, Room
 class OfahrtAdmin(admin.ModelAdmin):
     list_display = ["__str__", "begin_date", "end_date"]
     fieldsets = (("Allgemeines", {
-        "fields": ("begin_date", "end_date")
+        "fields": ("begin_date", "end_date", "active")
     }), ("Einstellungen", {
         "fields": ("member_reg_open", "orga_reg_open", "workshop_reg_open",
                    "max_members", "queue_tolerance", "self_participation")

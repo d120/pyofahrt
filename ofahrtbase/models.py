@@ -45,7 +45,12 @@ class Ofahrt(models.Model):
         help_text="Eingenanteil der Teilnehmer*innen in Cent",
         default=2000)
 
-    active = models.BooleanField("Aktiv?", default=True, unique=True)
+    active = models.BooleanField("Aktiv?", default=False)
+
+    def save(self, *args, **kwargs):
+        if self.active:
+            Ofahrt.objects.all().update(**{'active': False})
+        super(Ofahrt, self).save(*args, **kwargs)
 
     def __str__(self):
         return "Ofahrt im Wintersemester " + str(self.begin_date.year)
