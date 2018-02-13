@@ -59,7 +59,7 @@ AUTHENTICATION_BACKENDS = [
 
 # LDAP Config
 AUTH_LDAP_SERVER_URI = "ldap://ldap.d120.de"
-AUTH_LDAP_BIND_DN = "cn=<AUTH>,ou=Services,dc=fachschaft,dc=informatik,dc=tu-darmstadt,dc=de"
+AUTH_LDAP_BIND_DN = "cn=pyofahrt,ou=Services,dc=fachschaft,dc=informatik,dc=tu-darmstadt,dc=de"
 AUTH_LDAP_USER_SEARCH = LDAPSearch("ou=People,dc=fachschaft,dc=informatik,dc=tu-darmstadt,dc=de",
     ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
 AUTH_LDAP_GROUP_SEARCH = LDAPSearch("ou=Groups,dc=fachschaft,dc=com",
