@@ -6,6 +6,7 @@ from django.contrib.auth.models import Group, Permission, User
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.messages import constants as messages
 from django.core.mail import EmailMessage
+from django.db.models import Count
 from pyofahrt import settings
 from django.http import HttpResponse
 from ofahrtbase.helper import LaTeX
@@ -251,8 +252,9 @@ class UserAdmin(UserAdmin):
     kdv_barcode_renew.short_description = "KDV-Barcodes resetten"
 
     def nametag_export(self, request, queryset):
+        queryset_clean = queryset.annotate(num_groups=Count('groups')).filter(num_groups__gt=0)
         (pdf, pdflatex_output) = LaTeX.render({
-            "members": queryset,
+            "members": queryset_clean,
             "generator": "staff/nametags.tex"
         }, 'ofahrtbase/nametags.tex', ['weggeWesen.jpg'], 'ofahrtbase')
 
@@ -269,9 +271,10 @@ class UserAdmin(UserAdmin):
     nametag_export.short_description = "Namensschilder generieren"
 
     def nametag_export_raw(self, request, queryset):
+        queryset_clean = queryset.annotate(num_groups=Count('groups')).filter(num_groups__gt=0)
         template = get_template("ofahrtbase/nametags.tex")
         rendered_tpl = template.render({
-            "members": queryset,
+            "members": queryset_clean,
             "generator": "staff/nametags.tex"
         }).encode('utf-8')
 
