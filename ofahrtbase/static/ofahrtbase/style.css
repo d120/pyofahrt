@@ -155,21 +155,6 @@ img#logo {
     padding-left: 10px;
 }
 
-.wikinav {
-    margin-right: -18px;
-    margin-left: -18px;
-    margin-top: 5px;
-}
-
-.closedticket {
-    color: #AAAAAA;
-    text-decoration: line-through !important;
-}
-
-.closedticket a {
-    color: #7777FF !important;
-}
-
 .defaultcontainer {
     padding: 25px;
     padding-top: 5px;

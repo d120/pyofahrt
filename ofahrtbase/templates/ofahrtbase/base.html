@@ -64,8 +64,6 @@
                                     {% if perms.ofahrtbase.change_ofahrt %}
                                         <li><a href="{% url 'workshops:infoexport' %}">Infoheft exportieren</a>
                                         </li>{% endif %}
-                                    {% if perms.wiki.can_use %}
-                                        <li><a href="{% url 'wiki:mainpage' %}">Wiki</a></li>{% endif %}
                                     {% if perms.workshops.can_use %}
                                         <li><a href="{% url 'workshops:overview' %}">Workshops</a></li>{% endif %}
                                     {% if perms.workshops.assignworkshop %}

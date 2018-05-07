@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'staff',
     'faq',
     'workshops',
-    'wiki',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -273,66 +272,6 @@ Eine neue Workshop-Bewerbung ist eingegangen. Bitte zeitnah bearbeiten.
 
 Vorname: %(firstname)s
 Nachname: %(lastname)s
-"""
-
-MAIL_TICKETEDIT_SUBJECT = MAIL_PREFIX + "Ticket #%(id)d bearbeitet"
-MAIL_TICKETEDIT_TEXT = """
-Hallo,
-diese Mail soll dich informieren, dass das Ticket #%(id)d "%(subject)s" in der für dich freigegebenen Aufgabenkategorie "%(cat)s" soeben von %(name)s bearbeitet wurde.
-
-Du kannst das Ticket unter folgendem Link einsehen:
-%(link)s
-
-Diese Mail wurde automatisch generiert und ist daher auch ohne Unterschrift gültig.
-"""
-
-MAIL_TICKETASSIGN_SUBJECT = MAIL_PREFIX + "Ticket #%(id)d neu zugewiesen"
-MAIL_TICKETASSIGN_TEXT = """
-Hallo,
-diese Mail soll dich informieren, dass die Bearbeiterzuweisung für das Ticket #%(id)d "%(subject)s" in der für dich freigegebenen Aufgabenkategorie "%(cat)s" soeben von %(name)s verändert wurde.
-
-Die folgenden Benutzer sind nun für die Bearbeitung zuständig: %(editors)s
-
-Du kannst das Ticket unter folgendem Link einsehen:
-%(link)s
-
-Diese Mail wurde automatisch generiert und ist daher auch ohne Unterschrift gültig.
-"""
-
-MAIL_TICKETPUSH_SUBJECT = MAIL_PREFIX + "PUSH: Ticket #%(id)d"
-MAIL_TICKETPUSH_TEXT = """
-Hallo,
-diese Mail soll dich informieren, dass das Ticket #%(id)d "%(subject)s" in der für dich freigegebenen Aufgabenkategorie "%(cat)s" soeben von %(name)s einen Push! erhalten hat.
-
-Dies bedeutet, dass %(name)s der Ansicht ist, dass dieses Ticket weitere Aufmerksamkeit benötigt.
-
-
-Du kannst das Ticket unter folgendem Link einsehen:
-%(link)s
-
-Diese Mail wurde automatisch generiert und ist daher auch ohne Unterschrift gültig.
-"""
-
-MAIL_TICKETNEWCOMMENT_SUBJECT = MAIL_PREFIX + "Neuer Kommentar im Ticket #%(id)d"
-MAIL_TICKETNEWCOMMENT_TEXT = """
-Hallo,
-diese Mail soll dich informieren, dass %(name)s im Ticket #%(id)d "%(subject)s" in der für dich freigegebenen Aufgabenkategorie "%(cat)s" soeben einen neuen Kommentar hinterlassen hat.
-
-Du kannst das Ticket unter folgendem Link einsehen:
-%(link)s
-
-Diese Mail wurde automatisch generiert und ist daher auch ohne Unterschrift gültig.
-"""
-
-MAIL_TICKETNEW_SUBJECT = MAIL_PREFIX + "Neues Ticket in der Kategorie %(cat)s"
-MAIL_TICKETNEW_TEXT = """
-Hallo,
-diese Mail soll dich informieren, dass %(name)s soeben in der für dich freigegebenen Aufgabenkategorie "%(cat)s" ein neues Ticket (#%(id)d -  "%(subject)s") angelegt hat.
-
-Du kannst das Ticket unter folgendem Link einsehen:
-%(link)s
-
-Diese Mail wurde automatisch generiert und ist daher auch ohne Unterschrift gültig.
 """
 
 BANK_ACCOUNT = """
