@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'staff',
     'faq',
     'workshops',
-    'tasks',
     'wiki',
 ]
 

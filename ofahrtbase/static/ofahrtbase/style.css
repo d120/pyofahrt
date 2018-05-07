@@ -145,46 +145,9 @@ img#logo {
     margin-top: 25px !important;
 }
 
-.taskcomment {
-    width: 100%;
-}
-
-.taskcomment {
-    border: 1px solid grey;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-.taskcomment table {
-    width: 100%;
-}
-
-.taskcommenttext {
-    width: 75%;
-    border-top: 1px solid grey;
-    border-left: 1px solid grey;
-    vertical-align: top;
-}
-
 .glyphicon-highlight {
     color: #337ab7;
     text-shadow: 2px 2px #aaa;
-}
-
-.taskcommentuserinfos {
-    vertical-align: top;
-    border-top: 1px solid grey;
-    border-bottom: 1px solid grey;
-}
-
-.taskcommentuser {
-    height: 25px;
-    font-size: 17px;
-    border-top: 1px solid grey;
-}
-
-.taskcomment td, .taskcomment th {
-    padding: 5px;
 }
 
 .joblist {

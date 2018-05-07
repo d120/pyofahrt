@@ -9,7 +9,6 @@
     <script type="text/javascript" src="{% static "ofahrtbase/script.js" %}"></script>
     <link href="{% static "ofahrtbase/style.css" %}" rel="stylesheet">
     {% block morehead %}{% endblock %}
-    {% load tasktags %}
     {% load bootstrap3 %}{% bootstrap_css %}
     {% bootstrap_javascript %}
 </head>
@@ -57,19 +56,11 @@
                     <li class="{% if pagename == "contact" %}active{% endif %}"><a href="{% url 'staff:contact' %}">Kontakt</a>
                     </li>
                     {% if user.is_active %}
-                        {% if perms.workshops.can_use or perms.tasks.can_use or user.is_staff %}
-                            <li class="dropdown">{% user_tasks_counter user as user_tasks_counter %}
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true" aria-expanded="false">Verwaltung
-                                    {% if perms.tasks.can_use and user_tasks_counter > 0 %}
-                                        <span class="badge">{{ user_tasks_counter }}</span>{% endif %} <span
-                                            class="caret"></span></a>
+                        {% if perms.workshops.can_use or user.is_staff %}
+                            <li class="dropdown">
+				    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Verwaltung<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    {% if perms.tasks.can_use %}
-                                        <li><a href="{% url 'tasks:overview' %}">Aufgabenverwaltung
-                                            {% if perms.tasks.can_use and user_tasks_counter > 0 %}
-                                                <span class="badge">{{ user_tasks_counter }}</span>{% endif %}</a>
-                                        </li>{% endif %}
                                     {% if perms.ofahrtbase.change_ofahrt %}
                                         <li><a href="{% url 'workshops:infoexport' %}">Infoheft exportieren</a>
                                         </li>{% endif %}
