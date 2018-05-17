@@ -73,5 +73,7 @@ AUTH_LDAP_USER_ATTR_MAP = {"first_name": "givenName", "last_name": "sn",
 
 AUTH_LDAP_USER_FLAGS_BY_GROUP = {
         "is_staff": "cn=fachschaft,ou=Group,dc=fachschaft,dc=informatik,dc=tu-darmstadt,dc=de",
-        "is_superuser": "cn=ofahrtleitung,ou=Group,dc=fachschaft,dc=informatik,dc=tu-darmstadt,dc=de"
+        "is_superuser": (LDAPGroupQuery("cn=ofahrtleitung,ou=Group,dc=fachschaft,dc=informatik,dc=tu-darmstadt,dc=de") |
+                        LDAPGroupQuery("cn=developers,ou=Group,dc=fachschaft,dc=informatik,dc=tu-darmstadt,dc=de") |
+                        LDAPGroupQuery("cn=fss,ou=Group,dc=fachschaft,dc=informatik,dc=tu-darmstadt,dc=de"))
         }
