@@ -1,5 +1,4 @@
 from django.db import models
-from staff.models import WorkshopCandidate
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from ofahrtbase.models import Ofahrt, Room

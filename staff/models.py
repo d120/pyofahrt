@@ -63,20 +63,6 @@ class OrgaCandidate(Candidate):
     )
 
 
-class WorkshopCandidate(Candidate):
-    class Meta:
-        verbose_name = "Workshopbewerber"
-        verbose_name_plural = "Workshopbewerber"
-
-        permissions = (("group_full", "Gruppe ist voll"), )
-
-    workshop_ideas = models.TextField(
-        "Workshopidee(n)",
-        help_text=
-        'Bei mehreren Ideen, bitte eine Zeile pro Idee verwenden. Die Ideen sollen nur grob umrissen werden. Ein ausführlicherer Text wird erst an späterer Stelle benötigt.'
-    )
-
-
 def get_nametag_boxes(self):
     out = []
 

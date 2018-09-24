@@ -6,7 +6,7 @@ from django.views.generic.edit import CreateView, FormView
 from django.views.generic.base import TemplateView
 from django.db.models import Q
 
-from staff.models import OrgaCandidate, WorkshopCandidate
+from staff.models import OrgaCandidate
 from workshops.models import Workshop
 from ofahrtbase.models import Ofahrt
 from staff.forms import ContactForm, PasswordForm
@@ -76,42 +76,6 @@ class SuccessView(TemplateView):
 
 class PasswordSuccessView(TemplateView):
     template_name = "staff/changepassword/success.html"
-
-
-class SignUpWorkshopView(CreateView):
-    model = WorkshopCandidate
-    template_name = "staff/signup_workshop.html"
-    success_url = reverse_lazy('staff:success')
-
-    fields = ['first_name', 'last_name', 'email', 'phone', 'workshop_ideas']
-
-    def form_valid(self, form):
-        member = form.save(commit=False)
-        member.base = Ofahrt.current()
-
-        # Adressen aller Workshoporgas erfragen
-        perm = Permission.objects.get(codename='editeveryworkshop')
-        orgas = User.objects.filter(
-            Q(groups__permissions=perm) | Q(user_permissions=perm)).distinct()
-        print(list(orgas.values_list('email', flat=True)))
-
-        mail = EmailMessage()
-        mail.subject = settings.MAIL_NEW_WORKSHOP_SUBJECT
-        mail.body = settings.MAIL_NEW_WORKSHOP_TEXT % {
-            'firstname': member.first_name,
-            'lastname': member.last_name
-        }
-        mail.to = list(orgas.values_list('email', flat=True))
-        mail.send()
-
-        return super(SignUpWorkshopView, self).form_valid(form)
-
-    def get_context_data(self, **kwargs):
-        ofahrt = Ofahrt.current()
-        context = super(SignUpWorkshopView, self).get_context_data(**kwargs)
-        context["workshop_reg_open"] = ofahrt.workshop_reg_open
-        context["workshop_ideas"] = Workshop.objects.all().filter(host=None)
-        return context
 
 
 class SignUpOrgaView(CreateView):
