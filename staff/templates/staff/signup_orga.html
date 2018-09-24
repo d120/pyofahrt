@@ -6,6 +6,8 @@
     <div id="signupform">
     <h2>Orgaanmeldung</h2>
         {% if orga_reg_open %}
+	<div class="alert alert-info" role="alert"><strong>Fachschaftsaccount?</strong> Melde dich einfach mit deinen FS-Zugangsdaten
+		<a href="{% url 'admin:index' %}">hier</a> an</div>
             <p>{{ bla }}
                 Mit diesem Formular kannst du dich als Organisator für die Erstsemesterfahrt melden. <br/>
                 Deine hier
