@@ -16,13 +16,6 @@
                     Orga für eines oder mehrere unserer Aufgabengebiete
                     melden.</p>
                 <div style="text-align: center; margin-top:50px;">
-                    <div style="display:inline-block; margin-right:150px"><a
-                            class="btn btn-primary btn-lg{% if not workshop_reg_open %} disabled{% endif %}"
-                            href="{% url "staff:signupworkshop" %}" role="button"><span
-                            class="glyphicon glyphicon-knight" aria-hidden="true"></span>Als Workshopleiter*in
-                        melden</a><br/>
-                        {% if  workshop_reg_open %}&nbsp;{% else %}
-                            <i>Diese Anmeldung ist bereits geschlossen.</i>{% endif %}</div>
                     <div style="display:inline-block;"><a
                             class="btn btn-primary btn-lg{% if not orga_reg_open %} disabled{% endif %}"
                             href="{% url "staff:signuporga" %}" role="button"><span class="glyphicon glyphicon-cog"
