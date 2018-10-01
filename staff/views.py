@@ -105,7 +105,6 @@ class SignUpOrgaView(CreateView):
     def get_context_data(self, **kwargs):
         ofahrt = Ofahrt.current()
         context = super(SignUpOrgaView, self).get_context_data(**kwargs)
-        context["orga_reg_open"] = ofahrt.orga_reg_open and not (
-            Group.objects.exclude(
-                permissions__codename="group_full").count() == 0)
+        context["orga_reg_open"] = ofahrt.orga_reg_open
+        context['open_orga_jobs'] = Group.objects.exclude(permissions__codename='group_full').count()
         return context

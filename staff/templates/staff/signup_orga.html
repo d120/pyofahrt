@@ -5,7 +5,7 @@
     {% load bootstrap3 %}
     <div id="signupform">
     <h2>Orgaanmeldung</h2>
-        {% if orga_reg_open %}
+    {% if orga_reg_open and open_orga_jobs > 0 %}
 	<div class="alert alert-info" role="alert"><strong>Fachschaftsaccount?</strong> Melde dich einfach mit deinen FS-Zugangsdaten
 		<a href="{% url 'admin:index' %}">hier</a> an</div>
             <p>{{ bla }}
@@ -23,10 +23,13 @@
                     </button>
                 {% endbuttons %}
             </form>
-        {% else %}
+	    {% elif open_orga_jobs > 0 and not orga_reg_open %}
             <div class="alert alert-warning" role="alert"><b>Hinweis:</b> Die Anmeldung für Orgas ist derzeit
-                geschlossen.
-            </div>
+		    geschlossen. 
+	    </div>
+	    {% else %}
+            <div class="alert alert-warning" role="alert"><b>Hinweis:</b> Es existieren keine Orgajobs im System oder es sind alle belegt.
+	    </div>
         {% endif %}
     </div>
 {% endblock %}
