@@ -21,7 +21,6 @@ class SignUpView(TemplateView):
 
         context = super(SignUpView, self).get_context_data(**kwargs)
         context["orga_reg_open"] = ofahrt.orga_reg_open
-        context["workshop_reg_open"] = ofahrt.workshop_reg_open
         return context
 
 
@@ -70,7 +69,6 @@ class SuccessView(TemplateView):
 
         context = super(SuccessView, self).get_context_data(**kwargs)
         context["orga_reg_open"] = ofahrt.orga_reg_open
-        context["workshop_reg_open"] = ofahrt.workshop_reg_open
         return context
 
 
