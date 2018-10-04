@@ -168,51 +168,25 @@ def saveworkshopassignment(request):
         except (Workshop.DoesNotExist, Room.DoesNotExist, Slot.DoesNotExist):
             return JsonResponse(results)
 
-        origin_slot = workshop.slot
-
         workshop.room = destination_room
         workshop.slot = destination_slot
 
         workshop.save()
         results = {'success': True}
 
-        # identification of all conflicting workshops in origin_slot
-        # and destination_slot with hosts of moved workshop:
+        # check for conflicting workshops:
+
+        # for this, iterate over each slot and find conflicting workshops inside these slots
         conflicts = Workshop.objects.none()
+        for slot in Slot.objects.all().filter(slottype="workshop"):
+            for host in User.objects.all():
+                hosts_workshops_in_this_slot = host.workshop_set.filter(slot=slot)
+                if hosts_workshops_in_this_slot.count() > 1:
+                    conflicts = conflicts | hosts_workshops_in_this_slot
 
-        for host in workshop.host.all():
-            if origin_slot is not None:
-                workshops_in_origin_slot = host.workshop_set.filter(slot=origin_slot)
-                if workshops_in_origin_slot.count() > 1:
-                    conflicts = conflicts | workshops_in_origin_slot
-
-            if destination_slot is not None:
-                workshops_in_destination_slot = host.workshop_set.filter(slot=destination_slot)
-                if workshops_in_destination_slot.count() > 1:
-                    conflicts = conflicts | workshops_in_destination_slot
-
-        # print(conflicts)
-        # works fine until here
-
-        results.update({'conflicts': serializers.serialize('json', conflicts, fields=('id',))})     # goal here: extract the workshop's ids correctly as a for javascript readable list
-
-
-        """ Alternativ, aber ineffizienter:
-        
-        # identification of all conflicting workshops:
-        conflicting_workshops = Workshop.objects.none()
-        workshop_slots = Slot.objects.all().filter(slottype="workshop")
-
-        for host in User.objects.filter(workshop__isnull=False).distinct():
-            for slot in workshop_slots:
-                workshop_set = host.workshop_set.filter(slot=slot)
-                if workshop_set.count() > 1:
-                    conflicting_workshops = conflicting_workshops | workshop_set
-
-        if conflicting_workshops:
-            results.update({'conflict': True, 'workshops': conflicting_workshops.values_list('id', flat=True)})
-        else:
-            results.update({'conflict': False})"""
+        # extract workshop's IDs as a flat list
+        conflicts = list(conflicts.distinct().values_list('id', flat=True))
+        results.update({'conflicts': conflicts})
 
     return JsonResponse(results)
 
