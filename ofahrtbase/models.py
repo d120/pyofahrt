@@ -18,11 +18,6 @@ class Ofahrt(models.Model):
         help_text=
         "Ist dieser Wert aktiviert, können sich Studierende als Ofahrtorga bewerben.",
         default=False)
-    workshop_reg_open = models.BooleanField(
-        "Workshopregistrierung",
-        help_text=
-        "Ist dieser Wert aktiviert, werden derzeit Workshops gesucht.",
-        default=False)
     member_reg_open = models.BooleanField(
         "Teilnehmeregistrierung",
         help_text=

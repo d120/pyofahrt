@@ -3,11 +3,9 @@
 {% block title %}Startseite{% endblock %}
 {% block content %}
     <div id="innercontent">
-        {% if ofahrt.orga_reg_open or ofahrt.workshop_reg_open %}
+        {% if ofahrt.orga_reg_open %}
             <div class="alert alert-info" role="alert"><b>Hinweis:</b> Für die kommende Ofahrt suchen wir noch
-                {% if ofahrt.orga_reg_open %} Orgas {% endif %}
-                {% if ofahrt.orga_reg_open and ofahrt.workshop_reg_open %} und {% endif %}
-                {% if ofahrt.workshop_reg_open %} Menschen die einen Workshop anbieten möchten{% endif %}. Weitere
+                {% if ofahrt.orga_reg_open %} Orgas und Menschen, die einen Workshop anbieten möchten{% endif %}. Weitere
                 Informationen findest du <a class="alert-link" href="{% url "staff:signup" %}">hier</a>.
             </div>
         {% endif %}
