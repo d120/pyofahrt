@@ -12,8 +12,8 @@
     {% load planertags %}
 
     <p>
-        Hier wird die Einteilung der Workshops in die verfügbaren Zeitslots und in die jeweiligen Räumen vorgenommen.
-        Rot markierte Workshops stehen in Konflikt miteinander. Ein Konflikt besteht dann, wenn ein Workshopleiter
+        Hier wird per Drag and Drop die Einteilung der Workshops in die verfügbaren Zeitslots und in die jeweiligen Räume vorgenommen.
+        Rot markierte Workshops stehen in Konflikt miteinander. Ein Konflikt besteht dann, wenn ein*e Workshopleiter*in
         zum selben Zeitslot mehrere Workshops leiten müsste.
     </p>
     <table>
@@ -53,7 +53,8 @@
                      data-html="true" data-trigger="hover" title="<b>Leiter*innen:</b>
                     {% for host in workshop.host.all %}
                     {{ host.get_full_name }}{% if not forloop.last %}, {% endif %}
-                    {% endfor %}">
+                    {% endfor %}<br>
+                    <b>Limit:</b> {{ workshop.maxmembers }} Teilnehmer*innen">
                     {{ workshop.name }}
                 </div>{% endfor %}
         </div>
