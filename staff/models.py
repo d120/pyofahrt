@@ -63,20 +63,6 @@ class OrgaCandidate(Candidate):
     )
 
 
-class WorkshopCandidate(Candidate):
-    class Meta:
-        verbose_name = "Workshopbewerber"
-        verbose_name_plural = "Workshopbewerber"
-
-        permissions = (("group_full", "Gruppe ist voll"), )
-
-    workshop_ideas = models.TextField(
-        "Workshopidee(n)",
-        help_text=
-        'Bei mehreren Ideen, bitte eine Zeile pro Idee verwenden. Die Ideen sollen nur grob umrissen werden. Ein ausführlicherer Text wird erst an späterer Stelle benötigt.'
-    )
-
-
 def get_nametag_boxes(self):
     out = []
 
@@ -85,8 +71,9 @@ def get_nametag_boxes(self):
             box = StaffTagBox.objects.get(group=group)
             out.append("\\Tagbox{ " + box.letter + " }{ " + box.text + " }")
         except StaffTagBox.DoesNotExist:
-            out.append("\\Tagbox{ " + group.name[0] + " }{ " + group.name +
-                       " }")
+            # out.append("\\Tagbox{ " + group.name[0] + " }{ " + group.name +
+            #            " }")
+            pass
 
     while len(out) < 4:
         out.append("~")

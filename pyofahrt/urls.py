@@ -27,11 +27,8 @@ urlpatterns = [
     url(r'^staff/', include('staff.urls', namespace='staff',
                             app_name='staff')),
     url(r'^faq/', include('faq.urls', namespace='faq', app_name='faq')),
-    url(r'^tasks/', include('tasks.urls', namespace='tasks',
-                            app_name='tasks')),
     url(r'^workshops/',
         include('workshops.urls', namespace='workshops',
                 app_name='workshops')),
-    url(r'^wiki/', include('wiki.urls', namespace='wiki', app_name='wiki')),
     url(r'^admin/', admin.site.urls)
 ]

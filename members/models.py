@@ -85,7 +85,7 @@ class Member(models.Model):
         if self.room is None:
             return "~"
         else:
-            return str(self.room) + "(Nr. " + self.room.number + ")"
+            return str(self.room.name) + " (Nr. " + self.room.number + ")"
 
     def __str__(self):
         return self.first_name + " " + self.last_name

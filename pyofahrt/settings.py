@@ -41,8 +41,6 @@ INSTALLED_APPS = [
     'staff',
     'faq',
     'workshops',
-    'tasks',
-    'wiki',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -147,11 +145,11 @@ MAIL_MEMBERSIGNUP_QUEUE_SUBJECT = MAIL_PREFIX + "Anmeldung zur Ofahrt im Winters
 MAIL_MEMBERSIGNUP_QUEUE_TEXT = """Hallo %s,
 
 wir haben deine Anmeldung für die Ofahrt für Bachelor-Erstsemester im WiSe %d erfolgreich gespeichert.
-Bis zum Eingang des Teilnahmebetrags von 40€ stehst du lediglich auf der vorläufigen Teilnehmer*innenliste. Bitte überweise den Teilnahmebetrag schnellstmöglich an die unten genannten Kontodaten. Wähle als Verwendungszweck bitte "Informatik Erstsemesterfahrt - VORNAME NACHNAME" damit wir die Überweisung deiner Anmeldung zuordnen können. Solltest du keinen Zugriff auf ein Bankkonto oder eine andere Möglichkeit der Überweisung haben, kontaktiere uns bitte unter ofahrt-leitung@d120.de. In diesem Fall finden wir eine Regelung für eine Barzahlung im Fachschaftsraum.
+Bis zum Eingang des Teilnahmebetrags von 30€ stehst du lediglich auf der vorläufigen Teilnehmer*innenliste. Bitte überweise den Teilnahmebetrag schnellstmöglich an die unten genannten Kontodaten. Wähle als Verwendungszweck bitte "Informatik Erstsemesterfahrt - VORNAME NACHNAME" damit wir die Überweisung deiner Anmeldung zuordnen können. Solltest du keinen Zugriff auf ein Bankkonto oder eine andere Möglichkeit der Überweisung haben, kontaktiere uns bitte unter ofahrt-leitung@d120.de. In diesem Fall finden wir eine Regelung für eine Barzahlung im Fachschaftsraum.
 
 Sobald wir den Teilnahmebetrag erhalten haben setzen wir dich schnellstmöglich auf die feste Teilnahmeliste. Alle weiteren Infos erhälst du dann per Email.
 
-Liebe Grüße,
+Liebe Grüße
 die Ofahrt-Leitung
 
 -------------------------------
@@ -162,7 +160,7 @@ Kontodaten:
 MAIL_MEMBER_MOVETOQUEUE_SUBJECT = MAIL_PREFIX + "Deine Anmeldung zur Ofahrt"
 MAIL_MEMBER_MOVETOQUEUE_TEXT = """Hallo %s,
 
-du wurdest soeben aus der Warteschlange auf die vorläufige Anmeldeliste gesetzt. Um auf die feste Anmeldeliste übernommen zu werden überweise bitte innerhalb von sieben Tagen den Teilnahmebeitrag von 40,00€ an die unten angegebenen Kontodaten. Wähle als Verwendungszweck bitte "Erstsemesterfahrt Informatik - VORNAME NACHNAME" damit wir die Überweisung deiner Anmeldung zuordnen können. Solltest du keinen Zugriff auf ein Bankkonto oder eine andere Möglichkeit der Überweisung haben, kontaktiere uns bitte unter ofahrt-leitung@d120.de. In diesem Fall finden wir eine Regelung für eine Barzahlung im Fachschaftsraum.
+du wurdest soeben aus der Warteschlange auf die vorläufige Anmeldeliste gesetzt. Um auf die feste Anmeldeliste übernommen zu werden überweise bitte innerhalb von sieben Tagen den Teilnahmebeitrag von 30,00€ an die unten angegebenen Kontodaten. Wähle als Verwendungszweck bitte "Erstsemesterfahrt Informatik - VORNAME NACHNAME" damit wir die Überweisung deiner Anmeldung zuordnen können. Solltest du keinen Zugriff auf ein Bankkonto oder eine andere Möglichkeit der Überweisung haben, kontaktiere uns bitte unter ofahrt-leitung@d120.de. In diesem Fall finden wir eine Regelung für eine Barzahlung im Fachschaftsraum.
 
 Sobald wir den Teilnahmebeitrag erhalten haben, setzen wir dich schnellstmöglich auf die feste Teilnahmeliste. Alle weiteren Infos erhälst du dann per E-Mail.
 
@@ -180,7 +178,7 @@ MAIL_MEMBERSIGNUP_TEXT = """Hallo %s,
 wir haben deine Anmeldung für die Ofahrt für Bachelor-Erstsemester im WiSe %d erfolgreich gespeichert.
 Da derzeit alle Plätze belegt sind bist du aktuell noch in der Warteschlange. Sollte bei den bereits angemeldeten Teilnehmer*innen der Teilnahmebeitrag nach einer Woche nicht bei uns eingegangen sein werden wir aus der Warteschlange auffüllen. Du erhälst in diesem Fall eine Email.
 
-Liebe Grüße,
+Liebe Grüße
 die Ofahrt-Leitung
 
 -------------------------------
@@ -193,7 +191,7 @@ MAIL_MEMBERSIGNUP_REMINDER_TEXT = """Hallo %s,
 
 danke noch einmal für deine Anmeldung! Seit 4 Tagen stehst du bereits auf der vorläufigen Anmeldeliste, so weit, so gut. Wir konnten allerdings noch keinen Geldeingang verbuchen.
 
-Bis zum Eingang des Teilnahmebetrags von 40€ stehst du lediglich auf der vorläufigen Teilnehmer*innenliste. Bitte überweise den Teilnahmebetrag schnellstmöglich an die unten genannten Kontodaten. Wähle als Verwendungszweck bitte "Informatik Erstsemesterfahrt - VORNAME NACHNAME" damit wir die Überweisung deiner Anmeldung zuordnen können. Solltest du keinen Zugriff auf ein Bankkonto oder eine andere Möglichkeit der Überweisung haben, kontaktiere uns bitte unter ofahrt-leitung@d120.de. In diesem Fall finden wir eine Regelung für eine Barzahlung im Fachschaftsraum.
+Bis zum Eingang des Teilnahmebetrags von 30€ stehst du lediglich auf der vorläufigen Teilnehmer*innenliste. Bitte überweise den Teilnahmebetrag schnellstmöglich an die unten genannten Kontodaten. Wähle als Verwendungszweck bitte "Informatik Erstsemesterfahrt - VORNAME NACHNAME" damit wir die Überweisung deiner Anmeldung zuordnen können. Solltest du keinen Zugriff auf ein Bankkonto oder eine andere Möglichkeit der Überweisung haben, kontaktiere uns bitte unter ofahrt-leitung@d120.de. In diesem Fall finden wir eine Regelung für eine Barzahlung im Fachschaftsraum.
 
 Wenn du das Geld bereits überwiesen hast, dann scheint die Bank einfach etwas langsam zu sein.
 
@@ -201,7 +199,7 @@ Falls du deine Anmeldung stornieren möchtest, schreibe uns eine Mail, damit wir
 
 Sollte jedoch bis in 3 Tagen bei uns der Beitrag nicht eingegangen sein, wird deine Anmeldung automatisch aus dem System entfernt.
 
-Liebe Grüße,
+Liebe Grüße
 die Ofahrt-Leitung
 
 -------------------------------
@@ -274,66 +272,6 @@ Eine neue Workshop-Bewerbung ist eingegangen. Bitte zeitnah bearbeiten.
 
 Vorname: %(firstname)s
 Nachname: %(lastname)s
-"""
-
-MAIL_TICKETEDIT_SUBJECT = MAIL_PREFIX + "Ticket #%(id)d bearbeitet"
-MAIL_TICKETEDIT_TEXT = """
-Hallo,
-diese Mail soll dich informieren, dass das Ticket #%(id)d "%(subject)s" in der für dich freigegebenen Aufgabenkategorie "%(cat)s" soeben von %(name)s bearbeitet wurde.
-
-Du kannst das Ticket unter folgendem Link einsehen:
-%(link)s
-
-Diese Mail wurde automatisch generiert und ist daher auch ohne Unterschrift gültig.
-"""
-
-MAIL_TICKETASSIGN_SUBJECT = MAIL_PREFIX + "Ticket #%(id)d neu zugewiesen"
-MAIL_TICKETASSIGN_TEXT = """
-Hallo,
-diese Mail soll dich informieren, dass die Bearbeiterzuweisung für das Ticket #%(id)d "%(subject)s" in der für dich freigegebenen Aufgabenkategorie "%(cat)s" soeben von %(name)s verändert wurde.
-
-Die folgenden Benutzer sind nun für die Bearbeitung zuständig: %(editors)s
-
-Du kannst das Ticket unter folgendem Link einsehen:
-%(link)s
-
-Diese Mail wurde automatisch generiert und ist daher auch ohne Unterschrift gültig.
-"""
-
-MAIL_TICKETPUSH_SUBJECT = MAIL_PREFIX + "PUSH: Ticket #%(id)d"
-MAIL_TICKETPUSH_TEXT = """
-Hallo,
-diese Mail soll dich informieren, dass das Ticket #%(id)d "%(subject)s" in der für dich freigegebenen Aufgabenkategorie "%(cat)s" soeben von %(name)s einen Push! erhalten hat.
-
-Dies bedeutet, dass %(name)s der Ansicht ist, dass dieses Ticket weitere Aufmerksamkeit benötigt.
-
-
-Du kannst das Ticket unter folgendem Link einsehen:
-%(link)s
-
-Diese Mail wurde automatisch generiert und ist daher auch ohne Unterschrift gültig.
-"""
-
-MAIL_TICKETNEWCOMMENT_SUBJECT = MAIL_PREFIX + "Neuer Kommentar im Ticket #%(id)d"
-MAIL_TICKETNEWCOMMENT_TEXT = """
-Hallo,
-diese Mail soll dich informieren, dass %(name)s im Ticket #%(id)d "%(subject)s" in der für dich freigegebenen Aufgabenkategorie "%(cat)s" soeben einen neuen Kommentar hinterlassen hat.
-
-Du kannst das Ticket unter folgendem Link einsehen:
-%(link)s
-
-Diese Mail wurde automatisch generiert und ist daher auch ohne Unterschrift gültig.
-"""
-
-MAIL_TICKETNEW_SUBJECT = MAIL_PREFIX + "Neues Ticket in der Kategorie %(cat)s"
-MAIL_TICKETNEW_TEXT = """
-Hallo,
-diese Mail soll dich informieren, dass %(name)s soeben in der für dich freigegebenen Aufgabenkategorie "%(cat)s" ein neues Ticket (#%(id)d -  "%(subject)s") angelegt hat.
-
-Du kannst das Ticket unter folgendem Link einsehen:
-%(link)s
-
-Diese Mail wurde automatisch generiert und ist daher auch ohne Unterschrift gültig.
 """
 
 BANK_ACCOUNT = """

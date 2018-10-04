@@ -8,9 +8,6 @@ app_name = 'staff'
 urlpatterns = [
     url(r'^signup/$', views.SignUpView.as_view(), name='signup'),
     url(r'^signup/orga/$', views.SignUpOrgaView.as_view(), name='signuporga'),
-    url(r'^signup/workshop/$',
-        views.SignUpWorkshopView.as_view(),
-        name='signupworkshop'),
     url(r'^signup/success/$', views.SuccessView.as_view(), name='success'),
     url(r'^login/$',
         login, {'template_name': 'admin/login.html'},

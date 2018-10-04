@@ -6,34 +6,25 @@
     <div class="jumbotron" id="staffsignup">
         <div class="container">
             <h1>Unterstützung gesucht!</h1>
-            {% if workshop_reg_open or orga_reg_open %}
+            {% if orga_reg_open %}
                 <p>Für die Durchführung der Ofahrt brauchen wir wieder umfassende Unterstützung!</p>
                 <p><span class="prefix-glyphicon glyphicon glyphicon-knight" aria-hidden="true"></span> Du möchtest auf
-                    der Ofahrt einen Workshop anbieten? Dann kannst du dich mit dem linken Button als Workshopleiter
-                    melden.</p>
+                    der Ofahrt einen Workshop anbieten? Dann bewirb dich als Workshopleiter*in.</p>
                 <p><span class="prefix-glyphicon glyphicon glyphicon-cog" aria-hidden="true"></span> Wenn du bei der
-                    Planung und Organisation der Ofahrt mithelfen möchtest, kannst du dich mit dem rechten Button als
+                    Planung und Organisation der Ofahrt mithelfen möchtest, kannst du dich als
                     Orga für eines oder mehrere unserer Aufgabengebiete
                     melden.</p>
                 <div style="text-align: center; margin-top:50px;">
-                    <div style="display:inline-block; margin-right:150px"><a
-                            class="btn btn-primary btn-lg{% if not workshop_reg_open %} disabled{% endif %}"
-                            href="{% url "staff:signupworkshop" %}" role="button"><span
-                            class="glyphicon glyphicon-knight" aria-hidden="true"></span>Als Workshopleiter*in
-                        melden</a><br/>
-                        {% if  workshop_reg_open %}&nbsp;{% else %}
-                            <i>Diese Anmeldung ist bereits geschlossen.</i>{% endif %}</div>
                     <div style="display:inline-block;"><a
                             class="btn btn-primary btn-lg{% if not orga_reg_open %} disabled{% endif %}"
-                            href="{% url "staff:signuporga" %}" role="button"><span class="glyphicon glyphicon-cog"
-                                                                                    aria-hidden="true"></span> Als Orga
+                            href="{% url "staff:signuporga" %}" role="button"> Als Orga/Workshopleiter*in
                         melden</a><br/>{% if  orga_reg_open %}&nbsp;{% else %}
                         <i>Diese Anmeldung ist bereits geschlossen.</i>{% endif %}</div>
                 </div>
 
             {% else %}
                 <p>
-                    Derzeit kannst du dich nicht als Orga oder Workshopanbieter melden.
+                    Derzeit kannst du dich nicht als Orga melden.
                 </p>
             {% endif %}
         </div>

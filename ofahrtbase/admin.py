@@ -10,7 +10,7 @@ class OfahrtAdmin(admin.ModelAdmin):
     fieldsets = (("Allgemeines", {
         "fields": ("begin_date", "end_date")
     }), ("Einstellungen", {
-        "fields": ("member_reg_open", "orga_reg_open", "workshop_reg_open",
+        "fields": ("member_reg_open", "orga_reg_open",
                    "max_members", "queue_tolerance", "self_participation")
     }))
 
