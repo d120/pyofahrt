@@ -153,7 +153,7 @@ class RoomassignmentView(TemplateView):
 def person_as_pdf(request):
     members = Member.objects.filter(money_received=True).order_by('last_name')
     staff = User.objects.order_by('last_name')
-    context = Context({'members': members, 'staff': staff})
+    context = {'members': members, 'staff': staff}
     template = get_template('members/RaumzuteilungB.tex')
     rendered_tpl = template.render(context).encode('utf-8')
     with tempfile.TemporaryDirectory() as tempdir:
@@ -181,9 +181,9 @@ def room_as_pdf(request):
         if room.get_person_count() > 0:
             rooms.append(room)
 
-    context = Context({
+    context = {
         'rooms': rooms,
-    })
+    }
     template = get_template('members/RaumzuteilungA.tex')
     rendered_tpl = template.render(context).encode('utf-8')
     with tempfile.TemporaryDirectory() as tempdir:

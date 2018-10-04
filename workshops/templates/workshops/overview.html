@@ -11,9 +11,9 @@
             <li><a href="#my">Meine Workshops</a></li>
             <li><a href="#all">Alle Workshops</a></li>
             <ol>
-                <li><a href="#material">Materialbedarf</a></li>
-                {% if perms.app_label.viewemails %}
-                    <li><a href="#emails">Workshopanbieter*innen</a></li>
+                <li><a data-toggle="collapse" data-target="#collapseOne" href="#material">Materialbedarf</a></li>
+                {% if perms.workshops.viewemails %}
+		<li><a data-toggle="collapse" data-target="#collapseTwo" href="#emails">Workshopanbieter*innen</a></li>
                 {% endif %}
             </ol>
             <li><a href="#new">Vorschlagsliste</a></li>
@@ -158,7 +158,7 @@
             </div>
         </div>
 
-        {% if perms.app_label.viewemails %}
+        {% if perms.workshops.viewemails %}
             <a name="emails"></a>
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingTwo">
