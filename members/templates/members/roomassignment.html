@@ -10,58 +10,72 @@
     <script src='{% static "ofahrtbase/jquery-ui.min.js" %}'></script>{% endblock %}
 {% block content %}
     {% load bootstrap3 %}
-    <h2>Zimmerzuteilung</h2>
-    <p>
-        Hier findet die Zuteilung der Teilnehmer*innen auf die einzelnen Zimmer statt.
-    <div class="btn-group" role="group" aria-label="...">
-        <a type="button" class="btn btn-default" href="{% url "members:roomexport" %}">Export nach Raum</a>
-        <a type="button" class="btn btn-default" href="{% url "members:personexport" %}">Export nach Person</a>
-    </div>
-    </p>
-    <div id="messages"></div>
-    <div id="board">
-        <div id="unassignedmembers">
-            <p class="title">Noch nicht zugeteilt (<span class="counter">{{ members.count|add:usercount }}</span>):</p>
-            <div class="sortablearea">
-                {% for member in members %}
-                    <div class="member" data-type="member" data-userid="{{ member.id }}">{{ member }} <span
-                            class="{% if member.gender == 'm' %} fa fa-mars {% elif member.gender == 'w' %} fa fa-venus {% else %} fa fa-neuter {% endif %}"></span>
-                    </div>
-                {% endfor %}
-                {% for member in users %}
-                    <div class="member" data-type="staff" data-userid="{{ member.id }}">{{ member.get_full_name }}
-                        (STAFF)
-                    </div>
+
+    <div class="defaultcontainer">
+        <div class="legend">
+            <p><b>Legende:</b></p>
+            <div class="member staff">Orgamitglied</div>
+            <div class="member">Teilnehmer*in</div>
+        </div>
+
+        <h2>Zimmerzuteilung</h2>
+
+        <p>
+            Hier findet die Zuteilung der Teilnehmer*innen auf die einzelnen Zimmer statt.
+        </p>
+        <div class="btn-group" role="group" aria-label="...">
+            <a type="button" class="btn btn-default" href="{% url "members:roomexport" %}">Export nach Raum</a>
+            <a type="button" class="btn btn-default" href="{% url "members:personexport" %}">Export nach Person</a>
+        </div>
+        <br><br>
+
+        <div id="messages"></div>
+
+        <div id="board">
+            <div id="unassignedmembers">
+                <p class="title">Noch nicht zugeteilt (<span class="counter">{{ members.count|add:usercount }}</span>):
+                </p>
+                <div class="sortablearea">
+                    {% for member in members %}
+                        <div class="member" data-type="member" data-userid="{{ member.id }}">{{ member }} <span
+                                class="{% if member.gender == 'm' %} fa fa-mars {% elif member.gender == 'w' %} fa fa-venus {% else %} fa fa-neuter {% endif %}"></span>
+                        </div>
+                    {% endfor %}
+                    {% for member in users %}
+                        <div class="member staff" data-type="staff"
+                             data-userid="{{ member.id }}">{{ member.get_full_name }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="rooms">
+                {% for room in rooms %}
+                    {% with members=room.member_set.all staff=room.get_staff_users %}
+                        <div id="{{ room.id }}"
+                             class="room{% if members.count|add:room.get_staff_users_count > room.capacity %} fullroom{% endif %}">
+                            <div class="title">
+                                <span class="roomname" data-roomid="{{ room.id }}">{{ room }}</span> (<span
+                                    class="counter">{{ members.count|add:room.get_staff_users_count }}</span>/<span
+                                    class="max">{{ room.capacity }}</span>){% if members.count > room.capacity %}
+                                <span class="label label-danger">zu voll!</span>{% endif %}
+                            </div>
+                            <div class="sortablearea">
+                                {% for member in members %}
+                                    <div class="member" data-type="member" data-userid="{{ member.id }}">
+                                        {{ member }} <span
+                                            class="{% if member.gender == 'm' %} fa fa-mars {% elif member.gender == 'w' %} fa fa-venus {% else %} fa fa-neuter {% endif %}"></span>
+                                    </div>
+                                {% endfor %}
+                                {% for member in staff %}
+                                    <div class="member staff" data-type="staff" data-userid="{{ member.id }}">
+                                        {{ member.get_full_name }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endwith %}
                 {% endfor %}
             </div>
-        </div>
-        <div id="rooms">
-            {% for room in rooms %}
-                {% with members=room.member_set.all staff=room.get_staff_users %}
-                    <div id="{{ room.id }}"
-                         class="room{% if members.count|add:room.get_staff_users_count > room.capacity %} fullroom{% endif %}">
-                        <div class="title">
-                            <span class="roomname" data-roomid="{{ room.id }}">{{ room }}</span> (<span
-                                class="counter">{{ members.count|add:room.get_staff_users_count }}</span>/<span
-                                class="max">{{ room.capacity }}</span>){% if members.count > room.capacity %}
-                            <span class="label label-danger">zu voll!</span>{% endif %}
-                        </div>
-                        <div class="sortablearea">
-                            {% for member in members %}
-                                <div class="member" data-type="member" data-userid="{{ member.id }}">
-                                    {{ member }} <span
-                                        class="{% if member.gender == 'm' %} fa fa-mars {% elif member.gender == 'w' %} fa fa-venus {% else %} fa fa-neuter {% endif %}"></span>
-                                </div>
-                            {% endfor %}
-                            {% for member in staff %}
-                                <div class="member" data-type="staff" data-userid="{{ member.id }}">
-                                    {{ member.get_full_name }} (STAFF)
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                {% endwith %}
-            {% endfor %}
         </div>
     </div>
 
