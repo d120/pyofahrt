@@ -112,7 +112,7 @@ class SignUpView(CreateView):
         context["member_reg_open"] = ofahrt.member_reg_open
         context["members_fin"] = members_fin
         context["queue"] = (members_fin + members_queue) < (
-            max_members + queue_size)
+                max_members + queue_size)
 
         return context
 
@@ -127,17 +127,17 @@ class RoomassignmentView(TemplateView):
     @staticmethod
     def get_users_with_no_room():
         out = []
-        for user in User.objects.all():
-            if Workshop.objects.all().filter(host=user).exists()\
-                    or user.groups.all().count() != 0:   # filter out users which have no job (group) or workshop
-                try:
-                    obj = StaffRoomAssignment.objects.get(user=user)
-                except StaffRoomAssignment.DoesNotExist:
-                    obj = StaffRoomAssignment(user=user, room=None)
-                    obj.save()
 
-                if obj.room is None:
-                    out.append(user)
+        # consider only users which have a job (group) or a workshop
+        for user in User.objects.filter(Q(groups__isnull=False) | Q(workshop__isnull=False)).distinct():
+            try:
+                obj = StaffRoomAssignment.objects.get(user=user)
+            except StaffRoomAssignment.DoesNotExist:
+                obj = StaffRoomAssignment(user=user, room=None)
+                obj.save()
+
+            if obj.room is None:
+                out.append(user)
 
         return out
 
@@ -145,7 +145,7 @@ class RoomassignmentView(TemplateView):
         context = super(RoomassignmentView, self).get_context_data(**kwargs)
         context["members"] = Member.objects.all().filter(
             Q(room=None) | Q(room__usecase_sleep=False)).filter(
-                money_received=True)
+            money_received=True)
         context["users"] = self.get_users_with_no_room()
         context["usercount"] = len(context["users"])
         context["rooms"] = Room.objects.all().filter(usecase_sleep=True)
