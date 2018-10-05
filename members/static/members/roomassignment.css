@@ -1,12 +1,11 @@
 #board {
     display: flex;
+    align-items: flex-start;
 }
 
 #unassignedmembers {
     color: white;
     width: 250px;
-    padding: 15px;
-    min-height: 400px;
     background-color: #464646;
     border: 1px solid transparent;
     border-radius: 6px;
@@ -22,7 +21,6 @@
     width: 200px;
     margin: 0 0 15px 15px;
     display: inline-block;
-    padding: 15px;
     vertical-align: top;
     border-radius: 6px;
 }
@@ -30,36 +28,52 @@
 .fullroom {
     color: #a94442 !important;
     background-color: #f2dede !important;
-    border: 1px solid transparent !important;
-    border-radius: 6px;
 }
 
 .title {
     font-weight: bold;
-    margin-bottom: 6px;
+    margin: 15px 15px 6px 15px;
 }
 
 .member {
     background-color: #EFEFEF;
     padding: 4px 4px 4px 8px;
     border: 1px #7F7F7F solid;
-    color: black !important;
+    color: black;
     margin-bottom: 5px;
     cursor: grab;
 }
 
 .sortablearea {
-    min-height: 290px;
-}
-
-#unassignedmembers > .sortablearea {
-    min-height: 390px;
+    min-height: 1em;
+    padding: 15px;
 }
 
 #messages {
-    height: 70px;
+    position: fixed;
+    bottom: 0.5em;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 4em;
     width: auto;
-    position: absolute;
-    bottom: 50px;
-    margin-left: 50px;
+    z-index: 1;
+}
+
+.staff {
+    background-color: #009D81;
+    color: white;
+    border-color: transparent;
+}
+
+.legend {
+    width: 10em;
+    float: right;
+    margin: 0.5em 0 0 0;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 6px;
+}
+
+.legend div {
+    cursor: default;
 }

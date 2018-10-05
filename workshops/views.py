@@ -154,7 +154,6 @@ class WorkshopPlanView(TemplateView):
 def saveworkshopassignment(request):
     results = {'success': False}
     if request.method == u'GET':
-
         GET = request.GET
 
         slotid = int(GET['slot'])
@@ -174,21 +173,23 @@ def saveworkshopassignment(request):
         workshop.save()
         results = {'success': True}
 
-        # check for conflicting workshops:
-
-        # for this, iterate over each slot and find conflicting workshops inside these slots
-        conflicts = Workshop.objects.none()
-        for slot in Slot.objects.all().filter(slottype="workshop"):
-            for host in User.objects.all():
-                hosts_workshops_in_this_slot = host.workshop_set.filter(slot=slot)
-                if hosts_workshops_in_this_slot.count() > 1:
-                    conflicts = conflicts | hosts_workshops_in_this_slot
-
-        # extract workshop's IDs as a flat list
-        conflicts = list(conflicts.distinct().values_list('id', flat=True))
-        results.update({'conflicts': conflicts})
-
     return JsonResponse(results)
+
+
+# check for conflicting workshops:
+def checkforconflicts(request):
+    # for this, iterate over each slot and find conflicting workshops inside these slots
+    conflicts = Workshop.objects.none()
+    for slot in Slot.objects.filter(slottype="workshop"):
+        for host in User.objects.all():
+            hosts_workshops_in_this_slot = host.workshop_set.filter(slot=slot)
+            if hosts_workshops_in_this_slot.count() > 1:
+                conflicts = conflicts | hosts_workshops_in_this_slot
+
+    # extract workshop's IDs as a flat list
+    conflicts = list(conflicts.distinct().values_list('id', flat=True))
+
+    return JsonResponse({'conflicts': conflicts})
 
 
 def infoexport(request):

@@ -23,6 +23,7 @@ class WorkshopAdmin(admin.ModelAdmin):
         return ", ".join([str(t) for t in obj.host.all()])
 
     show_hosts.short_description = "Anbieter"
+    show_hosts.admin_order_field = 'host__username'   # making this field sortable by host's username
 
     def longstr(self, slot):
         return slot.name + " - " + germandays[slot.begin.strftime(
@@ -35,6 +36,7 @@ class WorkshopAdmin(admin.ModelAdmin):
         return self.longstr(slot)
 
     show_slot.short_description = "Zeitslot"
+    show_slot.admin_order_field = 'slot__begin'   # making this field sortable by time slot beginning
 
 
 @admin.register(Slot)

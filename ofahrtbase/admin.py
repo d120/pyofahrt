@@ -41,9 +41,10 @@ class RoomAdmin(admin.ModelAdmin):
     ]
 
     def roomname(self, obj):
-        return obj.name + "(" + obj.number + ")"
+        return obj.name + " (" + obj.number + ")"
 
     roomname.short_description = "Raumname"
+    roomname.admin_order_field = 'name'  # making this field sortable by room name
 
     def capacity_string(self, obj):
         if obj.usecase_sleep:
@@ -56,3 +57,4 @@ class RoomAdmin(admin.ModelAdmin):
 
     capacity_string.short_description = "Kapazität"
     capacity_string.allow_tags = True
+    capacity_string.admin_order_field = 'capacity'  # making this field sortable by capacity number
