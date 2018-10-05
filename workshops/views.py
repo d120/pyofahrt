@@ -180,7 +180,7 @@ def saveworkshopassignment(request):
 def checkforconflicts(request):
     # for this, iterate over each slot and find conflicting workshops inside these slots
     conflicts = Workshop.objects.none()
-    for slot in Slot.objects.all().filter(slottype="workshop"):
+    for slot in Slot.objects.filter(slottype="workshop"):
         for host in User.objects.all():
             hosts_workshops_in_this_slot = host.workshop_set.filter(slot=slot)
             if hosts_workshops_in_this_slot.count() > 1:
