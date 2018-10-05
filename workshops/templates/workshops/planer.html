@@ -9,7 +9,6 @@
 
 {% block workshopcontent %}
     {% load bootstrap3 %}
-    {% load planertags %}
 
     <p>
         Hier wird per Drag and Drop die Einteilung der Workshops in die verfügbaren Zeitslots und in die jeweiligen Räume vorgenommen.
@@ -47,7 +46,7 @@
 
     <div><b>Nicht zugeteilt:</b>
         <div id="unassigned" data-slot="0" data-room="0" class="sortablearea">
-            {% for workshop in workshops %}<div class="workshop {% check_for_conflict workshop %}"
+            {% for workshop in workshops %}<div class="workshop"
                      data-workshop="{{ workshop.pk }}" data-init-slot="{{ workshop.get_slot_id }}"
                      data-init-room="{{ workshop.get_room_id }}" data-toggle="tooltip" data-placement="top"
                      data-html="true" data-trigger="hover" title="<b>Leiter*innen:</b>
@@ -63,6 +62,7 @@
 
     <script>
         ajaxurl = "{% url "workshops:saveplaner" %}";
+        ajaxurl2 = "{% url "workshops:checkforconflicts" %}";
     </script>
 {% endblock %}
 

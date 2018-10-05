@@ -18,26 +18,17 @@ $(document).ready(function () {
     $(".sortablearea").sortable({
         connectWith: ".sortablearea",
         receive: function (event, ui) {
+            // collect information of moved workshop:
             var room = ui.item.parent().attr("data-room");
             var slot = ui.item.parent().attr("data-slot");
             var workshop = ui.item.attr("data-workshop");
             var obj = {room: room, slot: slot, workshop: workshop};
 
-            // check for conflicts and change displaying color if necessary
-            $.getJSON(ajaxurl, obj, function (data) {
+            // save it
+            $.getJSON(ajaxurl, obj);
 
-                // iterate over all workshop elements in the planer
-                $('[data-workshop]').each(function () {
-                    let workshopID = parseInt($(this).attr("data-workshop"));
-
-                    // change the appearance accordingly
-                    if (data.conflicts.includes(workshopID)) {
-                        $(this).addClass("conflict")
-                    } else {
-                        $(this).removeClass("conflict")
-                    }
-                });
-            });
+            // check for conflicts
+            highlightConflicts();
         }
     }).disableSelection();
 
@@ -51,4 +42,25 @@ $(document).ready(function () {
     workshop.mouseup(function () {
         $(this).tooltip('enable');
     });
+
+    function highlightConflicts() {
+        // check for conflicts and change displaying color if necessary
+        $.getJSON(ajaxurl2, function (data) {
+            // iterate over all workshop elements in the planer
+            $('[data-workshop]').each(function () {
+                let workshopID = parseInt($(this).attr("data-workshop"));
+
+                // change the appearance accordingly
+                if (data.conflicts.includes(workshopID)) {
+                    $(this).addClass("conflict")
+                } else {
+                    $(this).removeClass("conflict")
+                }
+            });
+        });
+    }
+
+    window.onload = function () {
+        highlightConflicts();
+    };
 });

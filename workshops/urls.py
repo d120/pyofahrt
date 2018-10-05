@@ -16,6 +16,10 @@ urlpatterns = [
         permission_required("workshops.assignworkshop")(
             views.saveworkshopassignment),
         name='saveplaner'),
+    url(r'^checkforconflicts',
+        permission_required("workshops.assignworkshop")(
+            views.checkforconflicts),
+        name='checkforconflicts'),
     url(r'^infoexport',
         permission_required("ofahrtbase.change_ofahrt")(views.infoexport),
         name='infoexport'),
