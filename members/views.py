@@ -6,7 +6,7 @@ from staff.models import StaffRoomAssignment
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.http import HttpResponse
-from django.template import Context
+from workshops.models import Workshop
 from . import forms
 from django.contrib.auth.models import User
 from django.template.loader import get_template
@@ -128,14 +128,16 @@ class RoomassignmentView(TemplateView):
     def get_users_with_no_room():
         out = []
         for user in User.objects.all():
-            try:
-                obj = StaffRoomAssignment.objects.get(user=user)
-            except StaffRoomAssignment.DoesNotExist:
-                obj = StaffRoomAssignment(user=user, room=None)
-                obj.save()
+            if Workshop.objects.all().filter(host=user).exists()\
+                    or user.groups.all().count() != 0:   # filter out users which have no job (group) or workshop
+                try:
+                    obj = StaffRoomAssignment.objects.get(user=user)
+                except StaffRoomAssignment.DoesNotExist:
+                    obj = StaffRoomAssignment(user=user, room=None)
+                    obj.save()
 
-            if obj.room == None:
-                out.append(user)
+                if obj.room is None:
+                    out.append(user)
 
         return out
 
