@@ -10,6 +10,8 @@ from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from ofahrtbase.helper import LaTeX
+from django.http import JsonResponse
+from django.core import serializers
 
 
 class OverviewView(TemplateView):
@@ -145,7 +147,7 @@ class WorkshopPlanView(TemplateView):
             usecase_workshop=True).order_by("number")
         context["slots"] = Slot.objects.all().filter(
             slottype="workshop").order_by("begin")
-        context["workshops"] = Workshop.objects.all()
+        context["workshops"] = Workshop.objects.all().exclude(host=None)
         return context
 
 
@@ -160,17 +162,34 @@ def saveworkshopassignment(request):
 
         try:
             workshop = Workshop.objects.get(pk=workshopid)
-            room = None if roomid == 0 else Room.objects.get(pk=roomid)
-            slot = None if slotid == 0 else Slot.objects.get(pk=slotid)
+            destination_room = None if roomid == 0 else Room.objects.get(pk=roomid)
+            destination_slot = None if slotid == 0 else Slot.objects.get(pk=slotid)
         except (Workshop.DoesNotExist, Room.DoesNotExist, Slot.DoesNotExist):
-            return HttpResponse(results)
+            return JsonResponse(results)
 
-        workshop.room = room
-        workshop.slot = slot
+        workshop.room = destination_room
+        workshop.slot = destination_slot
 
         workshop.save()
         results = {'success': True}
-    return HttpResponse(results)
+
+    return JsonResponse(results)
+
+
+# check for conflicting workshops:
+def checkforconflicts(request):
+    # for this, iterate over each slot and find conflicting workshops inside these slots
+    conflicts = Workshop.objects.none()
+    for slot in Slot.objects.filter(slottype="workshop"):
+        for host in User.objects.all():
+            hosts_workshops_in_this_slot = host.workshop_set.filter(slot=slot)
+            if hosts_workshops_in_this_slot.count() > 1:
+                conflicts = conflicts | hosts_workshops_in_this_slot
+
+    # extract workshop's IDs as a flat list
+    conflicts = list(conflicts.distinct().values_list('id', flat=True))
+
+    return JsonResponse({'conflicts': conflicts})
 
 
 def infoexport(request):
