@@ -280,3 +280,7 @@ Raum D120
 Hochschulstraße 10
 64289 Darmstadt
 """
+
+# application-specific-cookies
+CSRF_COOKIE_NAME = 'pyofahrt_csrftoken'
+SESSION_COOKIE_NAME = 'pyofahrt_sessionid'
