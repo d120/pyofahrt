@@ -3,10 +3,11 @@
 {% block content %}
     {% load bootstrap3 %}
     <div id="signupform">
-    <h2>Teilnehmer*innenanmeldung</h2>
+        <h2>Teilnehmer*innenanmeldung</h2>
         {% if member_reg_open %}
             <p>
-                Mit diesem Formular kannst du dich als Teilnehmer*in für die Erstsemesterfahrt anmelden.
+                Mit diesem Formular kannst du dich als Teilnehmer*in für die Erstsemesterfahrt anmelden. Infos zum
+                Teilnahmebeitrag etc. findest du in den <a href="{% url "faq:overview" %}">FAQ</a>.
             </p>
             {% if not queue %}
                 <div class="alert alert-warning" role="alert">

@@ -5,7 +5,8 @@
     <div id="innercontent">
         {% if ofahrt.orga_reg_open %}
             <div class="alert alert-info" role="alert"><b>Hinweis:</b> Für die kommende Ofahrt suchen wir noch
-                {% if ofahrt.orga_reg_open %} Orgas und Menschen, die einen Workshop anbieten möchten{% endif %}. Weitere
+                {% if ofahrt.orga_reg_open %} Orgas und Menschen, die einen Workshop anbieten möchten{% endif %}.
+                Weitere
                 Informationen findest du <a class="alert-link" href="{% url "staff:signup" %}">hier</a>.
             </div>
         {% endif %}
@@ -13,16 +14,20 @@
         <h2>Willkommen auf der Startseite der Ofahrt!</h2>
         <p>Die Ofahrt ist die Erstsemester*innenfahrt der Fachschaft Informatik an der TU Darmstadt. Ziel der Ofahrt ist
             es, Kontakte zwischen den neuen Studierenden zu knüpfen, die Gelegenheit zu geben sich in verschiedenen
-            Workshops über gemeinsame Interessen auszutauschen und über die <a href="https://www.fachschaft.informatik.tu-darmstadt.de/ophase/">Ophase</a>
+            Workshops über gemeinsame Interessen auszutauschen und über die <a
+                    href="https://www.fachschaft.informatik.tu-darmstadt.de/ophase/">Ophase</a>
             herausgehende hilfreiche Informationen zu vermittelt zu bekommen.</p>
         {% if ofahrt %}
             <p>Im Wintersemester {{ ofahrt.begin_date.year }}/{{ ofahrt.end_date.year |add:"1" }} findet die Ofahrt vom
-                <b>{{ ofahrt.begin_date|date:"d.m.Y" }}</b> bis zum <b>{{ ofahrt.end_date|date:"d.m.Y" }}</b> auf der
-                Starkenburg bei Heppenheim (ungefähr 30km südlich von Darmstadt) statt. Die Anmeldung für Erstsemester
-                des Studiengangs Bachelor of Science Informatik bzw. Bachelor of Education Informatik an der TU
-                Darmstadt erfolgt auf dieser Seite unter dem Menüpunkt <a
-                        href="{% url "members:signup" %}">Anmeldung</a>. Weitere Informationen zur
-                Ofahrt werden im Rahmen der Ophase vermittelt.</p>
+            <b>{{ ofahrt.begin_date|date:"d.m.Y" }}</b> bis zum <b>{{ ofahrt.end_date|date:"d.m.Y" }}</b> auf der
+            Starkenburg bei Heppenheim (ungefähr 30km südlich von Darmstadt) statt. Die Anmeldung für Erstsemester
+            des Studiengangs Bachelor of Science Informatik bzw. Bachelor of Education Informatik an der TU
+            Darmstadt erfolgt auf dieser Seite unter dem Menüpunkt <a
+                href="{% url "members:signup" %}">Anmeldung</a>. In den <b>30&nbsp;€ Teilnahmekosten</b> sind
+            Unterkunft, Verpflegung (Frühstück, Mittag- und Abendessen) und Programm enthalten. Weitere
+            Informationen zur
+            Ofahrt werden im Rahmen der Ophase vermittelt und sind in den <a href="{% url "faq:overview" %}">FAQ</a> zu
+            finden.</p>
         {% endif %}
 
     </div>
