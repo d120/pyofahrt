@@ -1,5 +1,6 @@
 from django.contrib import admin
 from workshops.models import Workshop, Slot
+from workshops.admin_actions import set_accepted
 
 germandays = {
     "0": "Montag",
@@ -18,6 +19,7 @@ class WorkshopAdmin(admin.ModelAdmin):
         "name", "show_hosts", "show_slot", "room", "accepted", "proved"
     ]
     list_filter = ["host", "slot", "room", "accepted", "proved"]
+    actions = [set_accepted,]
 
     def show_hosts(self, obj):
         return ", ".join([str(t) for t in obj.host.all()])
