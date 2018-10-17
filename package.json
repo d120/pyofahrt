@@ -1,0 +1,22 @@
+{
+  "name": "pyofahrt",
+  "version": "1.0.0",
+  "description": "Verwaltungssoftware für die Erstsemesterfahrt",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d120/pyofahrt.git"
+  },
+  "author": "",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/d120/pyofahrt/issues"
+  },
+  "homepage": "https://github.com/d120/pyofahrt#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

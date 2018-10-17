@@ -125,6 +125,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 
+STATICFILES_DIRS = [
+     "node_modules",
+]
+
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/staff/login'
 
@@ -132,6 +136,11 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
 
 CSRF_COOKIE_HTTPONLY = True
+
+BOOTSTRAP3 = {
+    "css_url": "/static/bootstrap/dist/css/bootstrap.min.css",
+    "javascript_url":  "/static/bootstrap/dist/js/bootstrap.min.js",
+}
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
