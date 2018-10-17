@@ -40,6 +40,7 @@ class ContactView(FormView):
             'text': text
         }
         mail.to = [settings.SERVER_EMAIL]
+        mail.reply_to = email
         mail.send()
 
         return super(ContactView, self).form_valid(form)
