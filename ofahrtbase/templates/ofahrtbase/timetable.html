@@ -13,7 +13,7 @@
     $('#timetable').fullCalendar({schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
       defaultView: 'agendaWeek',
       firstDay: 1,
-      height: 500,
+      height: "parent",
       defaultDate: $.fullCalendar.moment("{{first}}"),
       lang: 'de',
       header: false,
@@ -43,7 +43,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="defaultcontainer" style="margin-top:0;">
+<div id="timetable-container" class="defaultcontainer" style="margin-top:0;">
 
 <div id="timetable"></div>
 

@@ -10,8 +10,12 @@
 }
 
 #content {
+    top: 52px;
     padding: 10px;
-    padding-bottom: 60px;
+    height: calc(100% - 10rem);
+    width: 100%;
+    position: fixed;
+    overflow-y: auto;
 }
 
 #bigcontent {
@@ -180,4 +184,11 @@ img#logo {
     float: left;
     width: 14em;
     margin: 0 15px 15px 0;
+}
+
+#timetable-container {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0 3rem;
 }
