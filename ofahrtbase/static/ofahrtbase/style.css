@@ -10,12 +10,15 @@
 }
 
 #content {
-    top: 52px;
     padding: 10px;
     height: calc(100% - 10rem);
     width: 100%;
     position: fixed;
     overflow-y: auto;
+}
+
+#bigcontent .navbar {
+    margin-bottom: 0;
 }
 
 #bigcontent {
