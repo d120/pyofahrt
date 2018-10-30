@@ -62,7 +62,7 @@
                                    aria-haspopup="true" aria-expanded="false">Verwaltung<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     {% if perms.ofahrtbase.change_ofahrt %}
-                                        <li><a href="{% url 'workshops:infoexport' %}">Infoheft exportieren</a>
+                                        <li><a href="{% url 'workshops:infoexport' %}">Workshop Tex exportieren</a>
                                         </li>{% endif %}
                                     {% if perms.workshops.can_use %}
                                         <li><a href="{% url 'workshops:overview' %}">Workshops</a></li>{% endif %}

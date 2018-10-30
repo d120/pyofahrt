@@ -9,10 +9,9 @@ from ofahrtbase.models import Ofahrt, Room
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-from ofahrtbase.helper import LaTeX
 from django.http import JsonResponse
 from django.core import serializers
-
+from django.shortcuts import render
 
 class OverviewView(TemplateView):
     template_name = "workshops/overview.html"
@@ -194,24 +193,13 @@ def checkforconflicts(request):
 
 def infoexport(request):
     queryset = Workshop.objects.all().filter(accepted=True).filter(proved=True)
-    (pdf, pdflatex_output) = LaTeX.render(
-        {
-            "workshops": queryset,
-            "blankpages": range(4 - ((9 + queryset.count()) % 4) % 4)
-        }, 'workshops/ofahrtheft.tex', [
-            'grafik/logo_ohne_rand.png', 'grafik/titel.png',
-            'grafik/umgebung_big.png', 'grafik/umgebung_small.png',
-            'inhalt/einleitung.tex', 'inhalt/rueckseite.tex',
-            'inhalt/titelseite.tex', 'paket/ofahrtheft.sty'
-        ], 'workshops')
-
-    if pdf is None:
-        return HttpResponse(pdflatex_output[0].decode("utf-8"))
-
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename=infoheft.pdf'
-    response.write(pdf)
-
+    context = {'workshops': queryset}
+    response = render(
+        request,
+        'workshops/ofahrtheft.tex',
+        context=context,
+        content_type='text/plain')
+    response['Content-Disposition'] = 'attachment; filename=workshops.tex'
     return response
 
 
