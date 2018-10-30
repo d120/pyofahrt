@@ -4,3 +4,4 @@
 *.pyc
 pyofahrt/settings_secrets.py
 /.idea/
+node_modules
