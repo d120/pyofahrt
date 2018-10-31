@@ -23,15 +23,15 @@ class WorkshopTests(TestCase):
             username="admin", email="admin@admin.de", password="admin"
         )
         self.user.save()
+        self.client = Client()
+        self.client.force_login(self.user)
 
     def test_workshop_set_accepted_action(self):
-        c = Client()
-        c.force_login(self.user)
         self.w1.refresh_from_db()
         self.assertFalse(self.w1.accepted)
         self.assertFalse(self.w1.proved)
 
-        c.post(
+        self.client.post(
             reverse("admin:workshops_workshop_changelist"),
             {"action": "set_accepted", "_selected_action": self.w1.id},
             follow=True,
@@ -40,3 +40,12 @@ class WorkshopTests(TestCase):
         self.w1.refresh_from_db()
         self.assertTrue(self.w1.accepted)
         self.assertTrue(self.w1.proved)
+
+    def test_workshop_tex_output(self):
+        self.w1.accepted = True
+        self.w1.proved = True
+        self.w1.save()
+        response = self.client.get(reverse('workshops:infoexport'), )
+        with open('workshops/testfiles/workshops-export.tex', 'r') as f:
+            self.assertEqual(
+                response.content.decode(encoding='UTF-8'), f.read())
