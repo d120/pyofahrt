@@ -48,4 +48,22 @@
 <div id="timetable"></div>
 
 </div>
+
+<div>
+  <h3>Workshops</h3>
+  <ul>
+    {% for event in events|dictsort:"begin" %}
+      {% if event.slottype == "workshop" %}
+        <li>{{ event.name | safe }}: {{ event.begin | date:"d.m.Y H:i" }} bis {{ event.end | date:"H:i" }}
+          <ul>
+            {% for workshop in event.workshop_set.all|dictsort:"name" %}
+              <li>{{ workshop }}</li>
+            {% endfor %}
+          </ul>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+
 {% endblock %}
