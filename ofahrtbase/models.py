@@ -43,7 +43,7 @@ class Ofahrt(models.Model):
     active = models.BooleanField("Aktiv?", default=True, unique=True)
 
     def __str__(self):
-        return "Ofahrt im Wintersemester " + str(self.begin_date.year)
+        return "Ofahrt " + str(self.begin_date.year)
 
     @staticmethod
     def current():
